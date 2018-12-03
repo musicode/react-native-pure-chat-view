@@ -40,7 +40,7 @@ RCT_CUSTOM_VIEW_PROPERTY(userAvatarBorderRadius, long, RNTChatView) {
     view.chatView.userAvatarBorderRadius = [RCTConvert int:json];
 }
 
-
+RCT_EXPORT_VIEW_PROPERTY(onReady, RCTBubblingEventBlock);
 RCT_EXPORT_VIEW_PROPERTY(onListClick, RCTBubblingEventBlock);
 RCT_EXPORT_VIEW_PROPERTY(onUserNameClick, RCTBubblingEventBlock);
 RCT_EXPORT_VIEW_PROPERTY(onUserAvatarClick, RCTBubblingEventBlock);
@@ -108,10 +108,24 @@ RCT_EXPORT_METHOD(removeAllMessages:(nonnull NSNumber *)reactTag) {
     }];
 }
 
-RCT_EXPORT_METHOD(updateMessage:(nonnull NSNumber *)reactTag message:(NSDictionary *)message) {
+RCT_EXPORT_METHOD(updateMessage:(nonnull NSNumber *)reactTag messageId:(NSString *)messageId message:(NSDictionary *)message) {
     [self.bridge.uiManager addUIBlock:^(RCTUIManager *uiManager, NSDictionary<NSNumber *,UIView *> *viewRegistry) {
         RNTChatView *chatView = (RNTChatView *)viewRegistry[reactTag];
-        [chatView.chatView updateWithMessage:message];
+        [chatView.chatView updateWithMessageId:messageId message:message];
+    }];
+}
+
+RCT_EXPORT_METHOD(setAllMessages:(nonnull NSNumber *)reactTag messages:(NSArray *)messages) {
+    [self.bridge.uiManager addUIBlock:^(RCTUIManager *uiManager, NSDictionary<NSNumber *,UIView *> *viewRegistry) {
+        RNTChatView *chatView = (RNTChatView *)viewRegistry[reactTag];
+        [chatView.chatView setAllWithMessages:messages];
+    }];
+}
+
+RCT_EXPORT_METHOD(stopAudio:(nonnull NSNumber *)reactTag) {
+    [self.bridge.uiManager addUIBlock:^(RCTUIManager *uiManager, NSDictionary<NSNumber *,UIView *> *viewRegistry) {
+        RNTChatView *chatView = (RNTChatView *)viewRegistry[reactTag];
+        [chatView.chatView stopAudio];
     }];
 }
 

@@ -14,17 +14,19 @@ class AudioPlayer: NSObject {
     // 当前播放的音频
     private var playerItem: AVPlayerItem!
     
-    // 当前正在播放的 url
+    // 当前正在播放的音频
+    private var id = ""
     private var url = ""
     
     // 播放音频之前的 category
     private var category: String!
     
     // 播放音频
-    func play(url: String) {
+    func play(id: String, url: String) {
         
         stop()
         
+        self.id = id
         self.url = url
         
         let content: URL!
@@ -43,14 +45,14 @@ class AudioPlayer: NSObject {
         addObservers()
         
         listeners.forEach { listener in
-            listener.audioPlayerDidLoad(url: self.url)
+            listener.audioPlayerDidLoad(id: self.id)
         }
         
     }
     
     func stop() {
         
-        guard url != "" else {
+        guard id != "" else {
             return
         }
         
@@ -59,17 +61,18 @@ class AudioPlayer: NSObject {
         }
         
         listeners.forEach { listener in
-            listener.audioPlayerDidStop(url: self.url)
+            listener.audioPlayerDidStop(id: self.id)
         }
         
         removeObservers()
         
+        id = ""
         url = ""
         
     }
     
-    func isPlaying(url: String) -> Bool {
-        return self.url != "" && self.url == url
+    func isPlaying(id: String) -> Bool {
+        return self.id != "" && self.id == id
     }
     
     func addListener(listener: AudioPlayerDelegate) {
@@ -129,7 +132,7 @@ class AudioPlayer: NSObject {
             case .readyToPlay:
                 player.play()
                 listeners.forEach { listener in
-                    listener.audioPlayerDidPlay(url: self.url)
+                    listener.audioPlayerDidPlay(id: self.id)
                 }
                 break
             default:

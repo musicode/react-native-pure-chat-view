@@ -26,8 +26,6 @@ class AudioMessageCell: MessageCell {
     
     var failureView = UIButton()
     
-    private var url = ""
-    
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
@@ -164,10 +162,8 @@ class AudioMessageCell: MessageCell {
         
         showTimeView(timeView: timeView, time: message.time, avatarView: avatarView, avatarTopConstraint: avatarTopConstraint)
         
-        url = audioMessage.url
-        
         // 把动画状态同步回来
-        if AudioPlayer.sharedInstance.isPlaying(url: url) {
+        if AudioPlayer.sharedInstance.isPlaying(id: message.id) {
             playAnimation()
         }
         else {
@@ -219,11 +215,12 @@ class AudioMessageCell: MessageCell {
     
     @objc func onBubbleClick() {
         let player = AudioPlayer.sharedInstance
-        if player.isPlaying(url: url) {
+        if player.isPlaying(id: message.id) {
             player.stop()
         }
         else {
-            player.play(url: url)
+            let audioMessage = message as! AudioMessage
+            player.play(id: message.id, url: audioMessage.url)
         }
         delegate.messageListDidClickContent(message: message)
     }
@@ -232,19 +229,19 @@ class AudioMessageCell: MessageCell {
 
 extension AudioMessageCell: AudioPlayerDelegate {
     
-    func audioPlayerDidLoad(url: String) {
+    func audioPlayerDidLoad(id: String) {
         showLoading()
     }
     
-    func audioPlayerDidPlay(url: String) {
-        if url == self.url {
+    func audioPlayerDidPlay(id: String) {
+        if id == message.id {
             hideLoading()
             playAnimation()
         }
     }
     
-    func audioPlayerDidStop(url: String) {
-        if url == self.url {
+    func audioPlayerDidStop(id: String) {
+        if id == message.id {
             hideLoading()
             stopAnimation()
         }

@@ -379,7 +379,7 @@ class RNTChatView(context: Context, applicationContext: ReactApplicationContext,
             }
         )
 
-        sendEvent("onLoadMore")
+        sendEvent("onReady")
 
     }
 
@@ -415,8 +415,13 @@ class RNTChatView(context: Context, applicationContext: ReactApplicationContext,
         messageList.removeAll()
     }
 
-    fun updateMessage(data: ReadableMap) {
-        messageList.update(formatMessage(data))
+    fun updateMessage(messageId: String, data: ReadableMap) {
+        messageList.update(messageId, formatMessage(data))
+    }
+
+    fun setAllMessages(data: ReadableArray) {
+        messageList.removeAll()
+        appendMessages(data)
     }
 
     fun scrollToBottom(animated: Boolean) {
@@ -425,6 +430,10 @@ class RNTChatView(context: Context, applicationContext: ReactApplicationContext,
 
     fun loadMoreComplete(hasMoreMessage: Boolean) {
         messageList.loadMoreComplete(hasMoreMessage)
+    }
+
+    fun stopAudio() {
+        messageList.stopAudio()
     }
 
     fun resetInput() {

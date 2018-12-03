@@ -21,10 +21,12 @@ public class RNTChatViewManager extends SimpleViewManager<RNTChatView> {
     private static final int COMMAND_REMOVE_MESSAGE = 5;
     private static final int COMMAND_REMOVE_ALL_MESSAGES = 6;
     private static final int COMMAND_UPDATE_MESSAGE = 7;
+    private static final int COMMAND_SET_ALL_MESSAGES = 8;
 
-    private static final int COMMAND_LOAD_MORE_COMPLETE = 8;
-    private static final int COMMAND_SCROLL_TO_BOTTOM = 9;
-    private static final int COMMAND_RESET_INPUT = 10;
+    private static final int COMMAND_LOAD_MORE_COMPLETE = 9;
+    private static final int COMMAND_SCROLL_TO_BOTTOM = 10;
+    private static final int COMMAND_STOP_AUDIO = 11;
+    private static final int COMMAND_RESET_INPUT = 12;
 
     private final ReactApplicationContext reactContext;
 
@@ -81,6 +83,7 @@ public class RNTChatViewManager extends SimpleViewManager<RNTChatView> {
     public Map getExportedCustomBubblingEventTypeConstants() {
 
         return MapBuilder.builder()
+                .put("onReady", MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", "onReady")))
                 .put("onListClick", MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", "onListClick")))
                 .put("onUserNameClick", MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", "onUserNameClick")))
                 .put("onUserAvatarClick", MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", "onUserAvatarClick")))
@@ -118,8 +121,10 @@ public class RNTChatViewManager extends SimpleViewManager<RNTChatView> {
         commands.put("removeMessage", COMMAND_REMOVE_MESSAGE);
         commands.put("removeAllMessages", COMMAND_REMOVE_ALL_MESSAGES);
         commands.put("updateMessage", COMMAND_UPDATE_MESSAGE);
+        commands.put("setAllMessages", COMMAND_SET_ALL_MESSAGES);
         commands.put("loadMoreComplete", COMMAND_LOAD_MORE_COMPLETE);
         commands.put("scrollToBottom", COMMAND_SCROLL_TO_BOTTOM);
+        commands.put("stopAudio", COMMAND_STOP_AUDIO);
         commands.put("resetInput", COMMAND_RESET_INPUT);
         return commands;
     }
@@ -148,13 +153,20 @@ public class RNTChatViewManager extends SimpleViewManager<RNTChatView> {
                 root.removeAllMessages();
                 break;
             case COMMAND_UPDATE_MESSAGE:
-                root.updateMessage(args.getMap(0));
+                root.updateMessage(args.getString(0), args.getMap(0));
                 break;
+            case COMMAND_SET_ALL_MESSAGES:
+                root.setAllMessages(args.getArray(0));
+                break;
+
             case COMMAND_LOAD_MORE_COMPLETE:
                 root.loadMoreComplete(args.getBoolean(0));
                 break;
             case COMMAND_SCROLL_TO_BOTTOM:
                 root.scrollToBottom(args.getBoolean(0));
+                break;
+            case COMMAND_STOP_AUDIO:
+                root.stopAudio();
                 break;
             case COMMAND_RESET_INPUT:
                 root.resetInput();

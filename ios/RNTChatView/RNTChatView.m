@@ -30,7 +30,7 @@
         chatView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         _chatView = chatView;
         dispatch_async(dispatch_get_main_queue(), ^{
-            self.onLoadMore(@{});
+            self.onReady(@{});
         });
     }
     return self;

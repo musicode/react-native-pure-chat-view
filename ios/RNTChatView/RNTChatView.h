@@ -15,6 +15,8 @@
 
 @property (nonatomic, weak) ChatView *chatView;
 
+@property (nonatomic, copy) RCTBubblingEventBlock onReady;
+
 @property (nonatomic, copy) RCTBubblingEventBlock onListClick;
 @property (nonatomic, copy) RCTBubblingEventBlock onUserNameClick;
 @property (nonatomic, copy) RCTBubblingEventBlock onUserAvatarClick;

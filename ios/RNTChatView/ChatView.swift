@@ -200,6 +200,10 @@ class Configuration: MessageListConfiguration {
         messageInput.reset()
     }
     
+    @objc public func stopAudio() {
+        messageList.stopAudio()
+    }
+    
     @objc public func scrollToBottom(animated: Bool) {
         messageList.scrollToBottom(animated: animated)
     }
@@ -236,8 +240,13 @@ class Configuration: MessageListConfiguration {
         messageList.removeAll()
     }
     
-    @objc public func update(message: [String: Any]) {
-        messageList.update(message: formatMessage(data: message))
+    @objc public func update(messageId: String, message: [String: Any]) {
+        messageList.update(messageId: messageId, message: formatMessage(data: message))
+    }
+    
+    @objc public func setAll(messages: [[String: Any]]) {
+        messageList.removeAll()
+        append(messages: messages)
     }
     
     private func formatMessage(data: [String: Any]) -> Message {

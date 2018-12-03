@@ -20,6 +20,7 @@ class ChatView extends Component {
     userAvatarHeight: PropTypes.number.isRequired,
     userAvatarBorderRadius: PropTypes.number.isRequired,
 
+    onReady: PropTypes.func,
     onListClick: PropTypes.func,
     onUserNameClick: PropTypes.func,
     onUserAvatarClick: PropTypes.func,
@@ -95,11 +96,27 @@ class ChatView extends Component {
     )
   }
 
-  updateMessage(message) {
+  updateMessage(messageId, message) {
     UIManager.dispatchViewManagerCommand(
       this.getNativeNode(),
       UIManager.RNTChatView.Commands.updateMessage,
-      [message],
+      [messageId, message],
+    )
+  }
+
+  setAllMessages(messages) {
+    UIManager.dispatchViewManagerCommand(
+      this.getNativeNode(),
+      UIManager.RNTChatView.Commands.setAllMessages,
+      [messages],
+    )
+  }
+
+  stopAudio() {
+    UIManager.dispatchViewManagerCommand(
+      this.getNativeNode(),
+      UIManager.RNTChatView.Commands.stopAudio,
+      null,
     )
   }
 
@@ -125,6 +142,13 @@ class ChatView extends Component {
       UIManager.RNTChatView.Commands.resetInput,
       null
     )
+  }
+
+  handleReady = () => {
+    let { onReady } = this.props
+    if (onReady) {
+      onReady()
+    }
   }
 
   handleListClick = () => {
@@ -290,6 +314,7 @@ class ChatView extends Component {
       <RNTChatView
         {...this.props}
         ref="chatView"
+        onReady={this.handleReady}
         onListClick={this.handleListClick}
         onUserNameClick={this.handleUserNameClick}
         onUserAvatarClick={this.handleUserAvatarClick}

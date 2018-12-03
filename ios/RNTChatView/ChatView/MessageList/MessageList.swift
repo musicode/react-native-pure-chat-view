@@ -44,7 +44,7 @@ public class MessageList: UIView {
     }
     
     deinit {
-        AudioPlayer.sharedInstance.stop()
+        stopAudio()
     }
     
     func setup() {
@@ -93,6 +93,10 @@ public class MessageList: UIView {
         
         addGestureRecognizer(gesture)
         
+    }
+    
+    public func stopAudio() {
+        AudioPlayer.sharedInstance.stop()
     }
     
     public func loadMoreComplete(hasMoreMessage: Bool) {
@@ -145,8 +149,8 @@ public class MessageList: UIView {
         tableView.reloadData()
     }
     
-    public func update(message: Message) {
-        guard let index = messageList.index(where: { $0.id == message.id }) else {
+    public func update(messageId: String, message: Message) {
+        guard let index = messageList.index(where: { $0.id == messageId }) else {
             return
         }
         messageList[ index ] = message

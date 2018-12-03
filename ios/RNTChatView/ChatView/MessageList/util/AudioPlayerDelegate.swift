@@ -1,10 +1,10 @@
 
 public protocol AudioPlayerDelegate {
     
-    func audioPlayerDidLoad(url: String)
+    func audioPlayerDidLoad(id: String)
     
-    func audioPlayerDidPlay(url: String)
+    func audioPlayerDidPlay(id: String)
 
-    func audioPlayerDidStop(url: String)
+    func audioPlayerDidStop(id: String)
     
 }
