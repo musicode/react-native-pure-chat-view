@@ -105,7 +105,7 @@ public class RNTChatViewManager extends SimpleViewManager<RNTChatView> {
                 .put("onSendPhoto", MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", "onSendPhoto")))
                 .put("onSendText", MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", "onSendText")))
 
-                .put("onClickPhotoFeature", MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", "onClickPhotoFeature")))
+                .put("onClickPhotoFeature", MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", "onPhotoFeatureClick")))
                 .put("onLift", MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", "onLift")))
                 .put("onFall", MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", "onFall")))
                 .build();
@@ -153,7 +153,7 @@ public class RNTChatViewManager extends SimpleViewManager<RNTChatView> {
                 root.removeAllMessages();
                 break;
             case COMMAND_UPDATE_MESSAGE:
-                root.updateMessage(args.getString(0), args.getMap(0));
+                root.updateMessage(args.getString(0), args.getMap(1));
                 break;
             case COMMAND_SET_ALL_MESSAGES:
                 root.setAllMessages(args.getArray(0));

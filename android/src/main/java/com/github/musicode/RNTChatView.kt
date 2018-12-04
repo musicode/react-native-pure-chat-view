@@ -292,8 +292,6 @@ class RNTChatView(context: Context, applicationContext: ReactApplicationContext,
 
                     return true
 
-
-
                 }
             },
 
@@ -379,7 +377,10 @@ class RNTChatView(context: Context, applicationContext: ReactApplicationContext,
             }
         )
 
-        sendEvent("onReady")
+        post {
+            sendEvent("onReady")
+        }
+
 
     }
 
