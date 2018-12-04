@@ -89,11 +89,11 @@ class ChatView extends Component {
   }
 
   loadMoreComplete(hasMoreMessage) {
-    RNTChatViewManager.loadMoreComplete(this.getNativeNode(), hasMoreMessage)
+    RNTChatViewManager.loadMoreComplete(this.getNativeNode(), hasMoreMessage ? true : false)
   }
 
   scrollToBottom(animated) {
-    RNTChatViewManager.scrollToBottom(this.getNativeNode(), animated)
+    RNTChatViewManager.scrollToBottom(this.getNativeNode(), animated ? true : false)
   }
 
   resetInput() {

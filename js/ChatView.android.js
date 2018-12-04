@@ -124,7 +124,7 @@ class ChatView extends Component {
     UIManager.dispatchViewManagerCommand(
       this.getNativeNode(),
       UIManager.RNTChatView.Commands.loadMoreComplete,
-      [hasMoreMessage],
+      [hasMoreMessage ? true : false],
     )
   }
 
@@ -132,7 +132,7 @@ class ChatView extends Component {
     UIManager.dispatchViewManagerCommand(
       this.getNativeNode(),
       UIManager.RNTChatView.Commands.scrollToBottom,
-      [animated],
+      [animated ? true : false],
     )
   }
 

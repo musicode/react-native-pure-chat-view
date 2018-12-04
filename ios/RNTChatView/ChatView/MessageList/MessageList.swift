@@ -114,23 +114,25 @@ public class MessageList: UIView {
     }
     
     public func append(message: Message) {
+        let index = messageList.count
         messageList.append(message)
-        tableView.reloadData()
+        tableView.insertRows(at: getIndexPaths(index: index, count: 1), with: .none)
     }
     
     public func append(messages: [Message]) {
-        messageList.insert(contentsOf: messages, at: messageList.count)
-        tableView.reloadData()
+        let index = messageList.count
+        messageList.insert(contentsOf: messages, at: index)
+        tableView.insertRows(at: getIndexPaths(index: index, count: messages.count), with: .none)
     }
     
     public func prepend(message: Message) {
         messageList.insert(message, at: 0)
-        tableView.reloadData()
+        tableView.insertRows(at: getIndexPaths(index: 0, count: 1), with: .none)
     }
     
     public func prepend(messages: [Message]) {
         messageList.insert(contentsOf: messages, at: 0)
-        tableView.reloadData()
+        tableView.insertRows(at: getIndexPaths(index: 0, count: messages.count), with: .none)
     }
     
     public func removeAll() {
@@ -146,7 +148,7 @@ public class MessageList: UIView {
             return
         }
         messageList.remove(at: index)
-        tableView.reloadData()
+        tableView.deleteRows(at: [getIndexPath(index: index)], with: .none)
     }
     
     public func update(messageId: String, message: Message) {
@@ -154,7 +156,7 @@ public class MessageList: UIView {
             return
         }
         messageList[ index ] = message
-        tableView.reloadData()
+        tableView.reloadRows(at: [getIndexPath(index: index)], with: .none)
     }
     
     @objc private func refresh() {
@@ -163,6 +165,18 @@ public class MessageList: UIView {
     
     @objc private func click() {
         delegate.messageListDidClickList()
+    }
+    
+    private func getIndexPath(index: Int) -> IndexPath {
+        return IndexPath(row: index, section: 0)
+    }
+    
+    private func getIndexPaths(index: Int, count: Int) -> [IndexPath] {
+        var list = [IndexPath]()
+        for i in index..<(index + count) {
+            list.append(getIndexPath(index: i))
+        }
+        return list
     }
     
 }

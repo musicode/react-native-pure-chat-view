@@ -209,12 +209,14 @@ export default class App extends Component<Props> {
         onUserNameClick={this.handleUserNameClick}
         onUserAvatarClick={this.handleUserAvatarClick}
         onFailureClick={this.handleFailureClick}
+        onContentClick={this.handleContentClick}
         onLinkClick={this.handleLinkClick}
         onLoadMore={this.handleLoadMore}
         onSendText={this.handleSendText}
         onSendPhoto={this.handleSendPhoto}
         onSendAudio={this.handleSendAudio}
         onSendVideo={this.handleSendVideo}
+        onPhotoFeatureClick={this.handlePhotoFeatureClick}
         onRecordAudioWithoutPermissions={() => {
           console.log('onRecordAudioWithoutPermissions')
         }}
