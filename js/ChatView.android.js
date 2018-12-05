@@ -136,6 +136,14 @@ class ChatView extends Component {
     )
   }
 
+  setValue(value) {
+    UIManager.dispatchViewManagerCommand(
+      this.getNativeNode(),
+      UIManager.RNTChatView.Commands.setValue,
+      [value]
+    )
+  }
+
   resetInput() {
     UIManager.dispatchViewManagerCommand(
       this.getNativeNode(),

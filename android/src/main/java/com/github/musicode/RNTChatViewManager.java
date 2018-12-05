@@ -26,7 +26,8 @@ public class RNTChatViewManager extends SimpleViewManager<RNTChatView> {
     private static final int COMMAND_LOAD_MORE_COMPLETE = 9;
     private static final int COMMAND_SCROLL_TO_BOTTOM = 10;
     private static final int COMMAND_STOP_AUDIO = 11;
-    private static final int COMMAND_RESET_INPUT = 12;
+    private static final int COMMAND_SET_VALUE = 12;
+    private static final int COMMAND_RESET_INPUT = 13;
 
     private final ReactApplicationContext reactContext;
 
@@ -125,6 +126,7 @@ public class RNTChatViewManager extends SimpleViewManager<RNTChatView> {
         commands.put("loadMoreComplete", COMMAND_LOAD_MORE_COMPLETE);
         commands.put("scrollToBottom", COMMAND_SCROLL_TO_BOTTOM);
         commands.put("stopAudio", COMMAND_STOP_AUDIO);
+        commands.put("setValue", COMMAND_SET_VALUE);
         commands.put("resetInput", COMMAND_RESET_INPUT);
         return commands;
     }
@@ -167,6 +169,9 @@ public class RNTChatViewManager extends SimpleViewManager<RNTChatView> {
                 break;
             case COMMAND_STOP_AUDIO:
                 root.stopAudio();
+                break;
+            case COMMAND_SET_VALUE:
+                root.setValue(args.getString(0));
                 break;
             case COMMAND_RESET_INPUT:
                 root.resetInput();

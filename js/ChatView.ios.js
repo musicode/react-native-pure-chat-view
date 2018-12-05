@@ -96,6 +96,10 @@ class ChatView extends Component {
     RNTChatViewManager.scrollToBottom(this.getNativeNode(), animated ? true : false)
   }
 
+  setValue(value) {
+    RNTChatViewManager.setValue(this.getNativeNode(), value)
+  }
+
   resetInput() {
     RNTChatViewManager.resetInput(this.getNativeNode())
   }

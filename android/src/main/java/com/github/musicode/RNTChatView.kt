@@ -190,46 +190,6 @@ class RNTChatView(context: Context, applicationContext: ReactApplicationContext,
 
         messageList.hasMoreMessage = true
 
-        messageList.callback = object: MessageListCallback {
-            override fun onListClick() {
-                sendEvent("onListClick")
-            }
-
-            override fun onUserNameClick(message: Message) {
-                val event = Arguments.createMap()
-                event.putString("messageId", message.id)
-                sendEvent("onUserNameClick", event)
-            }
-
-            override fun onUserAvatarClick(message: Message) {
-                val event = Arguments.createMap()
-                event.putString("messageId", message.id)
-                sendEvent("onUserAvatarClick", event)
-            }
-
-            override fun onContentClick(message: Message) {
-                val event = Arguments.createMap()
-                event.putString("messageId", message.id)
-                sendEvent("onContentClick", event)
-            }
-
-            override fun onFailureClick(message: Message) {
-                val event = Arguments.createMap()
-                event.putString("messageId", message.id)
-                sendEvent("onFailureClick", event)
-            }
-
-            override fun onLinkClick(link: String) {
-                val event = Arguments.createMap()
-                event.putString("link", link)
-                sendEvent("onLinkClick", event)
-            }
-
-            override fun onLoadMore() {
-                sendEvent("onLoadMore")
-            }
-        }
-
         messageListConfiguration = object: MessageListConfiguration(messageList.context) {
 
             override fun formatText(textView: TextView, text: SpannableString) {
@@ -246,7 +206,48 @@ class RNTChatView(context: Context, applicationContext: ReactApplicationContext,
 
         }
 
-        messageList.init(messageListConfiguration)
+        messageList.init(
+            messageListConfiguration,
+            object: MessageListCallback {
+                override fun onListClick() {
+                    sendEvent("onListClick")
+                }
+
+                override fun onUserNameClick(message: Message) {
+                    val event = Arguments.createMap()
+                    event.putString("messageId", message.id)
+                    sendEvent("onUserNameClick", event)
+                }
+
+                override fun onUserAvatarClick(message: Message) {
+                    val event = Arguments.createMap()
+                    event.putString("messageId", message.id)
+                    sendEvent("onUserAvatarClick", event)
+                }
+
+                override fun onContentClick(message: Message) {
+                    val event = Arguments.createMap()
+                    event.putString("messageId", message.id)
+                    sendEvent("onContentClick", event)
+                }
+
+                override fun onFailureClick(message: Message) {
+                    val event = Arguments.createMap()
+                    event.putString("messageId", message.id)
+                    sendEvent("onFailureClick", event)
+                }
+
+                override fun onLinkClick(link: String) {
+                    val event = Arguments.createMap()
+                    event.putString("link", link)
+                    sendEvent("onLinkClick", event)
+                }
+
+                override fun onLoadMore() {
+                    sendEvent("onLoadMore")
+                }
+            }
+        )
 
         messageInput.setEmotionSetList(listOf(
             EmotionSet.build(
@@ -435,6 +436,10 @@ class RNTChatView(context: Context, applicationContext: ReactApplicationContext,
 
     fun stopAudio() {
         messageList.stopAudio()
+    }
+
+    fun setValue(value: String) {
+        messageInput.setValue(value)
     }
 
     fun resetInput() {

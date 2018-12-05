@@ -37,8 +37,8 @@ repositories {
 
 dependencies {
     implementation 'com.facebook.react:react-native:+'
-    implementation 'com.github.herokotlin:MessageInput:0.1.5'
-    implementation 'com.github.herokotlin:MessageList:0.0.5'
+    implementation 'com.github.herokotlin:MessageInput:0.1.6'
+    implementation 'com.github.herokotlin:MessageList:0.0.6'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 
