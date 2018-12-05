@@ -3,6 +3,8 @@ import UIKit
 
 open class MessageListConfiguration {
     
+    var audioPlayer = AudioPlayer()
+    
     // 内边距
     public var paddingVertical: CGFloat = 18
     
@@ -48,7 +50,7 @@ open class MessageListConfiguration {
     public var timePaddingVertical: CGFloat = 4
     
     // 时间 字体大小
-    public var timeTextFont = UIFont.systemFont(ofSize: 10)
+    public var timeTextFont = UIFont.systemFont(ofSize: 11)
     
     // 时间 字体颜色
     public var timeTextColor = UIColor.white
@@ -69,7 +71,7 @@ open class MessageListConfiguration {
     public var eventPaddingVertical: CGFloat = 4
     
     // 事件 字体大小
-    public var eventTextFont = UIFont.systemFont(ofSize: 10)
+    public var eventTextFont = UIFont.systemFont(ofSize: 11)
     
     // 事件 字体颜色
     public var eventTextColor = UIColor.white
@@ -152,7 +154,7 @@ open class MessageListConfiguration {
     public var leftTextMessageBubbleImage = UIImage(named: "message_list_bubble_left_normal")!.resizableImage(withCapInsets: UIEdgeInsetsMake(26, 20, 20, 20), resizingMode: .tile)
     
     // 左侧文本消息的字体大小
-    public var leftTextMessageTextFont = UIFont.systemFont(ofSize: 13)
+    public var leftTextMessageTextFont = UIFont.systemFont(ofSize: 14)
     
     // 左侧文本消息的字体颜色
     public var leftTextMessageTextColor = UIColor(red: 30 / 255, green: 30 / 255, blue: 30 / 255, alpha: 1)
@@ -179,7 +181,7 @@ open class MessageListConfiguration {
     public var rightTextMessageBubbleImage = UIImage(named: "message_list_bubble_active_normal")!.resizableImage(withCapInsets: UIEdgeInsetsMake(26, 20, 20, 20), resizingMode: .tile)
     
     // 右侧文本消息的字体大小
-    public var rightTextMessageTextFont = UIFont.systemFont(ofSize: 13)
+    public var rightTextMessageTextFont = UIFont.systemFont(ofSize: 14)
     
     // 右侧文本消息的字体颜色
     public var rightTextMessageTextColor = UIColor(red: 30 / 255, green: 30 / 255, blue: 30 / 255, alpha: 1)

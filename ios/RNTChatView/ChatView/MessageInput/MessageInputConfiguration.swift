@@ -116,7 +116,7 @@ public class MessageInputConfiguration {
     public var defaultKeyboardHeight: CGFloat = 258
     
     // 键盘显示、隐藏的动画时长
-    public var keyboardAnimationDuration: TimeInterval = 0.2
+    public var keyboardAnimationDuration: TimeInterval = 5
     
     
     public init() { }

@@ -112,6 +112,28 @@ public class EmotionTextarea: UITextView {
         }
     }
     
+    override public func insertText(_ text: String) {
+        
+        let pastedAttributedString = NSMutableAttributedString(string: text, attributes: [
+            NSAttributedStringKey.foregroundColor: configuration.textColor,
+            NSAttributedStringKey.font: configuration.textFont
+        ])
+        
+        let pastedString = NSString(string: text)
+        
+        for filter in filters {
+            filter.filter(attributedString: pastedAttributedString, text: pastedString, lineHeight: lineHeight, capHeight: capHeight)
+        }
+        
+        let location = selectedRange.location
+        
+        textStorage.replaceCharacters(in: selectedRange, with: pastedAttributedString)
+        selectedRange = NSRange(location: location + pastedString.length, length: 0)
+        
+        textChanged()
+        
+    }
+    
     // 清空文本
     public func clear() {
         let length = NSString(string: text).length
@@ -161,23 +183,7 @@ public class EmotionTextarea: UITextView {
             return
         }
         
-        let pastedAttributedString = NSMutableAttributedString(string: string, attributes: [
-            NSAttributedStringKey.foregroundColor: configuration.textColor,
-            NSAttributedStringKey.font: configuration.textFont
-        ])
-        
-        let pastedString = NSString(string: string)
-        
-        for filter in filters {
-            filter.filter(attributedString: pastedAttributedString, text: pastedString, lineHeight: lineHeight, capHeight: capHeight)
-        }
-        
-        let location = selectedRange.location
-        
-        textStorage.replaceCharacters(in: selectedRange, with: pastedAttributedString)
-        selectedRange = NSRange(location: location + pastedString.length, length: 0)
-        
-        textChanged()
+        insertText(string)
         
     }
 

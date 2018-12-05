@@ -4,8 +4,6 @@ import UIKit
 
 class AudioPlayer: NSObject {
     
-    static let sharedInstance = AudioPlayer()
-    
     private var listeners = [AudioPlayerDelegate]()
     
     // 播放器实例

@@ -96,7 +96,7 @@ public class MessageList: UIView {
     }
     
     public func stopAudio() {
-        AudioPlayer.sharedInstance.stop()
+        configuration.audioPlayer.stop()
     }
     
     public func loadMoreComplete(hasMoreMessage: Bool) {
@@ -114,25 +114,23 @@ public class MessageList: UIView {
     }
     
     public func append(message: Message) {
-        let index = messageList.count
         messageList.append(message)
-        tableView.insertRows(at: getIndexPaths(index: index, count: 1), with: .none)
+        tableView.reloadData()
     }
     
     public func append(messages: [Message]) {
-        let index = messageList.count
-        messageList.insert(contentsOf: messages, at: index)
-        tableView.insertRows(at: getIndexPaths(index: index, count: messages.count), with: .none)
+        messageList.insert(contentsOf: messages, at: messageList.count)
+        tableView.reloadData()
     }
     
     public func prepend(message: Message) {
         messageList.insert(message, at: 0)
-        tableView.insertRows(at: getIndexPaths(index: 0, count: 1), with: .none)
+        tableView.reloadData()
     }
     
     public func prepend(messages: [Message]) {
         messageList.insert(contentsOf: messages, at: 0)
-        tableView.insertRows(at: getIndexPaths(index: 0, count: messages.count), with: .none)
+        tableView.reloadData()
     }
     
     public func removeAll() {
@@ -148,7 +146,7 @@ public class MessageList: UIView {
             return
         }
         messageList.remove(at: index)
-        tableView.deleteRows(at: [getIndexPath(index: index)], with: .none)
+        tableView.reloadData()
     }
     
     public func update(messageId: String, message: Message) {
@@ -156,7 +154,7 @@ public class MessageList: UIView {
             return
         }
         messageList[ index ] = message
-        tableView.reloadRows(at: [getIndexPath(index: index)], with: .none)
+        tableView.reloadData()
     }
     
     @objc private func refresh() {

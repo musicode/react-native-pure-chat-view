@@ -12,6 +12,7 @@ class EmotionToolbar: UIView {
         }
     }
 
+    private var topBorder: UIView!
     private var collectionView: UICollectionView!
     private var flowLayout: UICollectionViewFlowLayout!
     
@@ -38,6 +39,11 @@ class EmotionToolbar: UIView {
     func setup() {
         
         backgroundColor = configuration.toolbarBackgroundColor
+        
+        topBorder = UIView()
+        topBorder.backgroundColor = configuration.toolbarTopBorderColor
+        topBorder.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(topBorder)
         
         flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
@@ -71,13 +77,18 @@ class EmotionToolbar: UIView {
 
         addConstraints([
             
+            NSLayoutConstraint(item: topBorder, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: topBorder, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: topBorder, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: topBorder, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: configuration.toolbarTopBorderWidth),
+            
             NSLayoutConstraint(item: sendButton, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: sendButton, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: sendButton, attribute: .top, relatedBy: .equal, toItem: topBorder, attribute: .bottom, multiplier: 1, constant: 0),
             NSLayoutConstraint(item: sendButton, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1, constant: 0),
 
             NSLayoutConstraint(item: collectionView, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1, constant: 0),
             NSLayoutConstraint(item: collectionView, attribute: .right, relatedBy: .equal, toItem: sendButton, attribute: .left, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: collectionView, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: collectionView, attribute: .top, relatedBy: .equal, toItem: topBorder, attribute: .bottom, multiplier: 1, constant: 0),
             NSLayoutConstraint(item: collectionView, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1, constant: 0)
             
         ])

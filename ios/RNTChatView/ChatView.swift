@@ -176,7 +176,7 @@ class Configuration: MessageListConfiguration {
         
         
         messageInput.setEmotionSetList([
-            EmotionSet.build(localImage: UIImage(named: "emoji_icon")!, emotionList: emotionList, columns: 8, rows: 3, width: 24, height: 24, hasDeleteButton: true, hasIndicator: true)
+            EmotionSet.build(localImage: UIImage(named: "emoji_icon")!, emotionList: emotionList, columns: 8, rows: 3, width: 26, height: 26, hasDeleteButton: true, hasIndicator: true)
         ])
         
         messageInput.addEmotionFilter(emojiFilter)
@@ -198,6 +198,10 @@ class Configuration: MessageListConfiguration {
     
     @objc public func resetInput() {
         messageInput.reset()
+    }
+    
+    @objc public func setValue(_ value: String) {
+        messageInput.setValue(value)
     }
     
     @objc public func stopAudio() {

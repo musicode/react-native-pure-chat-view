@@ -131,7 +131,7 @@ class AudioMessageCell: MessageCell {
             avatarTopConstraint,
         ])
         
-        AudioPlayer.sharedInstance.addListener(listener: self)
+        configuration.audioPlayer.addListener(listener: self)
         
     }
     
@@ -163,7 +163,7 @@ class AudioMessageCell: MessageCell {
         showTimeView(timeView: timeView, time: message.time, avatarView: avatarView, avatarTopConstraint: avatarTopConstraint)
         
         // 把动画状态同步回来
-        if AudioPlayer.sharedInstance.isPlaying(id: message.id) {
+        if configuration.audioPlayer.isPlaying(id: message.id) {
             playAnimation()
         }
         else {
@@ -214,13 +214,13 @@ class AudioMessageCell: MessageCell {
     }
     
     @objc func onBubbleClick() {
-        let player = AudioPlayer.sharedInstance
+        let player = configuration.audioPlayer
         if player.isPlaying(id: message.id) {
             player.stop()
         }
         else {
             let audioMessage = message as! AudioMessage
-            player.play(id: message.id, url: audioMessage.url)
+            player.play(id: audioMessage.id, url: audioMessage.url)
         }
         delegate.messageListDidClickContent(message: message)
     }
@@ -230,7 +230,9 @@ class AudioMessageCell: MessageCell {
 extension AudioMessageCell: AudioPlayerDelegate {
     
     func audioPlayerDidLoad(id: String) {
-        showLoading()
+        if id == message.id {
+            showLoading()
+        }
     }
     
     func audioPlayerDidPlay(id: String) {

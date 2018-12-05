@@ -159,6 +159,10 @@ public class MessageInput: UIView {
             hideContentPanel()
         }
     }
+    
+    public func setValue(_ value: String) {
+        textarea.insertText(value)
+    }
 
     public func setEmotionSetList(_ emotionSetList: [EmotionSet]) {
         emotionPanel.emotionSetList = emotionSetList

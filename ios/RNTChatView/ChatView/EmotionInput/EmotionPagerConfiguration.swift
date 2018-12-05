@@ -51,15 +51,21 @@ open class EmotionPagerConfiguration {
     // 指示器当前圆点的半径
     public var indicatorRadiusActive: Double = 3.2
     
-    // 工具栏与指示器的距离
-    public var toolbarMarginTop: CGFloat = 8
-    
-    // 工具栏背景色
-    public var toolbarBackgroundColor = UIColor.white
-    
     // 工具栏的高度
     public var toolbarHeight: CGFloat = 44
     
+    // 工具栏与指示器的距离
+    public var toolbarMarginTop: CGFloat = 8
+    
+    // 工具栏顶部边框大小
+    public var toolbarTopBorderWidth = 1 / UIScreen.main.scale
+    
+    // 工具栏顶部边框颜色
+    public var toolbarTopBorderColor = UIColor(red: 0.86, green: 0.86, blue: 0.86, alpha: 1)
+    
+    // 工具栏背景色
+    public var toolbarBackgroundColor = UIColor.white
+
     // 图标单元格宽度
     public var toolbarCellWidth: CGFloat = 44
     

@@ -150,4 +150,11 @@ RCT_EXPORT_METHOD(resetInput:(nonnull NSNumber *)reactTag) {
     }];
 }
 
+RCT_EXPORT_METHOD(setValue:(nonnull NSNumber *)reactTag value:(NSString)value) {
+    [self.bridge.uiManager addUIBlock:^(RCTUIManager *uiManager, NSDictionary<NSNumber *,UIView *> *viewRegistry) {
+        RNTChatView *chatView = (RNTChatView *)viewRegistry[reactTag];
+        [chatView.chatView setValueWithValue:value];
+    }];
+}
+
 @end
