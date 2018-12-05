@@ -47,6 +47,7 @@ class ChatView extends Component {
     onSendPhoto: PropTypes.func,
     onSendText: PropTypes.func,
 
+    onTextChange: PropTypes.func,
     onPhotoFeatureClick: PropTypes.func,
     onLift: PropTypes.func,
     onFall: PropTypes.func,
@@ -96,8 +97,8 @@ class ChatView extends Component {
     RNTChatViewManager.scrollToBottom(this.getNativeNode(), animated ? true : false)
   }
 
-  setValue(value) {
-    RNTChatViewManager.setValue(this.getNativeNode(), value)
+  setText(text) {
+    RNTChatViewManager.setText(this.getNativeNode(), text)
   }
 
   resetInput() {
@@ -244,6 +245,13 @@ class ChatView extends Component {
     }
   }
 
+  handleTextChange = (event) => {
+    let { onTextChange } = this.props
+    if (onTextChange) {
+      onTextChange(event.nativeEvent)
+    }
+  }
+
   handlePhotoFeatureClick = () => {
     let { onPhotoFeatureClick } = this.props
     if (onPhotoFeatureClick) {
@@ -297,6 +305,7 @@ class ChatView extends Component {
         onSendPhoto={this.handleSendPhoto}
         onSendText={this.handleSendText}
 
+        onTextChange={this.handleTextChange}
         onPhotoFeatureClick={this.handlePhotoFeatureClick}
         onLift={this.handleLift}
         onFall={this.handleFall}

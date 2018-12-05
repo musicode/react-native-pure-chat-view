@@ -26,7 +26,7 @@ public class RNTChatViewManager extends SimpleViewManager<RNTChatView> {
     private static final int COMMAND_LOAD_MORE_COMPLETE = 9;
     private static final int COMMAND_SCROLL_TO_BOTTOM = 10;
     private static final int COMMAND_STOP_AUDIO = 11;
-    private static final int COMMAND_SET_VALUE = 12;
+    private static final int COMMAND_SET_TEXT = 12;
     private static final int COMMAND_RESET_INPUT = 13;
 
     private final ReactApplicationContext reactContext;
@@ -106,6 +106,7 @@ public class RNTChatViewManager extends SimpleViewManager<RNTChatView> {
                 .put("onSendPhoto", MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", "onSendPhoto")))
                 .put("onSendText", MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", "onSendText")))
 
+                .put("onTextChange", MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", "onTextChange")))
                 .put("onClickPhotoFeature", MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", "onPhotoFeatureClick")))
                 .put("onLift", MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", "onLift")))
                 .put("onFall", MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", "onFall")))
@@ -126,7 +127,7 @@ public class RNTChatViewManager extends SimpleViewManager<RNTChatView> {
         commands.put("loadMoreComplete", COMMAND_LOAD_MORE_COMPLETE);
         commands.put("scrollToBottom", COMMAND_SCROLL_TO_BOTTOM);
         commands.put("stopAudio", COMMAND_STOP_AUDIO);
-        commands.put("setValue", COMMAND_SET_VALUE);
+        commands.put("setText", COMMAND_SET_TEXT);
         commands.put("resetInput", COMMAND_RESET_INPUT);
         return commands;
     }
@@ -170,8 +171,8 @@ public class RNTChatViewManager extends SimpleViewManager<RNTChatView> {
             case COMMAND_STOP_AUDIO:
                 root.stopAudio();
                 break;
-            case COMMAND_SET_VALUE:
-                root.setValue(args.getString(0));
+            case COMMAND_SET_TEXT:
+                root.setText(args.getString(0));
                 break;
             case COMMAND_RESET_INPUT:
                 root.resetInput();

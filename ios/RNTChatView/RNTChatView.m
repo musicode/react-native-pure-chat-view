@@ -149,6 +149,12 @@
     self.onPhotoFeatureClick(@{});
 }
 
+- (void)messageInputDidTextChangeWithText:(NSString *)text {
+    self.onTextChange(@{
+                        @"text": text
+                        });
+}
+
 - (void)messageInputDidLift {
     self.onLift(@{});
 }

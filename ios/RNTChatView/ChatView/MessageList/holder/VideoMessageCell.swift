@@ -78,6 +78,7 @@ class VideoMessageCell: MessageCell {
             thumbnailView.layer.borderWidth = configuration.videoMessageBorderWidth
             thumbnailView.layer.borderColor = configuration.videoMessageBorderColor.cgColor
         }
+        thumbnailView.contentMode = .scaleAspectFill
         thumbnailView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(thumbnailView)
         

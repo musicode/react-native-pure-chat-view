@@ -154,7 +154,7 @@ open class MessageListConfiguration {
     public var leftTextMessageBubbleImage = UIImage(named: "message_list_bubble_left_normal")!.resizableImage(withCapInsets: UIEdgeInsetsMake(26, 20, 20, 20), resizingMode: .tile)
     
     // 左侧文本消息的字体大小
-    public var leftTextMessageTextFont = UIFont.systemFont(ofSize: 14)
+    public var leftTextMessageTextFont = UIFont.systemFont(ofSize: 15)
     
     // 左侧文本消息的字体颜色
     public var leftTextMessageTextColor = UIColor(red: 30 / 255, green: 30 / 255, blue: 30 / 255, alpha: 1)
@@ -181,7 +181,7 @@ open class MessageListConfiguration {
     public var rightTextMessageBubbleImage = UIImage(named: "message_list_bubble_active_normal")!.resizableImage(withCapInsets: UIEdgeInsetsMake(26, 20, 20, 20), resizingMode: .tile)
     
     // 右侧文本消息的字体大小
-    public var rightTextMessageTextFont = UIFont.systemFont(ofSize: 14)
+    public var rightTextMessageTextFont = UIFont.systemFont(ofSize: 15)
     
     // 右侧文本消息的字体颜色
     public var rightTextMessageTextColor = UIColor(red: 30 / 255, green: 30 / 255, blue: 30 / 255, alpha: 1)

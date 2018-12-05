@@ -75,6 +75,7 @@ class ImageMessageCell: MessageCell {
             photoView.layer.borderWidth = configuration.imageMessageBorderWidth
             photoView.layer.borderColor = configuration.imageMessageBorderColor.cgColor
         }
+        photoView.contentMode = .scaleAspectFill
         photoView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(photoView)
         

@@ -361,6 +361,12 @@ class RNTChatView(context: Context, applicationContext: ReactApplicationContext,
                     sendEvent("onSendText", event)
                 }
 
+                override fun onTextChange(text: String) {
+                    val event = Arguments.createMap()
+                    event.putString("text", text)
+                    sendEvent("onTextChange", event)
+                }
+
                 override fun onClickPhotoFeature() {
                     sendEvent("onClickPhotoFeature")
                 }
@@ -438,8 +444,8 @@ class RNTChatView(context: Context, applicationContext: ReactApplicationContext,
         messageList.stopAudio()
     }
 
-    fun setValue(value: String) {
-        messageInput.setValue(value)
+    fun setText(text: String) {
+        messageInput.setText(text)
     }
 
     fun resetInput() {

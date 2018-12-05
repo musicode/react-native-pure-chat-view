@@ -74,7 +74,10 @@ public class MessageInputConfiguration {
     // 更多按钮图片
     public var moreButtonImage = UIImage(named: "message_input_more")
     
-    // 内容面板的背景色
+    // 内容面板高度
+    public var contentPanelHeight: CGFloat = 270
+    
+    // 内容面板背景色
     public var contentPanelBackgroundColor = UIColor(red: 0.96, green: 0.96, blue: 0.96, alpha: 1)
     
     // 特性面板内边距
@@ -111,12 +114,9 @@ public class MessageInputConfiguration {
     public var cameraFeatureImage = UIImage(named: "message_input_camera")!
     
     public var cameraFeatureTitle = "拍摄"
-
-    // 默认的键盘高度
-    public var defaultKeyboardHeight: CGFloat = 258
     
     // 键盘显示、隐藏的动画时长
-    public var keyboardAnimationDuration: TimeInterval = 5
+    public var keyboardAnimationDuration: TimeInterval = 0.2
     
     
     public init() { }

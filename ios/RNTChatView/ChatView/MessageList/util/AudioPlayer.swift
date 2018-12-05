@@ -97,6 +97,10 @@ class AudioPlayer: NSObject {
         
         category = AVAudioSession.sharedInstance().category
         
+        // 默认是 AVAudioSessionCategorySoloAmbient
+        // 静音状态下没法播放音频
+        useSpeaker()
+        
     }
     
     private func removeObservers() {

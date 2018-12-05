@@ -91,7 +91,7 @@ class Configuration: MessageListConfiguration {
     
     override func formatText(textView: UITextView, text: NSMutableAttributedString) {
         if let font = textView.font {
-            emojiFilter.filter(attributedString: text, text: NSString(string: text.string), lineHeight: font.lineHeight, capHeight: font.capHeight)
+            emojiFilter.filter(attributedString: text, text: NSString(string: text.string), lineHeight: 22, capHeight: font.capHeight)
         }
     }
     
@@ -176,7 +176,7 @@ class Configuration: MessageListConfiguration {
         
         
         messageInput.setEmotionSetList([
-            EmotionSet.build(localImage: UIImage(named: "emoji_icon")!, emotionList: emotionList, columns: 8, rows: 3, width: 26, height: 26, hasDeleteButton: true, hasIndicator: true)
+            EmotionSet.build(localImage: UIImage(named: "emoji_icon")!, emotionList: emotionList, columns: 7, rows: 3, width: 26, height: 26, hasDeleteButton: true, hasIndicator: true)
         ])
         
         messageInput.addEmotionFilter(emojiFilter)
@@ -200,8 +200,8 @@ class Configuration: MessageListConfiguration {
         messageInput.reset()
     }
     
-    @objc public func setValue(_ value: String) {
-        messageInput.setValue(value)
+    @objc public func setText(_ text: String) {
+        messageInput.setText(text)
     }
     
     @objc public func stopAudio() {

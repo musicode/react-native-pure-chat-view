@@ -38,6 +38,7 @@
 @property (nonatomic, copy) RCTBubblingEventBlock onSendPhoto;
 @property (nonatomic, copy) RCTBubblingEventBlock onSendAudio;
 @property (nonatomic, copy) RCTBubblingEventBlock onSendVideo;
+@property (nonatomic, copy) RCTBubblingEventBlock onTextChange;
 @property (nonatomic, copy) RCTBubblingEventBlock onPhotoFeatureClick;
 
 @property (nonatomic, copy) RCTBubblingEventBlock onLift;

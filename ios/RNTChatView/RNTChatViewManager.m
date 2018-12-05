@@ -62,6 +62,7 @@ RCT_EXPORT_VIEW_PROPERTY(onSendText, RCTBubblingEventBlock);
 RCT_EXPORT_VIEW_PROPERTY(onSendPhoto, RCTBubblingEventBlock);
 RCT_EXPORT_VIEW_PROPERTY(onSendAudio, RCTBubblingEventBlock);
 RCT_EXPORT_VIEW_PROPERTY(onSendVideo, RCTBubblingEventBlock);
+RCT_EXPORT_VIEW_PROPERTY(onTextChange, RCTBubblingEventBlock);
 RCT_EXPORT_VIEW_PROPERTY(onPhotoFeatureClick, RCTBubblingEventBlock);
 RCT_EXPORT_VIEW_PROPERTY(onLift, RCTBubblingEventBlock);
 RCT_EXPORT_VIEW_PROPERTY(onFall, RCTBubblingEventBlock);
@@ -150,10 +151,10 @@ RCT_EXPORT_METHOD(resetInput:(nonnull NSNumber *)reactTag) {
     }];
 }
 
-RCT_EXPORT_METHOD(setValue:(nonnull NSNumber *)reactTag value:(NSString)value) {
+RCT_EXPORT_METHOD(setText:(nonnull NSNumber *)reactTag text:(NSString *)text) {
     [self.bridge.uiManager addUIBlock:^(RCTUIManager *uiManager, NSDictionary<NSNumber *,UIView *> *viewRegistry) {
         RNTChatView *chatView = (RNTChatView *)viewRegistry[reactTag];
-        [chatView.chatView setValueWithValue:value];
+        [chatView.chatView setText:text];
     }];
 }
 

@@ -27,7 +27,6 @@ public class MessageInput: UIView {
     
     private var cameraViewController: CameraViewController?
     
-    private var keyboardHeight: CGFloat!
     private var textareaBottomConstraint: NSLayoutConstraint!
     
     private var voicePanelBottomConstraint: NSLayoutConstraint!
@@ -38,6 +37,8 @@ public class MessageInput: UIView {
     private var contentPanelBottomConstraint: NSLayoutConstraint!
     
     private var configuration: MessageInputConfiguration!
+    
+    private var isContentPanelHeightDirty = false
     
     private var isKeyboardVisible = false
     
@@ -73,6 +74,7 @@ public class MessageInput: UIView {
             
             // 切换到语音、表情、更多
             if viewMode != .keyboard {
+                setContentPanelHeight(configuration.contentPanelHeight)
                 showContentPanel()
                 hideKeyboard()
             }
@@ -80,9 +82,9 @@ public class MessageInput: UIView {
         }
     }
     
-    var text = "" {
+    private var plainText = "" {
         didSet {
-            if oldValue.isEmpty || text.isEmpty {
+            if oldValue.isEmpty || plainText.isEmpty {
                 if oldValue.isEmpty {
                     sendButton.isHidden = false
                     moreButton.isHidden = true
@@ -97,6 +99,7 @@ public class MessageInput: UIView {
                     emotionPanel.isSendButtonEnabled = false
                 }
             }
+            delegate.messageInputDidTextChange(text: plainText)
         }
     }
     
@@ -104,14 +107,6 @@ public class MessageInput: UIView {
         
         self.init()
         self.configuration = configuration
-        
-        let keyboardHeight = readKeyboardHeight()
-        if keyboardHeight > 0 {
-            self.keyboardHeight = keyboardHeight
-        }
-        else {
-            self.keyboardHeight = configuration.defaultKeyboardHeight
-        }
         
         setup()
         
@@ -160,8 +155,13 @@ public class MessageInput: UIView {
         }
     }
     
-    public func setValue(_ value: String) {
-        textarea.insertText(value)
+    public func getText() -> String {
+        return plainText
+    }
+    
+    public func setText(_ text: String) {
+        textarea.clear()
+        textarea.insertText(text)
     }
 
     public func setEmotionSetList(_ emotionSetList: [EmotionSet]) {
@@ -199,7 +199,7 @@ extension MessageInput {
         
         textarea.translatesAutoresizingMaskIntoConstraints = false
         textarea.onTextChange = {
-            self.text = self.textarea.plainText
+            self.plainText = self.textarea.plainText
         }
         
         addSubview(textarea)
@@ -354,9 +354,9 @@ extension MessageInput {
         
         addSubview(contentPanel)
 
-        contentPanelHeightConstraint = NSLayoutConstraint(item: contentPanel, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: keyboardHeight)
+        contentPanelHeightConstraint = NSLayoutConstraint(item: contentPanel, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: configuration.contentPanelHeight)
         
-        contentPanelBottomConstraint = NSLayoutConstraint(item: contentPanel, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1, constant: keyboardHeight)
+        contentPanelBottomConstraint = NSLayoutConstraint(item: contentPanel, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1, constant: configuration.contentPanelHeight)
         
         addConstraints([
             NSLayoutConstraint(item: contentPanel, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1, constant: 0),
@@ -497,52 +497,38 @@ extension MessageInput {
     private func showContentPanel() {
         
         guard contentPanelBottomConstraint.constant > 0 else {
+            updateContentPanelHeight(force: false, completion: nil)
             return
         }
         
         contentPanelBottomConstraint.constant = 0
         
-        UIView.animate(
-            withDuration: configuration.keyboardAnimationDuration,
-            delay: 0,
-            options: .curveEaseOut,
-            animations: {
-                self.layoutIfNeeded()
-            },
-            completion: { finished in
-                self.delegate.messageInputDidLift()
-            }
-        )
+        updateContentPanelHeight(force: true, completion: { finished in
+            self.delegate.messageInputDidLift()
+        })
         
     }
     
     private func hideContentPanel() {
         
         guard contentPanelBottomConstraint.constant == 0 else {
+            updateContentPanelHeight(force: false, completion: nil)
             return
         }
         
-        contentPanelBottomConstraint.constant = keyboardHeight
+        contentPanelBottomConstraint.constant = contentPanelHeightConstraint.constant
         
-        UIView.animate(
-            withDuration: configuration.keyboardAnimationDuration,
-            delay: 0,
-            options: .curveEaseOut,
-            animations: {
-                self.layoutIfNeeded()
-            },
-            completion: { finished in
-                self.resetPanels()
-                self.delegate.messageInputDidFall()
-            }
-        )
+        updateContentPanelHeight(force: true, completion: { finished in
+            self.resetPanels()
+            self.delegate.messageInputDidFall()
+        })
         
     }
     
     private func sendText() {
         
-        if text != "" {
-            delegate.messageInputDidSendText(text: text)
+        if plainText != "" {
+            delegate.messageInputDidSendText(text: plainText)
             textarea.clear()
         }
         
@@ -554,15 +540,6 @@ extension MessageInput {
         emotionPanel.isHidden = true
         morePanel.isHidden = true
         
-    }
-    
-    private func readKeyboardHeight() -> CGFloat {
-        let value = UserDefaults.standard.float(forKey: MessageInput.KEY_KEYBOARD_HEIGHT)
-        return CGFloat(value)
-    }
-    
-    private func writeKeyboardHeight(_ keyboardHeight: CGFloat) {
-        UserDefaults.standard.set(keyboardHeight, forKey: MessageInput.KEY_KEYBOARD_HEIGHT)
     }
     
     private func openCamera() {
@@ -618,30 +595,21 @@ extension MessageInput {
         if let keyboardFrame: NSValue = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue {
             
             isKeyboardVisible = true
+            
             viewMode = .keyboard
             
-            // 保存，方便设置 voicePanel/emotionPanel/morePanel 的高度
-            keyboardHeight = keyboardFrame.cgRectValue.height
-            
-            writeKeyboardHeight(keyboardHeight)
-            
-            contentPanelHeightConstraint.constant = keyboardHeight
+            // 内容面板高度改为键盘高度
+            setContentPanelHeight(keyboardFrame.cgRectValue.height)
 
+            // 直接点击输入框触发唤起键盘
             if voicePanel.isHidden && emotionPanel.isHidden && morePanel.isHidden {
                 showContentPanel()
             }
+            // 从语音、表情、更多切换过来的
             else {
-                UIView.animate(
-                    withDuration: configuration.keyboardAnimationDuration,
-                    delay: 0,
-                    options: .curveEaseOut,
-                    animations: {
-                        self.layoutIfNeeded()
-                    },
-                    completion: { finished in
-                        self.resetPanels()
-                    }
-                )
+                updateContentPanelHeight(force: true, completion: { finished in
+                    self.resetPanels()
+                })
             }
             
         }
@@ -650,13 +618,54 @@ extension MessageInput {
     
     @objc func onKeyboardHidden(notification: NSNotification) {
         
-        guard voicePanel.isHidden, emotionPanel.isHidden, morePanel.isHidden else {
+        isKeyboardVisible = false
+        
+        // 直接落下
+        if voicePanel.isHidden && emotionPanel.isHidden && morePanel.isHidden {
+            hideContentPanel()
+        }
+        // 切换到语音、表情、更多
+        else {
+            updateContentPanelHeight(force: false, completion: nil)
+        }
+        
+    }
+    
+    private func setContentPanelHeight(_ height: CGFloat) {
+        
+        let oldHeight = contentPanelHeightConstraint.constant
+        
+        guard oldHeight != height else {
             return
         }
         
-        isKeyboardVisible = false
+        contentPanelHeightConstraint.constant = height
         
-        hideContentPanel()
+        if contentPanelBottomConstraint.constant > 0 {
+            contentPanelBottomConstraint.constant = height
+        }
+        
+        isContentPanelHeightDirty = true
+        
+    }
+    
+    private func updateContentPanelHeight(force: Bool, completion: ((Bool) -> Void)?) {
+        
+        guard isContentPanelHeightDirty || force else {
+            return
+        }
+        
+        UIView.animate(
+            withDuration: configuration.keyboardAnimationDuration,
+            delay: 0,
+            options: .curveEaseOut,
+            animations: {
+                self.layoutIfNeeded()
+            },
+            completion: completion
+        )
+        
+        isContentPanelHeightDirty = false
         
     }
     

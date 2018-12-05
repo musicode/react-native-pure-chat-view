@@ -146,5 +146,10 @@ extension TextMessageCell: UITextViewDelegate {
         delegate.messageListDidClickLink(link: URL.absoluteString)
         return false
     }
+    
+    // 避免 ios 10.11+ 长按表情会触发保存图片的系统窗口
+    public func textView(_ textView: UITextView, shouldInteractWith textAttachment: NSTextAttachment, in characterRange: NSRange) -> Bool {
+        return false
+    }
 
 }
