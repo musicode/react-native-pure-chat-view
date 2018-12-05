@@ -53,36 +53,36 @@ class ChatView extends Component {
     onFall: PropTypes.func,
   }
 
-  appendMessage(message) {
-    RNTChatViewManager.appendMessage(this.getNativeNode(), message)
+  appendMessage(message, scrollToBottom) {
+    RNTChatViewManager.appendMessage(this.getNativeNode(), message, scrollToBottom ? true : false)
   }
 
-  appendMessages(messages) {
-    RNTChatViewManager.appendMessages(this.getNativeNode(), messages)
+  appendMessages(messages, scrollToBottom) {
+    RNTChatViewManager.appendMessages(this.getNativeNode(), messages, scrollToBottom ? true : false)
   }
 
-  prependMessage(message) {
-    RNTChatViewManager.prependMessage(this.getNativeNode(), message)
+  prependMessage(message, scrollToBottom) {
+    RNTChatViewManager.prependMessage(this.getNativeNode(), message, scrollToBottom ? true : false)
   }
 
-  prependMessages(messages) {
-    RNTChatViewManager.prependMessages(this.getNativeNode(), messages)
+  prependMessages(messages, scrollToBottom) {
+    RNTChatViewManager.prependMessages(this.getNativeNode(), messages, scrollToBottom ? true : false)
   }
 
-  removeMessage(messageId) {
-    RNTChatViewManager.removeMessage(this.getNativeNode(), messageId)
+  removeMessage(messageId, scrollToBottom) {
+    RNTChatViewManager.removeMessage(this.getNativeNode(), messageId, scrollToBottom ? true : false)
   }
 
   removeAllMessages() {
     RNTChatViewManager.removeAllMessages(this.getNativeNode())
   }
 
-  updateMessage(messageId, message) {
-    RNTChatViewManager.updateMessage(this.getNativeNode(), messageId, message)
+  updateMessage(messageId, message, scrollToBottom) {
+    RNTChatViewManager.updateMessage(this.getNativeNode(), messageId, message, scrollToBottom ? true : false)
   }
 
-  setAllMessages(messages) {
-    RNTChatViewManager.setAllMessages(this.getNativeNode(), messages)
+  setAllMessages(messages, scrollToBottom) {
+    RNTChatViewManager.setAllMessages(this.getNativeNode(), messages, scrollToBottom ? true : false)
   }
 
   stopAudio() {

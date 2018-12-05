@@ -49,43 +49,43 @@ class ChatView extends Component {
     onFall: PropTypes.func,
   }
 
-  appendMessage(message) {
+  appendMessage(message, scrollToBottom) {
     UIManager.dispatchViewManagerCommand(
       this.getNativeNode(),
       UIManager.RNTChatView.Commands.appendMessage,
-      [message],
+      [message, scrollToBottom ? true : false],
     )
   }
 
-  appendMessages(messages) {
+  appendMessages(messages, scrollToBottom) {
     UIManager.dispatchViewManagerCommand(
       this.getNativeNode(),
       UIManager.RNTChatView.Commands.appendMessages,
-      [messages],
+      [messages, scrollToBottom ? true : false],
     )
   }
 
-  prependMessage(message) {
+  prependMessage(message, scrollToBottom) {
     UIManager.dispatchViewManagerCommand(
       this.getNativeNode(),
       UIManager.RNTChatView.Commands.prependMessage,
-      [message],
+      [message, scrollToBottom ? true : false],
     )
   }
 
-  prependMessages(messages) {
+  prependMessages(messages, scrollToBottom) {
     UIManager.dispatchViewManagerCommand(
       this.getNativeNode(),
       UIManager.RNTChatView.Commands.prependMessages,
-      [messages],
+      [messages, scrollToBottom ? true : false],
     )
   }
 
-  removeMessage(messageId) {
+  removeMessage(messageId, scrollToBottom) {
     UIManager.dispatchViewManagerCommand(
       this.getNativeNode(),
       UIManager.RNTChatView.Commands.removeMessage,
-      [messageId],
+      [messageId, scrollToBottom ? true : false],
     )
   }
 
@@ -97,19 +97,19 @@ class ChatView extends Component {
     )
   }
 
-  updateMessage(messageId, message) {
+  updateMessage(messageId, message, scrollToBottom) {
     UIManager.dispatchViewManagerCommand(
       this.getNativeNode(),
       UIManager.RNTChatView.Commands.updateMessage,
-      [messageId, message],
+      [messageId, message, scrollToBottom ? true : false],
     )
   }
 
-  setAllMessages(messages) {
+  setAllMessages(messages, scrollToBottom) {
     UIManager.dispatchViewManagerCommand(
       this.getNativeNode(),
       UIManager.RNTChatView.Commands.setAllMessages,
-      [messages],
+      [messages, scrollToBottom ? true : false],
     )
   }
 

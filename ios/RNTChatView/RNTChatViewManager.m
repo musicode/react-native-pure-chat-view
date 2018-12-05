@@ -67,38 +67,53 @@ RCT_EXPORT_VIEW_PROPERTY(onPhotoFeatureClick, RCTBubblingEventBlock);
 RCT_EXPORT_VIEW_PROPERTY(onLift, RCTBubblingEventBlock);
 RCT_EXPORT_VIEW_PROPERTY(onFall, RCTBubblingEventBlock);
 
-RCT_EXPORT_METHOD(appendMessage:(nonnull NSNumber *)reactTag message:(NSDictionary *)message) {
+RCT_EXPORT_METHOD(appendMessage:(nonnull NSNumber *)reactTag message:(NSDictionary *)message scrollToBottom:(BOOL)scrollToBottom) {
     [self.bridge.uiManager addUIBlock:^(RCTUIManager *uiManager, NSDictionary<NSNumber *,UIView *> *viewRegistry) {
         RNTChatView *chatView = (RNTChatView *)viewRegistry[reactTag];
         [chatView.chatView appendWithMessage:message];
+        if (scrollToBottom) {
+            [chatView.chatView scrollToBottomWithAnimated:false];
+        }
     }];
 }
 
-RCT_EXPORT_METHOD(appendMessages:(nonnull NSNumber *)reactTag messages:(NSArray *)messages) {
+RCT_EXPORT_METHOD(appendMessages:(nonnull NSNumber *)reactTag messages:(NSArray *)messages scrollToBottom:(BOOL)scrollToBottom) {
     [self.bridge.uiManager addUIBlock:^(RCTUIManager *uiManager, NSDictionary<NSNumber *,UIView *> *viewRegistry) {
         RNTChatView *chatView = (RNTChatView *)viewRegistry[reactTag];
         [chatView.chatView appendWithMessages:messages];
+        if (scrollToBottom) {
+            [chatView.chatView scrollToBottomWithAnimated:false];
+        }
     }];
 }
 
-RCT_EXPORT_METHOD(prependMessage:(nonnull NSNumber *)reactTag message:(NSDictionary *)message) {
+RCT_EXPORT_METHOD(prependMessage:(nonnull NSNumber *)reactTag message:(NSDictionary *)message scrollToBottom:(BOOL)scrollToBottom) {
     [self.bridge.uiManager addUIBlock:^(RCTUIManager *uiManager, NSDictionary<NSNumber *,UIView *> *viewRegistry) {
         RNTChatView *chatView = (RNTChatView *)viewRegistry[reactTag];
         [chatView.chatView prependWithMessage:message];
+        if (scrollToBottom) {
+            [chatView.chatView scrollToBottomWithAnimated:false];
+        }
     }];
 }
 
-RCT_EXPORT_METHOD(prependMessages:(nonnull NSNumber *)reactTag messages:(NSArray *)messages) {
+RCT_EXPORT_METHOD(prependMessages:(nonnull NSNumber *)reactTag messages:(NSArray *)messages scrollToBottom:(BOOL)scrollToBottom) {
     [self.bridge.uiManager addUIBlock:^(RCTUIManager *uiManager, NSDictionary<NSNumber *,UIView *> *viewRegistry) {
         RNTChatView *chatView = (RNTChatView *)viewRegistry[reactTag];
         [chatView.chatView prependWithMessages:messages];
+        if (scrollToBottom) {
+            [chatView.chatView scrollToBottomWithAnimated:false];
+        }
     }];
 }
 
-RCT_EXPORT_METHOD(removeMessage:(nonnull NSNumber *)reactTag messageId:(NSString *)messageId) {
+RCT_EXPORT_METHOD(removeMessage:(nonnull NSNumber *)reactTag messageId:(NSString *)messageId scrollToBottom:(BOOL)scrollToBottom) {
     [self.bridge.uiManager addUIBlock:^(RCTUIManager *uiManager, NSDictionary<NSNumber *,UIView *> *viewRegistry) {
         RNTChatView *chatView = (RNTChatView *)viewRegistry[reactTag];
         [chatView.chatView removeWithMessageId:messageId];
+        if (scrollToBottom) {
+            [chatView.chatView scrollToBottomWithAnimated:false];
+        }
     }];
 }
 
@@ -109,17 +124,23 @@ RCT_EXPORT_METHOD(removeAllMessages:(nonnull NSNumber *)reactTag) {
     }];
 }
 
-RCT_EXPORT_METHOD(updateMessage:(nonnull NSNumber *)reactTag messageId:(NSString *)messageId message:(NSDictionary *)message) {
+RCT_EXPORT_METHOD(updateMessage:(nonnull NSNumber *)reactTag messageId:(NSString *)messageId message:(NSDictionary *)message scrollToBottom:(BOOL)scrollToBottom) {
     [self.bridge.uiManager addUIBlock:^(RCTUIManager *uiManager, NSDictionary<NSNumber *,UIView *> *viewRegistry) {
         RNTChatView *chatView = (RNTChatView *)viewRegistry[reactTag];
         [chatView.chatView updateWithMessageId:messageId message:message];
+        if (scrollToBottom) {
+            [chatView.chatView scrollToBottomWithAnimated:false];
+        }
     }];
 }
 
-RCT_EXPORT_METHOD(setAllMessages:(nonnull NSNumber *)reactTag messages:(NSArray *)messages) {
+RCT_EXPORT_METHOD(setAllMessages:(nonnull NSNumber *)reactTag messages:(NSArray *)messages scrollToBottom:(BOOL)scrollToBottom) {
     [self.bridge.uiManager addUIBlock:^(RCTUIManager *uiManager, NSDictionary<NSNumber *,UIView *> *viewRegistry) {
         RNTChatView *chatView = (RNTChatView *)viewRegistry[reactTag];
         [chatView.chatView setAllWithMessages:messages];
+        if (scrollToBottom) {
+            [chatView.chatView scrollToBottomWithAnimated:false];
+        }
     }];
 }
 

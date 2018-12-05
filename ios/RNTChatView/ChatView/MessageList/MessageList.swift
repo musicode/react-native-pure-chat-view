@@ -114,23 +114,33 @@ public class MessageList: UIView {
     }
     
     public func append(message: Message) {
-        messageList.append(message)
-        tableView.reloadData()
+        append(messages: [message])
     }
     
     public func append(messages: [Message]) {
-        messageList.insert(contentsOf: messages, at: messageList.count)
-        tableView.reloadData()
+        let count = messageList.count
+        messageList.insert(contentsOf: messages, at: count)
+        if count > 0 {
+            tableView.insertRows(at: getIndexPaths(index: count, count: messages.count), with: .none)
+        }
+        else {
+            tableView.reloadData()
+        }
     }
     
     public func prepend(message: Message) {
-        messageList.insert(message, at: 0)
-        tableView.reloadData()
+        prepend(messages: [message])
     }
     
     public func prepend(messages: [Message]) {
+        let count = messageList.count
         messageList.insert(contentsOf: messages, at: 0)
-        tableView.reloadData()
+        if count > 0 {
+            tableView.insertRows(at: getIndexPaths(index: 0, count: messages.count), with: .none)
+        }
+        else {
+            tableView.reloadData()
+        }
     }
     
     public func removeAll() {
@@ -146,7 +156,7 @@ public class MessageList: UIView {
             return
         }
         messageList.remove(at: index)
-        tableView.reloadData()
+        tableView.deleteRows(at: [getIndexPath(index: index)], with: .none)
     }
     
     public func update(messageId: String, message: Message) {

@@ -138,28 +138,49 @@ public class RNTChatViewManager extends SimpleViewManager<RNTChatView> {
         switch (commandId) {
             case COMMAND_APPEND_MESSAGE:
                 root.appendMessage(args.getMap(0));
+                if (args.getBoolean(1)) {
+                    root.scrollToBottom(false);
+                }
                 break;
             case COMMAND_APPEND_MESSAGES:
                 root.appendMessages(args.getArray(0));
+                if (args.getBoolean(1)) {
+                    root.scrollToBottom(false);
+                }
                 break;
             case COMMAND_PREPEND_MESSAGE:
                 root.prependMessage(args.getMap(0));
+                if (args.getBoolean(1)) {
+                    root.scrollToBottom(false);
+                }
                 break;
             case COMMAND_PREPEND_MESSAGES:
                 root.prependMessages(args.getArray(0));
+                if (args.getBoolean(1)) {
+                    root.scrollToBottom(false);
+                }
                 break;
 
             case COMMAND_REMOVE_MESSAGE:
                 root.removeMessage(args.getString(0));
+                if (args.getBoolean(1)) {
+                    root.scrollToBottom(false);
+                }
                 break;
             case COMMAND_REMOVE_ALL_MESSAGES:
                 root.removeAllMessages();
                 break;
             case COMMAND_UPDATE_MESSAGE:
                 root.updateMessage(args.getString(0), args.getMap(1));
+                if (args.getBoolean(1)) {
+                    root.scrollToBottom(false);
+                }
                 break;
             case COMMAND_SET_ALL_MESSAGES:
                 root.setAllMessages(args.getArray(0));
+                if (args.getBoolean(1)) {
+                    root.scrollToBottom(false);
+                }
                 break;
 
             case COMMAND_LOAD_MORE_COMPLETE:
