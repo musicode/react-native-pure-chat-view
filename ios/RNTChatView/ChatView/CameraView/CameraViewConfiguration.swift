@@ -48,11 +48,11 @@ public class CameraViewConfiguration {
     public var captureButtonTrackColor = UIColor(red: 0.11, green: 0.64, blue: 0.06, alpha: 0.9)
     
     // 录制按钮与底边的距离
-    public var captureButtonMarginBottom: CGFloat = 50
+    public var captureButtonMarginBottom: CGFloat = 60
     
     
     // 切换摄像头按钮与顶边的距离
-    public var flipButtonMarginTop: CGFloat = 15
+    public var flipButtonMarginTop: CGFloat = 40
     
     // 切换摄像头按钮与右边的距离
     public var flipButtonMarginRight: CGFloat = 20

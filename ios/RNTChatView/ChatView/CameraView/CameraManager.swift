@@ -88,10 +88,10 @@ class CameraManager : NSObject {
     // 录制视频当前的时长
     var videoCurrentTime: Int {
         get {
-            guard let output = videoOutput else {
+            guard let output = videoOutput, output.isRecording else {
                 return 0
             }
-            return Int(output.recordedDuration.seconds) * 1000
+            return seconds2Millisecond(output.recordedDuration.seconds)
         }
     }
     
@@ -581,7 +581,7 @@ extension CameraManager: AVCaptureFileOutputRecordingDelegate {
         var success = false
         
         if error == nil {
-            videoDuration = videoCurrentTime
+            videoDuration = seconds2Millisecond(output.recordedDuration.seconds)
             if videoDuration >= configuration.videoMinDuration {
                 success = true
                 onFinishRecordVideo?(videoPath, nil)
@@ -600,6 +600,10 @@ extension CameraManager: AVCaptureFileOutputRecordingDelegate {
             videoPath = ""
         }
         
+    }
+    
+    private func seconds2Millisecond(_ seconds: Double) -> Int {
+        return Int(seconds * 1000)
     }
     
 }

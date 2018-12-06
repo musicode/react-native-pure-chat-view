@@ -92,7 +92,7 @@ class LeftTextMessageCell: TextMessageCell {
             lineSpacing: configuration.leftTextMessageLineSpacing
         )
         
-        configuration.formatText(textView: textView, text: attributedString)
+        configuration.formatText(font: configuration.leftTextMessageTextFont, text: attributedString)
         
         textView.attributedText = attributedString
         

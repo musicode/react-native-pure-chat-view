@@ -11,7 +11,7 @@ public class MessageInput: UIView {
     private let emotionPagerConfiguration = EmotionPagerConfiguration()
     
     private let voiceButton = CircleView()
-    private let textarea = EmotionTextarea(configuration: EmotionTextareaConfiguration())
+    private var textarea: EmotionTextarea!
     private let emotionButton = CircleView()
     
     private let rightButtons = UIView()
@@ -197,6 +197,10 @@ extension MessageInput {
     
     private func addTextarea() {
         
+        let textareaConfiguration = EmotionTextareaConfiguration()
+        textareaConfiguration.emotionTextHeightRatio = configuration.emotionTextHeightRatio
+        textarea = EmotionTextarea(configuration: textareaConfiguration)
+        
         textarea.translatesAutoresizingMaskIntoConstraints = false
         textarea.onTextChange = {
             self.plainText = self.textarea.plainText
@@ -268,8 +272,8 @@ extension MessageInput {
         addConstraints([
             NSLayoutConstraint(item: rightButtons, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1, constant: -configuration.inputBarPaddingHorizontal),
             NSLayoutConstraint(item: rightButtons, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: configuration.sendButtonWidth),
-            NSLayoutConstraint(item: rightButtons, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 2 * configuration.circleButtonRadius),
-            NSLayoutConstraint(item: rightButtons, attribute: .bottom, relatedBy: .equal, toItem: voiceButton, attribute: .bottom, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: rightButtons, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: configuration.sendButtonHeight),
+            NSLayoutConstraint(item: rightButtons, attribute: .bottom, relatedBy: .equal, toItem: textarea, attribute: .bottom, multiplier: 1, constant: -configuration.sendButtonMarginBottom),
         ])
         
         addMoreButton()
@@ -324,7 +328,7 @@ extension MessageInput {
             NSLayoutConstraint(item: sendButton, attribute: .centerX, relatedBy: .equal, toItem: rightButtons, attribute: .centerX, multiplier: 1, constant: 0),
             NSLayoutConstraint(item: sendButton, attribute: .centerY, relatedBy: .equal, toItem: rightButtons, attribute: .centerY, multiplier: 1, constant: 0),
             NSLayoutConstraint(item: sendButton, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: configuration.sendButtonWidth),
-            NSLayoutConstraint(item: sendButton, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 2 * configuration.circleButtonRadius),
+            NSLayoutConstraint(item: sendButton, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: configuration.sendButtonHeight),
         ])
         
     }

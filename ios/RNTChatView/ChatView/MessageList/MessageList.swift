@@ -110,7 +110,7 @@ public class MessageList: UIView {
         guard messageList.count > 0 else {
             return
         }
-        tableView.scrollToRow(at: IndexPath(row: messageList.count - 1, section: 0), at: .bottom, animated: animated)
+        tableView.scrollToRow(at: getIndexPath(index: messageList.count - 1), at: .bottom, animated: animated)
     }
     
     public func append(message: Message) {
@@ -118,14 +118,11 @@ public class MessageList: UIView {
     }
     
     public func append(messages: [Message]) {
-        let count = messageList.count
-        messageList.insert(contentsOf: messages, at: count)
-        if count > 0 {
-            tableView.insertRows(at: getIndexPaths(index: count, count: messages.count), with: .none)
+        guard messages.count > 0 else {
+            return
         }
-        else {
-            tableView.reloadData()
-        }
+        messageList.insert(contentsOf: messages, at: messageList.count)
+        tableView.reloadData()
     }
     
     public func prepend(message: Message) {
@@ -133,14 +130,14 @@ public class MessageList: UIView {
     }
     
     public func prepend(messages: [Message]) {
-        let count = messageList.count
+        let count = messages.count
+        guard count > 0 else {
+            return
+        }
         messageList.insert(contentsOf: messages, at: 0)
-        if count > 0 {
-            tableView.insertRows(at: getIndexPaths(index: 0, count: messages.count), with: .none)
-        }
-        else {
-            tableView.reloadData()
-        }
+        tableView.reloadData()
+        // 定位在新增的最后一个
+        tableView.scrollToRow(at: getIndexPath(index: count - 1), at: .top, animated: false)
     }
     
     public func removeAll() {
@@ -156,7 +153,7 @@ public class MessageList: UIView {
             return
         }
         messageList.remove(at: index)
-        tableView.deleteRows(at: [getIndexPath(index: index)], with: .none)
+        tableView.deleteRows(at: getIndexPaths(index: index, count: 1), with: .none)
     }
     
     public func update(messageId: String, message: Message) {
@@ -164,7 +161,7 @@ public class MessageList: UIView {
             return
         }
         messageList[ index ] = message
-        tableView.reloadData()
+        tableView.reloadRows(at: getIndexPaths(index: index, count: 1), with: .none)
     }
     
     @objc private func refresh() {

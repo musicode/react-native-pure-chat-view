@@ -188,12 +188,14 @@ class RNTChatView(context: Context, applicationContext: ReactApplicationContext,
 
         val emojiFilter = EmojiFilter(emotionList)
 
+        val emotionTextHeightRatio = 1.1f
+
         messageList.hasMoreMessage = true
 
         messageListConfiguration = object: MessageListConfiguration(messageList.context) {
 
             override fun formatText(textView: TextView, text: SpannableString) {
-                emojiFilter.filter(textView, text, text.toString())
+                emojiFilter.filter(textView, text, text.toString(), emotionTextHeightRatio)
             }
 
             override fun isRightMessage(message: Message): Boolean {
@@ -205,6 +207,39 @@ class RNTChatView(context: Context, applicationContext: ReactApplicationContext,
             }
 
         }
+
+        val messageInputConfiguration = object: MessageInputConfiguration(context) {
+
+            override fun loadImage(imageView: ImageView, url: String) {
+                imageLoader.loadImage(imageView, url)
+            }
+
+            override fun requestPermissions(permissions: List<String>, requestCode: Int): Boolean {
+
+                var list = arrayOf<String>()
+
+                permissions.forEach {
+                    if (ContextCompat.checkSelfPermission(context, it) != PackageManager.PERMISSION_GRANTED) {
+                        list = list.plus(it)
+                    }
+                }
+
+                if (list.isNotEmpty()) {
+                    if (activity is ReactActivity) {
+                        (activity as ReactActivity).requestPermissions(list, requestCode, permissionListener)
+                    }
+                    else if (activity is PermissionAwareActivity) {
+                        (activity as PermissionAwareActivity).requestPermissions(list, requestCode, permissionListener)
+                    }
+                    return false
+                }
+
+                return true
+
+            }
+        }
+
+        messageInputConfiguration.emotionTextHeightRatio = 1f
 
         messageList.init(
             messageListConfiguration,
@@ -255,8 +290,8 @@ class RNTChatView(context: Context, applicationContext: ReactApplicationContext,
                 emotionList,
                 7,
                 3,
-                80,
-                80,
+                90,
+                90,
                 true,
                 true
             )
@@ -266,35 +301,7 @@ class RNTChatView(context: Context, applicationContext: ReactApplicationContext,
 
         messageInput.init(
 
-            object: MessageInputConfiguration(context) {
-                override fun loadImage(imageView: ImageView, url: String) {
-                    imageLoader.loadImage(imageView, url)
-                }
-
-                override fun requestPermissions(permissions: List<String>, requestCode: Int): Boolean {
-
-                    var list = arrayOf<String>()
-
-                    permissions.forEach {
-                        if (ContextCompat.checkSelfPermission(context, it) != PackageManager.PERMISSION_GRANTED) {
-                            list = list.plus(it)
-                        }
-                    }
-
-                    if (list.isNotEmpty()) {
-                        if (activity is ReactActivity) {
-                            (activity as ReactActivity).requestPermissions(list, requestCode, permissionListener)
-                        }
-                        else if (activity is PermissionAwareActivity) {
-                            (activity as PermissionAwareActivity).requestPermissions(list, requestCode, permissionListener)
-                        }
-                        return false
-                    }
-
-                    return true
-
-                }
-            },
+            messageInputConfiguration,
 
             object: MessageInputCallback {
 

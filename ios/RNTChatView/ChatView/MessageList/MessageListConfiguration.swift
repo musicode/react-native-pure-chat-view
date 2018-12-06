@@ -430,7 +430,7 @@ open class MessageListConfiguration {
     public var leftCardMessageThumbnailMarginTop: CGFloat = 10
     
     // 左侧名片消息的标题字体大小
-    public var leftCardMessageTitleTextFont = UIFont.systemFont(ofSize: 12)
+    public var leftCardMessageTitleTextFont = UIFont.systemFont(ofSize: 14)
     
     // 左侧名片消息的标题字体颜色
     public var leftCardMessageTitleTextColor = UIColor(red: 0.06, green: 0.06, blue: 0.06, alpha: 1)
@@ -442,7 +442,7 @@ open class MessageListConfiguration {
     public var leftCardMessageTitleMarginRight: CGFloat = 10
     
     // 左侧名片消息的标题到气泡顶部的距离
-    public var leftCardMessageTitleMarginTop: CGFloat = 16
+    public var leftCardMessageTitleMarginTop: CGFloat = 13
     
     // 左侧名片消息的描述字体大小
     public var leftCardMessageDescTextFont = UIFont.systemFont(ofSize: 10)
@@ -508,7 +508,7 @@ open class MessageListConfiguration {
     public var rightCardMessageThumbnailMarginTop: CGFloat = 10
     
     // 右侧名片消息的标题字体大小
-    public var rightCardMessageTitleTextFont = UIFont.systemFont(ofSize: 12)
+    public var rightCardMessageTitleTextFont = UIFont.systemFont(ofSize: 14)
     
     // 右侧名片消息的标题字体颜色
     public var rightCardMessageTitleTextColor = UIColor(red: 0.06, green: 0.06, blue: 0.06, alpha: 1)
@@ -520,7 +520,7 @@ open class MessageListConfiguration {
     public var rightCardMessageTitleMarginRight: CGFloat = 16
     
     // 右侧名片消息的标题到气泡顶部的距离
-    public var rightCardMessageTitleMarginTop: CGFloat = 16
+    public var rightCardMessageTitleMarginTop: CGFloat = 13
     
     // 右侧名片消息的描述字体大小
     public var rightCardMessageDescTextFont = UIFont.systemFont(ofSize: 10)
@@ -762,7 +762,7 @@ open class MessageListConfiguration {
         return false
     }
     
-    open func formatText(textView: UITextView, text: NSMutableAttributedString) {
+    open func formatText(font: UIFont, text: NSMutableAttributedString) {
         
     }
     

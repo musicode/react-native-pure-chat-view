@@ -92,7 +92,7 @@ class RightTextMessageCell: TextMessageCell {
             lineSpacing: configuration.rightTextMessageLineSpacing
         )
         
-        configuration.formatText(textView: textView, text: attributedString)
+        configuration.formatText(font: configuration.rightTextMessageTextFont, text: attributedString)
         
         textView.attributedText = attributedString
         

@@ -172,7 +172,7 @@ public class RNTChatViewManager extends SimpleViewManager<RNTChatView> {
                 break;
             case COMMAND_UPDATE_MESSAGE:
                 root.updateMessage(args.getString(0), args.getMap(1));
-                if (args.getBoolean(1)) {
+                if (args.getBoolean(2)) {
                     root.scrollToBottom(false);
                 }
                 break;

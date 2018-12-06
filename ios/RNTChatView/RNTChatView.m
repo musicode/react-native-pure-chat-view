@@ -139,7 +139,7 @@
     self.onSendVideo(@{
                        @"videoPath": videoPath,
                        @"videoDuration": [NSNumber numberWithInt:videoDuration],
-                       @"thumnailPath": thumbnail.path,
+                       @"thumbnailPath": thumbnail.path,
                        @"thumbnailWidth": [NSNumber numberWithFloat:thumbnail.width],
                        @"thumbnailHeight": [NSNumber numberWithFloat:thumbnail.height],
                        });
