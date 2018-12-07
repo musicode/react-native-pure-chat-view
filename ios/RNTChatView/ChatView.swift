@@ -76,7 +76,6 @@ let emotionList = [
 ]
 
 let emojiFilter = EmojiFilter(emotionList: emotionList)
-let emotionTextHeightRatio: CGFloat = 1.1
 
 class Configuration: MessageListConfiguration {
     
@@ -91,7 +90,7 @@ class Configuration: MessageListConfiguration {
     }
     
     override func formatText(font: UIFont, text: NSMutableAttributedString) {
-        emojiFilter.filter(attributedString: text, text: NSString(string: text.string), font: font, emotionTextHeightRatio: emotionTextHeightRatio)
+        emojiFilter.filter(attributedString: text, text: NSString(string: text.string), font: font, emotionTextHeightRatio: 1.05)
     }
     
 }
@@ -167,7 +166,7 @@ class Configuration: MessageListConfiguration {
         addSubview(messageList)
         
         let messageInputConfiguration = MessageInputConfiguration()
-        messageInputConfiguration.emotionTextHeightRatio = emotionTextHeightRatio
+        messageInputConfiguration.emotionTextHeightRatio = 1.1
         messageInput = MessageInput(configuration: messageInputConfiguration)
         
         messageInput.delegate = messageInputDelegate

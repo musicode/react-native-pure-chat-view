@@ -16,8 +16,11 @@ class AudioPlayer: NSObject {
     private var id = ""
     private var url = ""
     
-    // 播放音频之前的 category
-    private var category: String!
+    override init() {
+        super.init()
+        // 避免静音时播不了声音或视频
+        useSpeaker()
+    }
     
     // 播放音频
     func play(id: String, url: String) {
@@ -95,10 +98,6 @@ class AudioPlayer: NSObject {
             object: nil
         )
         
-        category = AVAudioSession.sharedInstance().category
-        
-        // 默认是 AVAudioSessionCategorySoloAmbient
-        // 静音状态下没法播放音频
         useSpeaker()
         
     }
@@ -118,8 +117,6 @@ class AudioPlayer: NSObject {
             name: Notification.Name.UIDeviceProximityStateDidChange,
             object: nil
         )
-        
-        try! AVAudioSession.sharedInstance().setCategory(category)
         
     }
     

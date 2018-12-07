@@ -77,7 +77,7 @@ public class EmotionFilter {
             }
             
             // https://stackoverflow.com/questions/26105803/center-nstextattachment-image-next-to-single-line-uilabel
-            attachment.bounds = CGRect(x: 0, y: (font.capHeight - imageHeight).rounded() / 2, width: imageWidth, height: imageHeight)
+            attachment.bounds = CGRect(x: 0, y: (font.capHeight - imageHeight).rounded() / 2, width: imageWidth.rounded(), height: imageHeight.rounded())
             
             return attachment
         }

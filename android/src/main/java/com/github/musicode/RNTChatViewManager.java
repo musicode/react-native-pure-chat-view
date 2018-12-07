@@ -200,8 +200,6 @@ public class RNTChatViewManager extends SimpleViewManager<RNTChatView> {
                 break;
         }
 
-        root.requestLayout();
-
     }
 
 }

@@ -5,7 +5,7 @@ import UIKit
 class MessageCell: UITableViewCell {
     
     // 文本消息和事件消息，传入 [type:link] 格式就能展现成链接
-    private static let linkPattern = try! NSRegularExpression(pattern: "\\[\\w+:[^]]+\\]")
+    private static let linkPattern = try! NSRegularExpression(pattern: "\\[[^:]+:[^]]+\\]")
     
     private var isReady = false
     
@@ -107,17 +107,18 @@ class MessageCell: UITableViewCell {
             // 去掉左右 [ ]
             let range = NSMakeRange(location + 1, length - 2)
             
-            // 链接
-            let link = string.substring(with: range)
+            let rawText = string.substring(with: range)
             
-            // 文本
-            let subText = String(link.suffix(from: link.index(of: ":")!).dropFirst())
+            let separatorIndex = rawText.index(of: ":")!
+            
+            let linkText = String(rawText.prefix(upTo: separatorIndex))
+            let labelText = String(rawText.suffix(from: separatorIndex).dropFirst())
             
             links.append(
-                LinkToken(text: subText, link: link, position: newString.length)
+                LinkToken(text: labelText, link: linkText, position: newString.length)
             )
             
-            newString.append(subText)
+            newString.append(labelText)
             
             index = location + length
             

@@ -188,14 +188,12 @@ class RNTChatView(context: Context, applicationContext: ReactApplicationContext,
 
         val emojiFilter = EmojiFilter(emotionList)
 
-        val emotionTextHeightRatio = 1.1f
-
         messageList.hasMoreMessage = true
 
         messageListConfiguration = object: MessageListConfiguration(messageList.context) {
 
             override fun formatText(textView: TextView, text: SpannableString) {
-                emojiFilter.filter(textView, text, text.toString(), emotionTextHeightRatio)
+                emojiFilter.filter(textView, text, text.toString(), 1f)
             }
 
             override fun isRightMessage(message: Message): Boolean {
@@ -306,7 +304,7 @@ class RNTChatView(context: Context, applicationContext: ReactApplicationContext,
             object: MessageInputCallback {
 
                 override fun onChildViewChange() {
-                    requestLayout()
+
                 }
 
                 override fun onRecordAudioWithoutPermissions() {
@@ -379,12 +377,10 @@ class RNTChatView(context: Context, applicationContext: ReactApplicationContext,
                 }
 
                 override fun onLift() {
-                    requestLayout()
                     sendEvent("onLift")
                 }
 
                 override fun onFall() {
-                    requestLayout()
                     sendEvent("onFall")
                 }
 
