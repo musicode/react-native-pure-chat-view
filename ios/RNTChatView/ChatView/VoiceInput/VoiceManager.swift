@@ -23,21 +23,6 @@ class VoiceManager: NSObject {
         }
     }
 
-    // 音频格式
-    var audioFormat = kAudioFormatMPEG4AAC
-
-    // 双声道还是单声道
-    var numberOfChannels = 2
-
-    // 声音质量
-    var audioQuality: AVAudioQuality = .high
-
-    // 码率
-    var audioBitRate = 320000
-
-    // 采样率
-    var audioSampleRate = 44100.0
-
     // 当前正在录音的文件路径
     var filePath = ""
     
@@ -80,13 +65,8 @@ class VoiceManager: NSObject {
     // 用完音频后再重置回去
     private var defaultCategory = AVAudioSession.sharedInstance().category
     
-    private var configuration: VoiceInputConfiguration!
+    var configuration: VoiceInputConfiguration!
     
-    convenience init(configuration: VoiceInputConfiguration) {
-        self.init()
-        self.configuration = configuration
-    }
-
     // 判断是否有权限录音，如没有，发起授权请求
     func requestPermissions() -> Bool {
 
@@ -145,11 +125,11 @@ class VoiceManager: NSObject {
         fileDuration = 0
 
         let recordSettings: [String: Any] = [
-            AVFormatIDKey: audioFormat,
-            AVNumberOfChannelsKey: numberOfChannels,
-            AVEncoderAudioQualityKey : audioQuality.rawValue,
-            AVEncoderBitRateKey : audioBitRate,
-            AVSampleRateKey : audioSampleRate
+            AVFormatIDKey: configuration.audioFormat,
+            AVNumberOfChannelsKey: configuration.audioNumberOfChannels,
+            AVEncoderAudioQualityKey : configuration.audioQuality.rawValue,
+            AVEncoderBitRateKey : configuration.audioBitRate,
+            AVSampleRateKey : configuration.audioSampleRate
         ]
 
         do {
@@ -171,7 +151,7 @@ class VoiceManager: NSObject {
             recorder.isMeteringEnabled = true
             recorder.prepareToRecord()
             
-            let duration = configuration.maxDuration / 1000
+            let duration = configuration.audioMaxDuration / 1000
             recorder.record(forDuration: TimeInterval(duration))
 
         }
@@ -265,7 +245,7 @@ extension VoiceManager: AVAudioRecorderDelegate {
     public func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
 
         if flag {
-            if fileDuration >= configuration.minDuration {
+            if fileDuration >= configuration.audioMinDuration {
                 onFinishRecord?(true)
             }
             else {

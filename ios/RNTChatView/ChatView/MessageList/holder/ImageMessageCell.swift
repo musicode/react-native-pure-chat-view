@@ -10,8 +10,8 @@ class ImageMessageCell: MessageCell {
     var nameView = UILabel()
     
     // imageView 被占用了
-    var photoView = UIImageView()
-    
+    var photoView = InteractiveImageView()
+
     var photoWidthConstraint: NSLayoutConstraint!
     var photoHeightConstraint: NSLayoutConstraint!
     var avatarTopConstraint: NSLayoutConstraint!
@@ -75,6 +75,7 @@ class ImageMessageCell: MessageCell {
             photoView.layer.borderWidth = configuration.imageMessageBorderWidth
             photoView.layer.borderColor = configuration.imageMessageBorderColor.cgColor
         }
+        photoView.bind(cell: self)
         photoView.contentMode = .scaleAspectFill
         photoView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(photoView)
@@ -89,11 +90,9 @@ class ImageMessageCell: MessageCell {
         failureView.setBackgroundImage(configuration.messageFailureIconPressed, for: .highlighted)
         contentView.addSubview(failureView)
         
-        addClickHandler(view: contentView, selector: #selector(onMessageClick))
+        addContentGesture(view: photoView)
         addClickHandler(view: avatarView, selector: #selector(onUserAvatarClick))
-        addClickHandler(view: photoView, selector: #selector(onContentClick))
         addClickHandler(view: failureView, selector: #selector(onFailureClick))
-        addLongPressHandler(view: photoView, selector: #selector(onContentLongPress))
         
         topConstraint = NSLayoutConstraint(item: timeView, attribute: .top, relatedBy: .equal, toItem: contentView, attribute: .top, multiplier: 1, constant: 0)
         bottomConstraint = NSLayoutConstraint(item: photoView, attribute: .bottom, relatedBy: .equal, toItem: contentView, attribute: .bottom, multiplier: 1, constant: 0)

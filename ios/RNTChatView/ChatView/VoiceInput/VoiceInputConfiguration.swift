@@ -1,5 +1,6 @@
 
 import UIKit
+import AVFoundation
 
 // 配置
 public class VoiceInputConfiguration {
@@ -162,12 +163,27 @@ public class VoiceInputConfiguration {
     
     // 文件扩展名
     public var fileExtname = ".m4a"
+    
+    // 音频格式
+    var audioFormat = kAudioFormatMPEG4AAC
+    
+    // 双声道还是单声道
+    var audioNumberOfChannels = 2
+    
+    // 声音质量
+    var audioQuality: AVAudioQuality = .high
+    
+    // 码率
+    var audioBitRate = 320000
+    
+    // 采样率
+    var audioSampleRate = 44100.0
 
     // 支持的最短录音时长
-    var minDuration: Int = 1000
+    var audioMinDuration: Int = 1000
     
     // 支持的最长录音时长
-    var maxDuration: Int = 60000
+    var audioMaxDuration: Int = 60000
     
     public init() { }
     

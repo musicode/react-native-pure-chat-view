@@ -151,7 +151,9 @@ open class MessageListConfiguration {
     
     
     // 左侧文本消息背景图
-    public var leftTextMessageBubbleImage = UIImage(named: "message_list_bubble_left_normal")!.resizableImage(withCapInsets: UIEdgeInsetsMake(26, 20, 20, 20), resizingMode: .tile)
+    public var leftTextMessageBubbleImageNormal = UIImage(named: "message_list_bubble_left_normal")!.resizableImage(withCapInsets: UIEdgeInsetsMake(26, 20, 20, 20), resizingMode: .tile)
+    
+    public var leftTextMessageBubbleImagePressed = UIImage(named: "message_list_bubble_left_pressed")!.resizableImage(withCapInsets: UIEdgeInsetsMake(26, 20, 20, 20), resizingMode: .tile)
     
     // 左侧文本消息的字体大小
     public var leftTextMessageTextFont = UIFont.systemFont(ofSize: 16)
@@ -178,7 +180,9 @@ open class MessageListConfiguration {
     
     
     // 右侧文本消息背景图
-    public var rightTextMessageBubbleImage = UIImage(named: "message_list_bubble_active_normal")!.resizableImage(withCapInsets: UIEdgeInsetsMake(26, 20, 20, 20), resizingMode: .tile)
+    public var rightTextMessageBubbleImageNormal = UIImage(named: "message_list_bubble_active_normal")!.resizableImage(withCapInsets: UIEdgeInsetsMake(26, 20, 20, 20), resizingMode: .tile)
+    
+    public var rightTextMessageBubbleImagePressed = UIImage(named: "message_list_bubble_active_pressed")!.resizableImage(withCapInsets: UIEdgeInsetsMake(26, 20, 20, 20), resizingMode: .tile)
     
     // 右侧文本消息的字体大小
     public var rightTextMessageTextFont = UIFont.systemFont(ofSize: 16)
@@ -749,8 +753,8 @@ open class MessageListConfiguration {
     public var rightPostMessageLabelMarginLeft: CGFloat = 10
     
     
-    
-    
+    // 菜单文本
+    public var menuItemCopy = "复制"
     
     
     

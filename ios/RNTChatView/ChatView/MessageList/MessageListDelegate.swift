@@ -15,8 +15,8 @@ import Foundation
     // 点击消息正文
     func messageListDidClickContent(message: Message)
 
-    // 长按消息正文
-    func messageListDidLongPressContent(message: Message)
+    // 点击消息复制菜单
+    func messageListDidClickCopy(message: Message)
     
     // 点击消息失败图标
     func messageListDidClickFailure(message: Message)
@@ -39,7 +39,7 @@ public extension MessageListDelegate {
     
     func messageListDidClickContent(message: Message) { }
     
-    func messageListDidLongPressContent(message: Message) { }
+    func messageListDidClickCopy(message: Message) { }
     
     func messageListDidClickFailure(message: Message) { }
     

@@ -15,7 +15,15 @@ class LeftTextMessageCell: TextMessageCell {
         
         super.create()
         
-        bubbleView.image = configuration.leftTextMessageBubbleImage
+        bubbleView.image = configuration.leftTextMessageBubbleImageNormal
+        
+        textView.onTouchDown = {
+            self.bubbleView.image = self.configuration.leftTextMessageBubbleImagePressed
+        }
+        
+        textView.onTouchUp = {
+            self.bubbleView.image = self.configuration.leftTextMessageBubbleImageNormal
+        }
         
         textView.textContainerInset = UIEdgeInsetsMake(
             configuration.leftTextMessagePaddingTop,

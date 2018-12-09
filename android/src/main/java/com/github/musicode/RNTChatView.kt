@@ -264,6 +264,12 @@ class RNTChatView(context: Context, applicationContext: ReactApplicationContext,
                     sendEvent("onContentClick", event)
                 }
 
+                override fun onCopyClick(message: Message) {
+                    val event = Arguments.createMap()
+                    event.putString("messageId", message.id)
+                    sendEvent("onCopyClick", event)
+                }
+
                 override fun onFailureClick(message: Message) {
                     val event = Arguments.createMap()
                     event.putString("messageId", message.id)

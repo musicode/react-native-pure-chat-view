@@ -9,7 +9,7 @@ class CardMessageCell: MessageCell {
     
     var nameView = UILabel()
     
-    var bubbleView = UIButton()
+    var bubbleView = InteractiveButton()
     
     var thumbnailView = UIImageView()
     var titleView = UILabel()
@@ -70,6 +70,7 @@ class CardMessageCell: MessageCell {
         nameView.translatesAutoresizingMaskIntoConstraints = false
         
         // 气泡
+        bubbleView.bind(cell: self)
         bubbleView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(bubbleView)
         
@@ -112,11 +113,9 @@ class CardMessageCell: MessageCell {
         failureView.setBackgroundImage(configuration.messageFailureIconPressed, for: .highlighted)
         contentView.addSubview(failureView)
         
-        addClickHandler(view: contentView, selector: #selector(onMessageClick))
+        addContentGesture(view: bubbleView)
         addClickHandler(view: avatarView, selector: #selector(onUserAvatarClick))
-        addClickHandler(view: bubbleView, selector: #selector(onContentClick))
         addClickHandler(view: failureView, selector: #selector(onFailureClick))
-        addLongPressHandler(view: bubbleView, selector: #selector(onContentLongPress))
         
         topConstraint = NSLayoutConstraint(item: timeView, attribute: .top, relatedBy: .equal, toItem: contentView, attribute: .top, multiplier: 1, constant: 0)
         bottomConstraint = NSLayoutConstraint(item: bubbleView, attribute: .bottom, relatedBy: .equal, toItem: contentView, attribute: .bottom, multiplier: 1, constant: 0)

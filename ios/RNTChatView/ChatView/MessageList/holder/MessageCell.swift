@@ -9,6 +9,8 @@ class MessageCell: UITableViewCell {
     
     private var isReady = false
     
+    var menuItems = [UIMenuItem]()
+    
     var configuration: MessageListConfiguration!
     var delegate: MessageListDelegate!
     var message: Message!
@@ -241,47 +243,74 @@ class MessageCell: UITableViewCell {
         return screenWidth - 2 * (configuration.messagePaddingHorizontal + configuration.userAvatarWidth) - configuration.leftUserNameMarginLeft - configuration.rightUserNameMarginRight
         
     }
-    
+
+    func addContentGesture(view: UIView) {
+        
+        view.isUserInteractionEnabled = true
+        
+        view.addGestureRecognizer(
+            UITapGestureRecognizer(target: self, action: #selector(onContentClick))
+        )
+
+        if menuItems.count > 0 {
+            view.addGestureRecognizer(
+                UILongPressGestureRecognizer(target: self, action: #selector(onContentLongPress))
+            )
+        }
+        
+    }
+
     func addClickHandler(view: UIView, selector: Selector) {
         
         view.isUserInteractionEnabled = true
+
+        view.addGestureRecognizer(
+            UITapGestureRecognizer(target: self, action: selector)
+        )
         
-        let gesture = UITapGestureRecognizer(target: self, action: selector)
-        gesture.numberOfTapsRequired = 1
-        
-        view.addGestureRecognizer(gesture)
-        
-    }
-    
-    func addLongPressHandler(view: UIView, selector: Selector) {
-        
-        view.isUserInteractionEnabled = true
-        
-        let gesture = UILongPressGestureRecognizer(target: self, action: selector)
-        gesture.numberOfTapsRequired = 1
-        
-        view.addGestureRecognizer(gesture)
-        
-    }
-    
-    @objc func onMessageClick() {
-        delegate.messageListDidClickList()
-    }
-    
-    @objc func onUserNameClick() {
-        delegate.messageListDidClickUserName(message: message)
     }
     
     @objc func onUserAvatarClick() {
         delegate.messageListDidClickUserAvatar(message: message)
     }
     
+    @objc func onUserNameClick() {
+        delegate.messageListDidClickUserName(message: message)
+    }
+    
     @objc func onContentClick() {
         delegate.messageListDidClickContent(message: message)
     }
     
-    @objc func onContentLongPress() {
-        delegate.messageListDidLongPressContent(message: message)
+    @objc func onContentLongPress(_ gesture: UILongPressGestureRecognizer) {
+        
+        // 会触发两次，第一次是 began 第二次是 ended
+        guard gesture.state == .began else {
+            return
+        }
+        
+        // 确保视图都在
+        guard let view = gesture.view, let superview = view.superview, view.canBecomeFirstResponder else {
+            return
+        }
+        
+        let menuController = UIMenuController.shared
+        
+        guard !menuController.isMenuVisible else {
+            return
+        }
+        
+        view.becomeFirstResponder()
+        
+        menuController.menuItems = menuItems
+        menuController.setTargetRect(view.frame, in: superview)
+        
+        // iOS 11 菜单第一次显示后会立即消失
+        // 回到主线程操作后正常
+        DispatchQueue.main.async {
+            menuController.setMenuVisible(true, animated: true)
+        }
+        
     }
     
     @objc func onFailureClick() {

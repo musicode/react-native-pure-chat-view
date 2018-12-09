@@ -46,8 +46,6 @@ class EventMessageCell: MessageCell {
         eventView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(eventView)
         
-        addClickHandler(view: contentView, selector: #selector(onMessageClick))
-        
         topConstraint = NSLayoutConstraint(item: eventView, attribute: .top, relatedBy: .equal, toItem: contentView, attribute: .top, multiplier: 1, constant: 0)
         bottomConstraint = NSLayoutConstraint(item: eventView, attribute: .bottom, relatedBy: .equal, toItem: contentView, attribute: .bottom, multiplier: 1, constant: 0)
         bottomConstraint.priority = .defaultLow

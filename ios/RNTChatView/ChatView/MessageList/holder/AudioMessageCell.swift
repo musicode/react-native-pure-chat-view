@@ -9,7 +9,7 @@ class AudioMessageCell: MessageCell {
     
     var nameView = UILabel()
     
-    var bubbleView = UIButton()
+    var bubbleView = InteractiveButton()
     
     var animationView = UIImageView()
     
@@ -73,6 +73,7 @@ class AudioMessageCell: MessageCell {
         nameView.translatesAutoresizingMaskIntoConstraints = false
         
         // 气泡
+        bubbleView.bind(cell: self)
         bubbleView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(bubbleView)
         
@@ -112,11 +113,9 @@ class AudioMessageCell: MessageCell {
         failureView.setBackgroundImage(configuration.messageFailureIconPressed, for: .highlighted)
         contentView.addSubview(failureView)
         
-        addClickHandler(view: contentView, selector: #selector(onMessageClick))
+        addContentGesture(view: bubbleView)
         addClickHandler(view: avatarView, selector: #selector(onUserAvatarClick))
-        addClickHandler(view: bubbleView, selector: #selector(onBubbleClick))
         addClickHandler(view: failureView, selector: #selector(onFailureClick))
-        addLongPressHandler(view: bubbleView, selector: #selector(onContentLongPress))
         
         topConstraint = NSLayoutConstraint(item: timeView, attribute: .top, relatedBy: .equal, toItem: contentView, attribute: .top, multiplier: 1, constant: 0)
         bottomConstraint = NSLayoutConstraint(item: bubbleView, attribute: .bottom, relatedBy: .equal, toItem: contentView, attribute: .bottom, multiplier: 1, constant: 0)
@@ -214,7 +213,7 @@ class AudioMessageCell: MessageCell {
         animationView.isHidden = false
     }
     
-    @objc func onBubbleClick() {
+    @objc override func onContentClick() {
         let player = configuration.audioPlayer
         if player.isPlaying(id: message.id) {
             player.stop()

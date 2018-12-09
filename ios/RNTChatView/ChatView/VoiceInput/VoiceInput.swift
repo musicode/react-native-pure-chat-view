@@ -87,7 +87,7 @@ public class VoiceInput: UIView {
     
     private var configuration: VoiceInputConfiguration!
 
-    private var voiceManager: VoiceManager!
+    private var voiceManager = VoiceManager()
 
     // 刷新时长的 timer
     private var timer: Timer?
@@ -95,7 +95,7 @@ public class VoiceInput: UIView {
     public convenience init(configuration: VoiceInputConfiguration) {
         self.init()
         self.configuration = configuration
-        self.voiceManager = VoiceManager(configuration: configuration)
+        voiceManager.configuration = configuration
         setup()
     }
 

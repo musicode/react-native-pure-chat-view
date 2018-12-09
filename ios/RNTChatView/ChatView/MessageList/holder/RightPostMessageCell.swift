@@ -16,6 +16,7 @@ class RightPostMessageCell: PostMessageCell {
         super.create()
         
         bubbleView.setBackgroundImage(configuration.rightPostMessageBubbleImageNormal, for: .normal)
+        bubbleView.setBackgroundImage(configuration.rightPostMessageBubbleImagePressed, for: .selected)
         bubbleView.setBackgroundImage(configuration.rightPostMessageBubbleImagePressed, for: .highlighted)
         
         titleView.font = configuration.rightPostMessageTitleTextFont

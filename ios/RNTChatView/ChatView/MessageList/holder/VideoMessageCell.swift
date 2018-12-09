@@ -9,7 +9,7 @@ class VideoMessageCell: MessageCell {
     
     var nameView = UILabel()
     
-    var thumbnailView = UIImageView()
+    var thumbnailView = InteractiveImageView()
     
     var thumbnailWidthConstraint: NSLayoutConstraint!
     var thumbnailHeightConstraint: NSLayoutConstraint!
@@ -78,6 +78,7 @@ class VideoMessageCell: MessageCell {
             thumbnailView.layer.borderWidth = configuration.videoMessageBorderWidth
             thumbnailView.layer.borderColor = configuration.videoMessageBorderColor.cgColor
         }
+        thumbnailView.bind(cell: self)
         thumbnailView.contentMode = .scaleAspectFill
         thumbnailView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(thumbnailView)
@@ -101,11 +102,9 @@ class VideoMessageCell: MessageCell {
         failureView.setBackgroundImage(configuration.messageFailureIconPressed, for: .highlighted)
         contentView.addSubview(failureView)
         
-        addClickHandler(view: contentView, selector: #selector(onMessageClick))
+        addContentGesture(view: thumbnailView)
         addClickHandler(view: avatarView, selector: #selector(onUserAvatarClick))
-        addClickHandler(view: thumbnailView, selector: #selector(onContentClick))
         addClickHandler(view: failureView, selector: #selector(onFailureClick))
-        addLongPressHandler(view: thumbnailView, selector: #selector(onContentLongPress))
         
         topConstraint = NSLayoutConstraint(item: timeView, attribute: .top, relatedBy: .equal, toItem: contentView, attribute: .top, multiplier: 1, constant: 0)
         bottomConstraint = NSLayoutConstraint(item: thumbnailView, attribute: .bottom, relatedBy: .equal, toItem: contentView, attribute: .bottom, multiplier: 1, constant: 0)

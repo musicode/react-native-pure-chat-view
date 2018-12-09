@@ -396,6 +396,10 @@ extension MessageInput {
     private func addVoicePanel() {
         
         voicePanelConfiguration.backgroundColor = configuration.contentPanelBackgroundColor
+        voicePanelConfiguration.audioBitRate = 128000
+        voicePanelConfiguration.audioQuality = .medium
+        voicePanelConfiguration.audioSampleRate = 22050
+        
         voicePanel = VoiceInput(configuration: voicePanelConfiguration)
         
         voicePanel.delegate = self
@@ -555,6 +559,7 @@ extension MessageInput {
         let cameraViewController = CameraViewController()
         
         cameraViewController.configuration = CameraViewConfiguration()
+        cameraViewController.configuration.preset = .medium
         cameraViewController.delegate = self
         
         parentViewController.present(cameraViewController, animated: true, completion: nil)

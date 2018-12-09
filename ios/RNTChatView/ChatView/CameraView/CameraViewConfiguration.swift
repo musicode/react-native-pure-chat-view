@@ -1,4 +1,6 @@
+
 import UIKit
+import AVFoundation
 
 // 配置
 public class CameraViewConfiguration {
@@ -141,6 +143,9 @@ public class CameraViewConfiguration {
     
     // 视频文件扩展名
     public var videoExtname = ".mp4"
+    
+    // 预设
+    public var preset = AVCaptureSession.Preset.high
     
     // 视频最短录制时长
     public var videoMinDuration: Int = 1000

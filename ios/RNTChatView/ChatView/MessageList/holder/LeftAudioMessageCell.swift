@@ -16,6 +16,7 @@ class LeftAudioMessageCell: AudioMessageCell {
         super.create()
         
         bubbleView.setBackgroundImage(configuration.leftAudioMessageBubbleImageNormal, for: .normal)
+        bubbleView.setBackgroundImage(configuration.leftAudioMessageBubbleImagePressed, for: .selected)
         bubbleView.setBackgroundImage(configuration.leftAudioMessageBubbleImagePressed, for: .highlighted)
         
         animationView.image = configuration.leftAudioMessageWave

@@ -48,9 +48,6 @@ class CameraManager : NSObject {
     // 设备状态
     var deviceOrientation = UIDeviceOrientation.portrait
     
-    // 预设
-    var preset = AVCaptureSession.Preset.high
-    
     // 暗光环境下开启自动增强
     var lowHightBoost = true
     
@@ -162,12 +159,7 @@ class CameraManager : NSObject {
         }
     }
     
-    private var configuration: CameraViewConfiguration!
-    
-    convenience init(configuration: CameraViewConfiguration) {
-        self.init()
-        self.configuration = configuration
-    }
+    var configuration: CameraViewConfiguration!
     
 }
 
@@ -295,7 +287,7 @@ extension CameraManager {
             
             frontCameraInput = try addInput(device: device)
             
-            captureSession.sessionPreset = captureSession.canSetSessionPreset(preset) ? preset : .high
+            captureSession.sessionPreset = captureSession.canSetSessionPreset(configuration.preset) ? configuration.preset : .high
             
             flashMode = .off
             zoomFactor = 1
@@ -319,7 +311,7 @@ extension CameraManager {
             
             backCameraInput = try addInput(device: device)
             
-            captureSession.sessionPreset = captureSession.canSetSessionPreset(preset) ? preset : .high
+            captureSession.sessionPreset = captureSession.canSetSessionPreset(configuration.preset) ? configuration.preset : .high
             
             flashMode = .off
             zoomFactor = 1
