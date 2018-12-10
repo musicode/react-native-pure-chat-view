@@ -9,7 +9,7 @@ class TextMessageCell: MessageCell {
     
     var nameView = UILabel()
 
-    var bubbleView = UIImageView()
+    var bubbleView = InteractiveButton()
     
     var textView = InteractiveTextView()
     
@@ -35,7 +35,7 @@ class TextMessageCell: MessageCell {
         menuItems.append(
             UIMenuItem(
                 title: configuration.menuItemCopy,
-                action: #selector(InteractiveTextView.onCopy)
+                action: #selector(InteractiveButton.onCopy)
             )
         )
         
@@ -76,11 +76,11 @@ class TextMessageCell: MessageCell {
         nameView.translatesAutoresizingMaskIntoConstraints = false
 
         // 气泡
+        bubbleView.bind(cell: self)
         bubbleView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(bubbleView)
 
         // 文本内容
-        textView.bind(cell: self)
         textView.delegate = self
         textView.isEditable = false
         textView.backgroundColor = .clear
@@ -104,7 +104,7 @@ class TextMessageCell: MessageCell {
         failureView.setBackgroundImage(configuration.messageFailureIconPressed, for: .highlighted)
         contentView.addSubview(failureView)
         
-        addContentGesture(view: textView)
+        addContentGesture(view: bubbleView)
         addClickHandler(view: avatarView, selector: #selector(onUserAvatarClick))
         addClickHandler(view: failureView, selector: #selector(onFailureClick))
         
@@ -146,15 +146,6 @@ extension TextMessageCell: UITextViewDelegate {
     
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange) -> Bool {
         delegate.messageListDidClickLink(link: URL.absoluteString)
-        return false
-    }
-    
-    func textViewDidChangeSelection(_ textView: UITextView) {
-        textView.selectedTextRange = nil
-    }
-    
-    // 避免 ios 10.11+ 长按表情会触发保存图片的系统窗口
-    public func textView(_ textView: UITextView, shouldInteractWith textAttachment: NSTextAttachment, in characterRange: NSRange) -> Bool {
         return false
     }
 

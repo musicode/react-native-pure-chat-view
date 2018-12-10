@@ -136,8 +136,10 @@ public class MessageList: UIView {
         }
         messageList.insert(contentsOf: messages, at: 0)
         tableView.reloadData()
+        
         // 定位在新增的最后一个
-        tableView.scrollToRow(at: getIndexPath(index: count - 1), at: .top, animated: false)
+        self.tableView.scrollToRow(at: self.getIndexPath(index: count - 1), at: .top, animated: false)
+        
     }
     
     public func removeAll() {

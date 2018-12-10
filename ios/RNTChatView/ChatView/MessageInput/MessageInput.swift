@@ -466,12 +466,12 @@ extension MessageInput {
         }
         morePanel.addSubview(photoFeature)
         
-        let cameraFeature = FeatureButton(title: configuration.cameraFeatureTitle, image: configuration.cameraFeatureImage, configuration: configuration)
-        cameraFeature.translatesAutoresizingMaskIntoConstraints = false
-        cameraFeature.onClick = {
-            self.openCamera()
-        }
-        morePanel.addSubview(cameraFeature)
+//        let cameraFeature = FeatureButton(title: configuration.cameraFeatureTitle, image: configuration.cameraFeatureImage, configuration: configuration)
+//        cameraFeature.translatesAutoresizingMaskIntoConstraints = false
+//        cameraFeature.onClick = {
+//            self.openCamera()
+//        }
+//        morePanel.addSubview(cameraFeature)
         
         morePanelBottomConstraint = NSLayoutConstraint(item: morePanel, attribute: .bottom, relatedBy: .equal, toItem: contentPanel, attribute: .bottom, multiplier: 1, constant: 0)
         
@@ -484,8 +484,8 @@ extension MessageInput {
             NSLayoutConstraint(item: photoFeature, attribute: .top, relatedBy: .equal, toItem: morePanel, attribute: .top, multiplier: 1, constant: configuration.featurePanelPaddingVertical),
             NSLayoutConstraint(item: photoFeature, attribute: .left, relatedBy: .equal, toItem: morePanel, attribute: .left, multiplier: 1, constant: configuration.featurePanelPaddingHorizontal),
 
-            NSLayoutConstraint(item: cameraFeature, attribute: .top, relatedBy: .equal, toItem: morePanel, attribute: .top, multiplier: 1, constant: configuration.featurePanelPaddingVertical),
-            NSLayoutConstraint(item: cameraFeature, attribute: .left, relatedBy: .equal, toItem: morePanel, attribute: .left, multiplier: 1, constant: configuration.featurePanelPaddingHorizontal + configuration.featureButtonWidth + configuration.featureButtonSpacing),
+//            NSLayoutConstraint(item: cameraFeature, attribute: .top, relatedBy: .equal, toItem: morePanel, attribute: .top, multiplier: 1, constant: configuration.featurePanelPaddingVertical),
+//            NSLayoutConstraint(item: cameraFeature, attribute: .left, relatedBy: .equal, toItem: morePanel, attribute: .left, multiplier: 1, constant: configuration.featurePanelPaddingHorizontal + configuration.featureButtonWidth + configuration.featureButtonSpacing),
         ])
         
     }

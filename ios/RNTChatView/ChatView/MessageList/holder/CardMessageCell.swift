@@ -141,7 +141,8 @@ class CardMessageCell: MessageCell {
         
         configuration.loadImage(imageView: thumbnailView, url: cardMessage.thumbnail)
         
-        titleView.text = cardMessage.title
+        // 撑起高度
+        titleView.text = cardMessage.title != "" ? cardMessage.title : " "
         titleView.sizeToFit()
         
         descView.text = cardMessage.desc

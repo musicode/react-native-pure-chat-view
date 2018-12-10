@@ -134,7 +134,6 @@ class MessageCell: UITableViewCell {
         let attributedString = NSMutableAttributedString(string: newString as String)
         
         let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.alignment = .justified
         paragraphStyle.lineSpacing = lineSpacing
         attributedString.addAttribute(NSAttributedStringKey.paragraphStyle, value: paragraphStyle, range: fullRange)
         

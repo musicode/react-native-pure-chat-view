@@ -3,41 +3,16 @@ import UIKit
 
 class InteractiveTextView: UITextView {
     
-    private var cell: MessageCell!
-    private var actions: [Selector]!
-    
-    var onTouchDown: (() -> Void)?
-    var onTouchUp: (() -> Void)?
-    
-    override var canBecomeFirstResponder: Bool {
-        return true
-    }
-    
-    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
-        return actions.contains(action)
-    }
-    
-    func bind(cell: MessageCell) {
-        self.cell = cell
-        self.actions = cell.menuItems.map {
-            return $0.action
+    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        
+        guard let pos = closestPosition(to: point), let range = tokenizer.rangeEnclosingPosition(pos, with: .character, inDirection: UITextLayoutDirection.left.rawValue) else {
+            return false
         }
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        onTouchDown?()
-    }
-    
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        onTouchUp?()
-    }
-    
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        onTouchUp?()
-    }
-    
-    @objc func onCopy(_ controller: UIMenuController) {
-        cell.delegate.messageListDidClickCopy(message: cell.message)
+        
+        let startIndex = offset(from: beginningOfDocument, to: range.start)
+        
+        return attributedText.attribute(.link, at: startIndex, effectiveRange: nil) != nil
+        
     }
     
 }

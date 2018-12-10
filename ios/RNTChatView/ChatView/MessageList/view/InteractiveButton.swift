@@ -21,5 +21,9 @@ class InteractiveButton: UIButton {
         }
     }
     
+    @objc func onCopy(_ controller: UIMenuController) {
+        cell.delegate.messageListDidClickCopy(message: cell.message)
+    }
+    
 }
 

@@ -310,7 +310,7 @@ class RNTChatView(context: Context, applicationContext: ReactApplicationContext,
             object: MessageInputCallback {
 
                 override fun onChildViewChange() {
-
+                    requestLayout()
                 }
 
                 override fun onRecordAudioWithoutPermissions() {
@@ -376,6 +376,7 @@ class RNTChatView(context: Context, applicationContext: ReactApplicationContext,
                     val event = Arguments.createMap()
                     event.putString("text", text)
                     sendEvent("onTextChange", event)
+                    requestLayout()
                 }
 
                 override fun onClickPhotoFeature() {
@@ -384,10 +385,12 @@ class RNTChatView(context: Context, applicationContext: ReactApplicationContext,
 
                 override fun onLift() {
                     sendEvent("onLift")
+                    requestLayout()
                 }
 
                 override fun onFall() {
                     sendEvent("onFall")
+                    requestLayout()
                 }
 
             }
