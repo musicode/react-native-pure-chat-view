@@ -1,10 +1,3 @@
-//
-//  RNTChatView.h
-//  RNTChatView
-//
-//  Created by zhujl on 2018/12/1.
-//  Copyright © 2018年 finstao. All rights reserved.
-//
 
 #import <Foundation/Foundation.h>
 #import <React/RCTViewManager.h>

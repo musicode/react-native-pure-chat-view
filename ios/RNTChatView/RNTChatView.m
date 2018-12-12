@@ -1,10 +1,3 @@
-//
-//  RNTChatView.m
-//  RNTChatView
-//
-//  Created by zhujl on 2018/12/1.
-//  Copyright © 2018年 finstao. All rights reserved.
-//
 
 #import "RNTChatView.h"
 #import "RNTChatView-Swift.h"
@@ -29,11 +22,12 @@
         [self addSubview:chatView];
         chatView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         _chatView = chatView;
-        dispatch_async(dispatch_get_main_queue(), ^{
-            self.onReady(@{});
-        });
     }
     return self;
+}
+
+- (void)didMoveToSuperview {
+    self.onReady(@{});
 }
 
 - (void)messageListDidClickList {

@@ -38,10 +38,10 @@ open class MessageListConfiguration {
     public var linkTextColor = UIColor(red: 0.08, green: 0.52, blue: 0.88, alpha: 1)
     
     // 时间 背景色
-    public var timeBackgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.15)
+    public var timeBackgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.14)
     
     // 时间 圆角
-    public var timeBorderRadius: CGFloat = 4
+    public var timeBorderRadius: CGFloat = 5
     
     // 时间 水平内间距
     public var timePaddingHorizontal: CGFloat = 6
@@ -59,10 +59,10 @@ open class MessageListConfiguration {
     
     
     // 事件 背景色
-    public var eventBackgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.15)
+    public var eventBackgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.14)
     
     // 事件 圆角
-    public var eventBorderRadius: CGFloat = 4
+    public var eventBorderRadius: CGFloat = 5
     
     // 事件 水平内间距
     public var eventPaddingHorizontal: CGFloat = 6
@@ -289,13 +289,13 @@ open class MessageListConfiguration {
     public var leftAudioMessageDurationTextFont = UIFont.systemFont(ofSize: 12)
     
     // 左侧语音消息时长的字体颜色
-    public var leftAudioMessageDurationTextColor = UIColor(red: 150 / 255, green: 150 / 255, blue: 150 / 255, alpha: 1)
+    public var leftAudioMessageDurationTextColor = UIColor(red: 0.59, green: 0.59, blue: 0.59, alpha: 1)
 
     // 左侧语音消息单位的字体大小
     public var leftAudioMessageUnitTextFont = UIFont.systemFont(ofSize: 12)
     
     // 左侧语音消息单位的字体颜色
-    public var leftAudioMessageUnitTextColor = UIColor(red: 150 / 255, green: 150 / 255, blue: 150 / 255, alpha: 1)
+    public var leftAudioMessageUnitTextColor = UIColor(red: 0.59, green: 0.59, blue: 0.59, alpha: 1)
     
     
     
@@ -327,13 +327,13 @@ open class MessageListConfiguration {
     public var rightAudioMessageDurationTextFont = UIFont.systemFont(ofSize: 12)
     
     // 右侧语音消息时长的字体颜色
-    public var rightAudioMessageDurationTextColor = UIColor(red: 150 / 255, green: 150 / 255, blue: 150 / 255, alpha: 1)
+    public var rightAudioMessageDurationTextColor = UIColor(red: 0.59, green: 0.59, blue: 0.59, alpha: 1)
     
     // 右侧语音消息单位的字体大小
     public var rightAudioMessageUnitTextFont = UIFont.systemFont(ofSize: 12)
     
     // 右侧语音消息单位的字体颜色
-    public var rightAudioMessageUnitTextColor = UIColor(red: 150 / 255, green: 150 / 255, blue: 150 / 255, alpha: 1)
+    public var rightAudioMessageUnitTextColor = UIColor(red: 0.59, green: 0.59, blue: 0.59, alpha: 1)
     
     
     

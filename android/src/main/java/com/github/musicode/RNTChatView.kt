@@ -27,7 +27,7 @@ import com.github.herokotlin.messagelist.enum.MessageStatus
 import com.facebook.react.modules.core.PermissionAwareActivity
 import com.facebook.react.ReactActivity
 
-class RNTChatView(context: Context, applicationContext: ReactApplicationContext, val imageLoader: ImageLoader): LinearLayout(context) {
+class RNTChatView(context: Context, applicationContext: ReactApplicationContext, val imageLoader: RNTChatViewImageLoader): LinearLayout(context) {
 
     var currentUserId = ""
 

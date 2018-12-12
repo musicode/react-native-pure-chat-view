@@ -32,7 +32,7 @@ public class RNTChatViewManager extends SimpleViewManager<RNTChatView> {
     private final ReactApplicationContext reactContext;
 
     // 主工程实现图片加载
-    public static ImageLoader imageLoader;
+    public static RNTChatViewImageLoader imageLoader;
 
     public RNTChatViewManager(ReactApplicationContext reactContext) {
         super();

@@ -5,7 +5,6 @@
 #import <React/RCTBridge.h>
 #import <React/RCTUIManager.h>
 #import "RNTChatView-Swift.h"
-#import <MapKit/MapKit.h>
 #import "RNTChatView.h"
 
 @implementation RNTChatViewManager
