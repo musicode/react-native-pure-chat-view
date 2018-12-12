@@ -1,5 +1,5 @@
 
-package com.github.musicode;
+package com.github.musicode.chatview;
 
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;

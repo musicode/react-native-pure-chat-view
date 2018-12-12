@@ -1,4 +1,4 @@
-package com.github.musicode
+package com.github.musicode.chatview
 
 import android.app.Activity
 import android.content.Context
@@ -26,6 +26,7 @@ import com.github.herokotlin.messageinput.MessageInputConfiguration
 import com.github.herokotlin.messagelist.enum.MessageStatus
 import com.facebook.react.modules.core.PermissionAwareActivity
 import com.facebook.react.ReactActivity
+import com.github.musicode.chatview.R
 
 class RNTChatView(context: Context, applicationContext: ReactApplicationContext, val imageLoader: RNTChatViewImageLoader): LinearLayout(context) {
 
@@ -290,7 +291,7 @@ class RNTChatView(context: Context, applicationContext: ReactApplicationContext,
 
         messageInput.setEmotionSetList(listOf(
             EmotionSet.build(
-                R.drawable.emoji_icon,
+                    R.drawable.emoji_icon,
                 emotionList,
                 7,
                 3,

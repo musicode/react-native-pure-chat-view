@@ -1,5 +1,5 @@
 
-package com.github.musicode;
+package com.github.musicode.chatview;
 
 import java.util.Arrays;
 import java.util.Collections;
