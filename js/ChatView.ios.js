@@ -31,6 +31,7 @@ class ChatView extends Component {
     onContentClick: PropTypes.func,
     onFailureClick: PropTypes.func,
     onLinkClick: PropTypes.func,
+    onCopyClick: PropTypes.func,
     onLoadMore: PropTypes.func,
 
     onRecordAudioWithoutPermissions: PropTypes.func,
@@ -151,6 +152,13 @@ class ChatView extends Component {
     let { onLinkClick } = this.props
     if (onLinkClick) {
       onLinkClick(event.nativeEvent)
+    }
+  }
+
+  handleCopyClick = (event) => {
+    let { onCopyClick } = this.props
+    if (onCopyClick) {
+      onCopyClick(event.nativeEvent)
     }
   }
 
@@ -289,6 +297,7 @@ class ChatView extends Component {
         onContentClick={this.handleContentClick}
         onFailureClick={this.handleFailureClick}
         onLinkClick={this.handleLinkClick}
+        onCopyClick={this.handleCopyClick}
         onLoadMore={this.handleLoadMore}
 
         onRecordAudioWithoutPermissions={this.handleRecordAudioWithoutPermissions}
