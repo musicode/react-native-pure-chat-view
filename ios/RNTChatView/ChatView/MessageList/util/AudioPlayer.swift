@@ -82,18 +82,20 @@ class AudioPlayer: NSObject {
     
     private func addObservers() {
         
+        UIDevice.current.isProximityMonitoringEnabled = true
+        
         playerItem.addObserver(self, forKeyPath: "status", options: .new, context: nil)
         
         NotificationCenter.default.addObserver(
             self,
-            selector: #selector(playerItemDidPlayToEndTime(notification:)),
+            selector: #selector(playerItemDidPlayToEndTime),
             name: Notification.Name.AVPlayerItemDidPlayToEndTime,
             object: playerItem
         )
         
         NotificationCenter.default.addObserver(
             self,
-            selector: #selector(sensorStateChange(notification:)),
+            selector: #selector(sensorStateChange),
             name: Notification.Name.UIDeviceProximityStateDidChange,
             object: nil
         )
@@ -103,6 +105,8 @@ class AudioPlayer: NSObject {
     }
     
     private func removeObservers() {
+        
+        UIDevice.current.isProximityMonitoringEnabled = false
         
         playerItem.removeObserver(self, forKeyPath: "status", context: nil)
         
@@ -117,6 +121,8 @@ class AudioPlayer: NSObject {
             name: Notification.Name.UIDeviceProximityStateDidChange,
             object: nil
         )
+        
+        useSpeaker()
         
     }
     
@@ -146,7 +152,7 @@ class AudioPlayer: NSObject {
     }
     
     @objc private func sensorStateChange(notification: Notification) {
-        
+
         // 贴紧耳朵，听筒播放
         if UIDevice.current.proximityState {
             useEar()
