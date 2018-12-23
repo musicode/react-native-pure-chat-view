@@ -8,7 +8,7 @@
 
 @implementation RNTChatView
 
-+ (void)setLoadImage:(void (^ _Null_unspecified)(UIImageView * _Nonnull, NSString * _Nonnull))value
++ (void)setImageLoader:(void (^ _Null_unspecified)(UIImageView * _Nonnull, NSString * _Nonnull))value
 {
     ChatView.loadImage = value;
 }

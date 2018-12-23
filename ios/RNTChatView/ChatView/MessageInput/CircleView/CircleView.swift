@@ -7,10 +7,13 @@ public class CircleView: UIView {
     public var centerRadius: CGFloat = 36 {
         didSet {
             invalidateIntrinsicContentSize()
+            if let imageView = centerImageView {
+                imageView.layer.cornerRadius = centerRadius
+            }
         }
     }
     
-    public var centerColor = UIColor(red: 255.0 / 255.0, green: 255.0 / 255.0, blue: 255.0 / 255.0, alpha: 1.0)
+    public var centerColor = UIColor.white
     public var centerImage: UIImage? {
         didSet {
             // 移除老的
@@ -18,16 +21,17 @@ public class CircleView: UIView {
                 imageView.removeFromSuperview()
             }
             if let image = centerImage {
-                centerImageView = UIImageView(image: image)
+                let imageView = UIImageView(image: image)
                 // 保持原比例，不填充
-                centerImageView!.contentMode = .center
-                centerImageView!.layer.masksToBounds = true
-                addSubview(centerImageView!)
+                imageView.contentMode = .center
+                imageView.layer.cornerRadius = centerRadius
+                imageView.clipsToBounds = true
+                addSubview(imageView)
+                centerImageView = imageView
             }
         }
     }
     
-
     // 圆环
     public var ringWidth: CGFloat = 7 {
         didSet {
@@ -45,7 +49,16 @@ public class CircleView: UIView {
     public var trackOffset: CGFloat = 0
     
     // 轨道的值 0.0 - 1.0，影响轨道圆弧的大小
-    public var trackValue = 0.0
+    public var trackValue = 0.0 {
+        didSet {
+            if trackValue > 1 {
+                trackValue = 1
+            }
+            else if trackValue < 0 {
+                trackValue = 0
+            }
+        }
+    }
 
     // 存储当前使用的 UIImageView
     private var centerImageView: UIImageView?
@@ -54,17 +67,17 @@ public class CircleView: UIView {
     private var isTouching = false
 
     // 是否触摸在圆内部
-    private var isTouchInside = false
+    private var isTouchingInside = false
 
     // 是否正在长按
     private var isLongPressing = false
     
+    // 是否正在等待长按触发
+    private var isLongPressWaiting = false
+    
     // 按下之后多少秒触发长按回调
     private var longPressInterval: TimeInterval = 1
-    
-    // 是否正在等待长按触发
-    private var longPressWaiting = false
-    
+
     // 半径 = 内圆 + 圆环
     private var radius: CGFloat {
         return centerRadius + ringWidth
@@ -74,11 +87,11 @@ public class CircleView: UIView {
         return CGSize(width: 2 * radius, height: 2 * radius)
     }
 
-    public var delegate: CircleViewDelegate?
+    public var delegate: CircleViewDelegate!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = UIColor.clear
+        backgroundColor = .clear
     }
     
     public required init?(coder aDecoder: NSCoder) {
@@ -97,12 +110,12 @@ public class CircleView: UIView {
     // 按下
     private func touchDown() {
         isTouching = true
-        isTouchInside = true
-        longPressWaiting = true
+        isTouchingInside = true
+        isLongPressWaiting = true
         
-        delegate?.circleViewDidTouchDown(self)
+        delegate.circleViewDidTouchDown(self)
         
-        Timer.scheduledTimer(timeInterval: longPressInterval, target: self, selector: #selector(CircleView.longPress), userInfo: nil, repeats: false)
+        Timer.scheduledTimer(timeInterval: longPressInterval, target: self, selector: #selector(longPress), userInfo: nil, repeats: false)
     }
 
     // 松开，inside 表示是否在内圆松开
@@ -111,82 +124,79 @@ public class CircleView: UIView {
             return
         }
         isTouching = false
-        isTouchInside = false
+        isTouchingInside = false
         
         if isLongPressing {
-            delegate?.circleViewDidLongPressEnd(self)
+            delegate.circleViewDidLongPressEnd(self)
         }
         
-        delegate?.circleViewDidTouchUp(self, inside, isLongPressing)
+        delegate.circleViewDidTouchUp(self, inside, isLongPressing)
         
         isLongPressing = false
     }
     
     @objc private func longPress() {
-        guard isTouching, longPressWaiting else {
+        guard isTouching, isLongPressWaiting else {
             return
         }
-        longPressWaiting = false
+        isLongPressWaiting = false
         isLongPressing = true
-        delegate?.circleViewDidLongPressStart(self)
+        delegate.circleViewDidLongPressStart(self)
     }
 
     public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guard !isTouching, touches.count == 1 else {
+        super.touchesBegan(touches, with: event)
+        guard !isTouching, touches.count == 1, let point = touches.first?.location(in: self), isPointInside(point.x, point.y) else {
             return
         }
-        if let point = touches.first?.location(in: self) {
-            if isPointInside(point.x, point.y) {
-                touchDown()
-            }
-        }
+        touchDown()
     }
 
     public override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guard isTouching, touches.count == 1 else {
+        super.touchesMoved(touches, with: event)
+        guard isTouching, touches.count == 1, let point = touches.first?.location(in: self) else {
             return
         }
-        if let point = touches.first?.location(in: self) {
-            delegate?.circleViewDidTouchMove(self, point.x, point.y)
-            let inside = isPointInside(point.x, point.y)
-            if inside != isTouchInside {
-                isTouchInside = inside
-                if isTouchInside {
-                    delegate?.circleViewDidTouchEnter(self)
-                }
-                else {
-                    delegate?.circleViewDidTouchLeave(self)
-                    if longPressWaiting {
-                        longPressWaiting = false
-                    }
+        delegate.circleViewDidTouchMove(self, point.x, point.y)
+        let inside = isPointInside(point.x, point.y)
+        if inside != isTouchingInside {
+            isTouchingInside = inside
+            if isTouchingInside {
+                delegate.circleViewDidTouchEnter(self)
+            }
+            else {
+                delegate.circleViewDidTouchLeave(self)
+                if isLongPressWaiting {
+                    isLongPressWaiting = false
                 }
             }
         }
     }
 
     public override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        touchUp(isTouchInside)
+        super.touchesEnded(touches, with: event)
+        touchUp(isTouchingInside)
     }
 
     public override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesCancelled(touches, with: event)
         touchUp(false)
     }
 
     public override func draw(_ rect: CGRect) {
 
-        let currentContext = UIGraphicsGetCurrentContext()
-        guard let context = currentContext else {
+        guard let context = UIGraphicsGetCurrentContext() else {
             return
         }
 
-        let centerX = frame.width / 2
-        let centerY = frame.height / 2
+        let centerX = bounds.midX
+        let centerY = bounds.midY
 
         // 画外圆
         if ringWidth > 0 {
             context.setFillColor(ringColor.cgColor)
             context.addEllipse(in: CGRect(x: centerX - radius, y: centerY - radius, width: 2 * radius, height: 2 * radius))
-            context.fillPath()
+            context.drawPath(using: .fill)
 
             // 在上面画高亮圆弧
             if trackWidth > 0 && ringWidth >= trackWidth {
@@ -197,21 +207,20 @@ public class CircleView: UIView {
                 let endAngle = 2 * Double.pi * trackValue + startAngle
 
                 context.addArc(center: CGPoint(x: centerX, y: centerY), radius: radius - trackWidth * 0.5 - trackOffset, startAngle: CGFloat(startAngle), endAngle: CGFloat(endAngle), clockwise: false)
-                context.strokePath()
+                context.drawPath(using: .stroke)
             }
         }
 
         // 画内圆
         context.setFillColor(centerColor.cgColor)
         context.addEllipse(in: CGRect(x: centerX - centerRadius, y: centerY - centerRadius, width: 2 * centerRadius, height: 2 * centerRadius))
-        context.fillPath()
+        context.drawPath(using: .fill)
 
     }
     
     public override func layoutSubviews() {
         if let imageView = centerImageView {
             imageView.frame = CGRect(x: ringWidth, y: ringWidth, width: centerRadius * 2, height: centerRadius * 2)
-            imageView.layer.cornerRadius = centerRadius
         }
     }
 

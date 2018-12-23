@@ -26,7 +26,7 @@
                                                    launchOptions:launchOptions];
   rootView.backgroundColor = [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];
 
-  [RNTChatView setLoadImage:^(UIImageView *imageView, NSString *url) {
+  [RNTChatView setImageLoader:^(UIImageView *imageView, NSString *url) {
     [imageView sd_setImageWithURL:[NSURL URLWithString:url]
          placeholderImage:[UIImage imageNamed:@"emoji_1f4aa"]];
   }];

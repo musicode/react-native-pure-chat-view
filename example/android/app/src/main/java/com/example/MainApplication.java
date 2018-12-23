@@ -1,9 +1,13 @@
 package com.example;
 
 import android.app.Application;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.facebook.react.ReactApplication;
-import com.github.musicode.RNTChatViewPackage;
+import com.github.musicode.chatview.RNTChatViewImageLoader;
+import com.github.musicode.chatview.RNTChatViewManager;
+import com.github.musicode.chatview.RNTChatViewPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -23,8 +27,8 @@ public class MainApplication extends Application implements ReactApplication {
     @Override
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
-          new MainReactPackage(),
-            new RNTChatViewPackage()
+              new MainReactPackage(),
+              new RNTChatViewPackage()
       );
     }
 
@@ -43,5 +47,17 @@ public class MainApplication extends Application implements ReactApplication {
   public void onCreate() {
     super.onCreate();
     SoLoader.init(this, /* native exopackage */ false);
+
+    RNTChatViewManager.imageLoader = new RNTChatViewImageLoader() {
+      @Override
+      public void loadImage(ImageView imageView, String url) {
+
+        Glide
+                .with(imageView.getContext())
+                .load(url)
+                .into(imageView);
+      }
+    };
+
   }
 }

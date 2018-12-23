@@ -54,14 +54,25 @@ public class EmotionSet {
             }
 
             emotionPageList.append(
-                EmotionPage(emotionList: subList, columns: columns, rows: rows, width: width, height: height, hasDeleteButton: hasDeleteButton)
+                EmotionPage(
+                    emotionList: subList,
+                    columns: columns,
+                    rows: rows,
+                    width: width,
+                    height: height,
+                    hasDeleteButton: hasDeleteButton
+                )
             )
             
             start = end
             
         }
         
-        return EmotionSet(localImage: localImage, emotionPageList: emotionPageList, hasIndicator: hasIndicator)
+        return EmotionSet(
+            localImage: localImage,
+            emotionPageList: emotionPageList,
+            hasIndicator: hasIndicator
+        )
         
     }
     

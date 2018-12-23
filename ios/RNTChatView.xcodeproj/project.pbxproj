@@ -7,48 +7,49 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9D76B88F21CF746500A516C6 /* CameraViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D76B85521CF746500A516C6 /* CameraViewDelegate.swift */; };
+		9D76B89021CF746500A516C6 /* CameraViewConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D76B85621CF746500A516C6 /* CameraViewConfiguration.swift */; };
+		9D76B89121CF746500A516C6 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D76B85721CF746500A516C6 /* CameraViewController.swift */; };
+		9D76B89221CF746500A516C6 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D76B85821CF746500A516C6 /* CameraView.swift */; };
+		9D76B89321CF746500A516C6 /* FocusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D76B85A21CF746500A516C6 /* FocusView.swift */; };
+		9D76B89421CF746500A516C6 /* PreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D76B85B21CF746500A516C6 /* PreviewView.swift */; };
+		9D76B89521CF746500A516C6 /* CaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D76B85C21CF746500A516C6 /* CaptureView.swift */; };
+		9D76B89621CF746500A516C6 /* CameraManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D76B85D21CF746500A516C6 /* CameraManager.swift */; };
+		9D76B89721CF746500A516C6 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9D76B85E21CF746500A516C6 /* Info.plist */; };
+		9D76B89821CF746500A516C6 /* MessageInputDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D76B85F21CF746500A516C6 /* MessageInputDelegate.swift */; };
+		9D76B89921CF746500A516C6 /* SimpleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D76B86121CF746500A516C6 /* SimpleButton.swift */; };
+		9D76B89A21CF746500A516C6 /* ViewMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D76B86321CF746500A516C6 /* ViewMode.swift */; };
+		9D76B89B21CF746500A516C6 /* EmotionPagerConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D76B86521CF746500A516C6 /* EmotionPagerConfiguration.swift */; };
+		9D76B89C21CF746500A516C6 /* EmotionTextareaConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D76B86621CF746500A516C6 /* EmotionTextareaConfiguration.swift */; };
+		9D76B89D21CF746500A516C6 /* EmotionIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D76B86921CF746500A516C6 /* EmotionIcon.swift */; };
+		9D76B89E21CF746500A516C6 /* EmotionSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D76B86A21CF746500A516C6 /* EmotionSet.swift */; };
+		9D76B89F21CF746500A516C6 /* Emotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D76B86B21CF746500A516C6 /* Emotion.swift */; };
+		9D76B8A021CF746500A516C6 /* EmotionPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D76B86C21CF746500A516C6 /* EmotionPage.swift */; };
+		9D76B8A121CF746500A516C6 /* EmotionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D76B86E21CF746500A516C6 /* EmotionCell.swift */; };
+		9D76B8A221CF746500A516C6 /* EmotionToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D76B86F21CF746500A516C6 /* EmotionToolbar.swift */; };
+		9D76B8A321CF746500A516C6 /* EmotionTextarea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D76B87021CF746500A516C6 /* EmotionTextarea.swift */; };
+		9D76B8A421CF746500A516C6 /* EmotionGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D76B87121CF746500A516C6 /* EmotionGrid.swift */; };
+		9D76B8A521CF746500A516C6 /* EmotionAttachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D76B87221CF746500A516C6 /* EmotionAttachment.swift */; };
+		9D76B8A621CF746500A516C6 /* EmotionPager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D76B87321CF746500A516C6 /* EmotionPager.swift */; };
+		9D76B8A721CF746500A516C6 /* EmojiFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D76B87521CF746500A516C6 /* EmojiFilter.swift */; };
+		9D76B8A821CF746500A516C6 /* BracketFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D76B87621CF746500A516C6 /* BracketFilter.swift */; };
+		9D76B8A921CF746500A516C6 /* EmotionFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D76B87721CF746500A516C6 /* EmotionFilter.swift */; };
+		9D76B8AA21CF746500A516C6 /* VoiceInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D76B87B21CF746500A516C6 /* VoiceInput.swift */; };
+		9D76B8AB21CF746500A516C6 /* VoiceInputConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D76B87D21CF746500A516C6 /* VoiceInputConfiguration.swift */; };
+		9D76B8AC21CF746500A516C6 /* VoiceInputDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D76B87E21CF746500A516C6 /* VoiceInputDelegate.swift */; };
+		9D76B8AD21CF746500A516C6 /* VoiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D76B87F21CF746500A516C6 /* VoiceManager.swift */; };
+		9D76B8AE21CF746500A516C6 /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D76B88121CF746500A516C6 /* CircleView.swift */; };
+		9D76B8AF21CF746500A516C6 /* CircleViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D76B88221CF746500A516C6 /* CircleViewDelegate.swift */; };
+		9D76B8B021CF746500A516C6 /* MessageInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D76B88321CF746500A516C6 /* MessageInput.swift */; };
+		9D76B8B121CF746500A516C6 /* ImageFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D76B88521CF746500A516C6 /* ImageFile.swift */; };
+		9D76B8B221CF746500A516C6 /* RoundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D76B88721CF746500A516C6 /* RoundView.swift */; };
+		9D76B8B321CF746500A516C6 /* RoundViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D76B88821CF746500A516C6 /* RoundViewDelegate.swift */; };
+		9D76B8B421CF746500A516C6 /* FeatureButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D76B88A21CF746500A516C6 /* FeatureButton.swift */; };
+		9D76B8B521CF746500A516C6 /* MessageInputConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D76B88B21CF746500A516C6 /* MessageInputConfiguration.swift */; };
+		9D76B8B721CF746500A516C6 /* DotIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D76B88E21CF746500A516C6 /* DotIndicator.swift */; };
 		9D7F516521B2A7A400F04D5C /* RNTChatView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D7F516421B2A7A400F04D5C /* RNTChatView.m */; };
 		9D7F516721B2B86C00F04D5C /* RNTChatView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9D7F516321B2A7A400F04D5C /* RNTChatView.h */; };
-		9D7F51CD21B3E6B500F04D5C /* CameraViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7F516B21B3E6B500F04D5C /* CameraViewDelegate.swift */; };
-		9D7F51CF21B3E6B500F04D5C /* CameraViewConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7F516D21B3E6B500F04D5C /* CameraViewConfiguration.swift */; };
-		9D7F51D021B3E6B500F04D5C /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7F516E21B3E6B500F04D5C /* CameraViewController.swift */; };
-		9D7F51D121B3E6B500F04D5C /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7F516F21B3E6B500F04D5C /* CameraView.swift */; };
-		9D7F51D221B3E6B500F04D5C /* CameraManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7F517021B3E6B500F04D5C /* CameraManager.swift */; };
-		9D7F51FA21B3E6B500F04D5C /* SimpleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7F519F21B3E6B500F04D5C /* SimpleButton.swift */; };
-		9D7F51FB21B3E6B500F04D5C /* MessageInputDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7F51A121B3E6B500F04D5C /* MessageInputDelegate.swift */; };
-		9D7F51FC21B3E6B500F04D5C /* ViewMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7F51A321B3E6B500F04D5C /* ViewMode.swift */; };
-		9D7F51FD21B3E6B500F04D5C /* MessageInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7F51A421B3E6B500F04D5C /* MessageInput.swift */; };
-		9D7F51FE21B3E6B500F04D5C /* ImageFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7F51A621B3E6B500F04D5C /* ImageFile.swift */; };
-		9D7F51FF21B3E6B500F04D5C /* FeatureButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7F51A821B3E6B500F04D5C /* FeatureButton.swift */; };
-		9D7F520021B3E6B500F04D5C /* MessageInputConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7F51A921B3E6B500F04D5C /* MessageInputConfiguration.swift */; };
-		9D7F520121B3E6B500F04D5C /* EmotionPagerConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7F51AB21B3E6B500F04D5C /* EmotionPagerConfiguration.swift */; };
-		9D7F520221B3E6B500F04D5C /* EmotionTextareaConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7F51AC21B3E6B500F04D5C /* EmotionTextareaConfiguration.swift */; };
-		9D7F520321B3E6B500F04D5C /* EmotionIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7F51AE21B3E6B500F04D5C /* EmotionIcon.swift */; };
-		9D7F520421B3E6B500F04D5C /* EmotionSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7F51AF21B3E6B500F04D5C /* EmotionSet.swift */; };
-		9D7F520521B3E6B500F04D5C /* Emotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7F51B021B3E6B500F04D5C /* Emotion.swift */; };
-		9D7F520621B3E6B500F04D5C /* EmotionPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7F51B121B3E6B500F04D5C /* EmotionPage.swift */; };
-		9D7F520721B3E6B500F04D5C /* EmotionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7F51B321B3E6B500F04D5C /* EmotionCell.swift */; };
-		9D7F520821B3E6B500F04D5C /* EmotionToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7F51B421B3E6B500F04D5C /* EmotionToolbar.swift */; };
-		9D7F520921B3E6B500F04D5C /* EmotionTextarea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7F51B521B3E6B500F04D5C /* EmotionTextarea.swift */; };
-		9D7F520A21B3E6B500F04D5C /* EmotionGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7F51B621B3E6B500F04D5C /* EmotionGrid.swift */; };
-		9D7F520B21B3E6B500F04D5C /* EmotionAttachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7F51B721B3E6B500F04D5C /* EmotionAttachment.swift */; };
-		9D7F520C21B3E6B500F04D5C /* EmotionPager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7F51B821B3E6B500F04D5C /* EmotionPager.swift */; };
-		9D7F520D21B3E6B500F04D5C /* EmojiFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7F51BA21B3E6B500F04D5C /* EmojiFilter.swift */; };
-		9D7F520E21B3E6B500F04D5C /* BracketFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7F51BB21B3E6B500F04D5C /* BracketFilter.swift */; };
-		9D7F520F21B3E6B500F04D5C /* EmotionFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7F51BC21B3E6B500F04D5C /* EmotionFilter.swift */; };
-		9D7F521021B3E6B500F04D5C /* VoiceInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7F51BE21B3E6B500F04D5C /* VoiceInput.swift */; };
-		9D7F521121B3E6B500F04D5C /* VoiceInputConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7F51BF21B3E6B500F04D5C /* VoiceInputConfiguration.swift */; };
-		9D7F521221B3E6B500F04D5C /* VoiceInputDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7F51C021B3E6B500F04D5C /* VoiceInputDelegate.swift */; };
-		9D7F521321B3E6B500F04D5C /* VoiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7F51C121B3E6B500F04D5C /* VoiceManager.swift */; };
-		9D7F521421B3E6B500F04D5C /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7F51C321B3E6B500F04D5C /* CircleView.swift */; };
-		9D7F521521B3E6B500F04D5C /* CircleViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7F51C421B3E6B500F04D5C /* CircleViewDelegate.swift */; };
-		9D7F521621B3E6B500F04D5C /* RoundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7F51C621B3E6B500F04D5C /* RoundView.swift */; };
-		9D7F521721B3E6B500F04D5C /* RoundViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7F51C721B3E6B500F04D5C /* RoundViewDelegate.swift */; };
-		9D7F521A21B3E6B500F04D5C /* DotIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7F51CB21B3E6B500F04D5C /* DotIndicator.swift */; };
 		9D7F521C21B3E6F600F04D5C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9D7F521B21B3E6F600F04D5C /* Assets.xcassets */; };
-		9D8AE8DA21BC148700BA2EF2 /* FocusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8AE8D721BC148700BA2EF2 /* FocusView.swift */; };
-		9D8AE8DB21BC148700BA2EF2 /* PreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8AE8D821BC148700BA2EF2 /* PreviewView.swift */; };
-		9D8AE8DC21BC148700BA2EF2 /* CaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8AE8D921BC148700BA2EF2 /* CaptureView.swift */; };
 		9D8AE90D21BC14EA00BA2EF2 /* MessageListConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8AE8DE21BC14EA00BA2EF2 /* MessageListConfiguration.swift */; };
 		9D8AE90E21BC14EA00BA2EF2 /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8AE8E021BC14EA00BA2EF2 /* AudioPlayer.swift */; };
 		9D8AE90F21BC14EA00BA2EF2 /* AudioPlayerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8AE8E121BC14EA00BA2EF2 /* AudioPlayerDelegate.swift */; };
@@ -108,48 +109,49 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		9D76B85521CF746500A516C6 /* CameraViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewDelegate.swift; sourceTree = "<group>"; };
+		9D76B85621CF746500A516C6 /* CameraViewConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewConfiguration.swift; sourceTree = "<group>"; };
+		9D76B85721CF746500A516C6 /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
+		9D76B85821CF746500A516C6 /* CameraView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
+		9D76B85A21CF746500A516C6 /* FocusView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusView.swift; sourceTree = "<group>"; };
+		9D76B85B21CF746500A516C6 /* PreviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewView.swift; sourceTree = "<group>"; };
+		9D76B85C21CF746500A516C6 /* CaptureView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureView.swift; sourceTree = "<group>"; };
+		9D76B85D21CF746500A516C6 /* CameraManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraManager.swift; sourceTree = "<group>"; };
+		9D76B85E21CF746500A516C6 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9D76B85F21CF746500A516C6 /* MessageInputDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageInputDelegate.swift; sourceTree = "<group>"; };
+		9D76B86121CF746500A516C6 /* SimpleButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleButton.swift; sourceTree = "<group>"; };
+		9D76B86321CF746500A516C6 /* ViewMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewMode.swift; sourceTree = "<group>"; };
+		9D76B86521CF746500A516C6 /* EmotionPagerConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmotionPagerConfiguration.swift; sourceTree = "<group>"; };
+		9D76B86621CF746500A516C6 /* EmotionTextareaConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmotionTextareaConfiguration.swift; sourceTree = "<group>"; };
+		9D76B86921CF746500A516C6 /* EmotionIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmotionIcon.swift; sourceTree = "<group>"; };
+		9D76B86A21CF746500A516C6 /* EmotionSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmotionSet.swift; sourceTree = "<group>"; };
+		9D76B86B21CF746500A516C6 /* Emotion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Emotion.swift; sourceTree = "<group>"; };
+		9D76B86C21CF746500A516C6 /* EmotionPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmotionPage.swift; sourceTree = "<group>"; };
+		9D76B86E21CF746500A516C6 /* EmotionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmotionCell.swift; sourceTree = "<group>"; };
+		9D76B86F21CF746500A516C6 /* EmotionToolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmotionToolbar.swift; sourceTree = "<group>"; };
+		9D76B87021CF746500A516C6 /* EmotionTextarea.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmotionTextarea.swift; sourceTree = "<group>"; };
+		9D76B87121CF746500A516C6 /* EmotionGrid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmotionGrid.swift; sourceTree = "<group>"; };
+		9D76B87221CF746500A516C6 /* EmotionAttachment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmotionAttachment.swift; sourceTree = "<group>"; };
+		9D76B87321CF746500A516C6 /* EmotionPager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmotionPager.swift; sourceTree = "<group>"; };
+		9D76B87521CF746500A516C6 /* EmojiFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmojiFilter.swift; sourceTree = "<group>"; };
+		9D76B87621CF746500A516C6 /* BracketFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BracketFilter.swift; sourceTree = "<group>"; };
+		9D76B87721CF746500A516C6 /* EmotionFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmotionFilter.swift; sourceTree = "<group>"; };
+		9D76B87B21CF746500A516C6 /* VoiceInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoiceInput.swift; sourceTree = "<group>"; };
+		9D76B87D21CF746500A516C6 /* VoiceInputConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoiceInputConfiguration.swift; sourceTree = "<group>"; };
+		9D76B87E21CF746500A516C6 /* VoiceInputDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoiceInputDelegate.swift; sourceTree = "<group>"; };
+		9D76B87F21CF746500A516C6 /* VoiceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoiceManager.swift; sourceTree = "<group>"; };
+		9D76B88121CF746500A516C6 /* CircleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
+		9D76B88221CF746500A516C6 /* CircleViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleViewDelegate.swift; sourceTree = "<group>"; };
+		9D76B88321CF746500A516C6 /* MessageInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageInput.swift; sourceTree = "<group>"; };
+		9D76B88521CF746500A516C6 /* ImageFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageFile.swift; sourceTree = "<group>"; };
+		9D76B88721CF746500A516C6 /* RoundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundView.swift; sourceTree = "<group>"; };
+		9D76B88821CF746500A516C6 /* RoundViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundViewDelegate.swift; sourceTree = "<group>"; };
+		9D76B88A21CF746500A516C6 /* FeatureButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeatureButton.swift; sourceTree = "<group>"; };
+		9D76B88B21CF746500A516C6 /* MessageInputConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageInputConfiguration.swift; sourceTree = "<group>"; };
+		9D76B88E21CF746500A516C6 /* DotIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DotIndicator.swift; sourceTree = "<group>"; };
 		9D7F516321B2A7A400F04D5C /* RNTChatView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RNTChatView.h; sourceTree = "<group>"; };
 		9D7F516421B2A7A400F04D5C /* RNTChatView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNTChatView.m; sourceTree = "<group>"; };
-		9D7F516B21B3E6B500F04D5C /* CameraViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewDelegate.swift; sourceTree = "<group>"; };
-		9D7F516D21B3E6B500F04D5C /* CameraViewConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewConfiguration.swift; sourceTree = "<group>"; };
-		9D7F516E21B3E6B500F04D5C /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
-		9D7F516F21B3E6B500F04D5C /* CameraView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
-		9D7F517021B3E6B500F04D5C /* CameraManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraManager.swift; sourceTree = "<group>"; };
-		9D7F519F21B3E6B500F04D5C /* SimpleButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleButton.swift; sourceTree = "<group>"; };
-		9D7F51A121B3E6B500F04D5C /* MessageInputDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageInputDelegate.swift; sourceTree = "<group>"; };
-		9D7F51A321B3E6B500F04D5C /* ViewMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewMode.swift; sourceTree = "<group>"; };
-		9D7F51A421B3E6B500F04D5C /* MessageInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageInput.swift; sourceTree = "<group>"; };
-		9D7F51A621B3E6B500F04D5C /* ImageFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageFile.swift; sourceTree = "<group>"; };
-		9D7F51A821B3E6B500F04D5C /* FeatureButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeatureButton.swift; sourceTree = "<group>"; };
-		9D7F51A921B3E6B500F04D5C /* MessageInputConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageInputConfiguration.swift; sourceTree = "<group>"; };
-		9D7F51AB21B3E6B500F04D5C /* EmotionPagerConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmotionPagerConfiguration.swift; sourceTree = "<group>"; };
-		9D7F51AC21B3E6B500F04D5C /* EmotionTextareaConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmotionTextareaConfiguration.swift; sourceTree = "<group>"; };
-		9D7F51AE21B3E6B500F04D5C /* EmotionIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmotionIcon.swift; sourceTree = "<group>"; };
-		9D7F51AF21B3E6B500F04D5C /* EmotionSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmotionSet.swift; sourceTree = "<group>"; };
-		9D7F51B021B3E6B500F04D5C /* Emotion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Emotion.swift; sourceTree = "<group>"; };
-		9D7F51B121B3E6B500F04D5C /* EmotionPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmotionPage.swift; sourceTree = "<group>"; };
-		9D7F51B321B3E6B500F04D5C /* EmotionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmotionCell.swift; sourceTree = "<group>"; };
-		9D7F51B421B3E6B500F04D5C /* EmotionToolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmotionToolbar.swift; sourceTree = "<group>"; };
-		9D7F51B521B3E6B500F04D5C /* EmotionTextarea.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmotionTextarea.swift; sourceTree = "<group>"; };
-		9D7F51B621B3E6B500F04D5C /* EmotionGrid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmotionGrid.swift; sourceTree = "<group>"; };
-		9D7F51B721B3E6B500F04D5C /* EmotionAttachment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmotionAttachment.swift; sourceTree = "<group>"; };
-		9D7F51B821B3E6B500F04D5C /* EmotionPager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmotionPager.swift; sourceTree = "<group>"; };
-		9D7F51BA21B3E6B500F04D5C /* EmojiFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmojiFilter.swift; sourceTree = "<group>"; };
-		9D7F51BB21B3E6B500F04D5C /* BracketFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BracketFilter.swift; sourceTree = "<group>"; };
-		9D7F51BC21B3E6B500F04D5C /* EmotionFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmotionFilter.swift; sourceTree = "<group>"; };
-		9D7F51BE21B3E6B500F04D5C /* VoiceInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoiceInput.swift; sourceTree = "<group>"; };
-		9D7F51BF21B3E6B500F04D5C /* VoiceInputConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoiceInputConfiguration.swift; sourceTree = "<group>"; };
-		9D7F51C021B3E6B500F04D5C /* VoiceInputDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoiceInputDelegate.swift; sourceTree = "<group>"; };
-		9D7F51C121B3E6B500F04D5C /* VoiceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoiceManager.swift; sourceTree = "<group>"; };
-		9D7F51C321B3E6B500F04D5C /* CircleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
-		9D7F51C421B3E6B500F04D5C /* CircleViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleViewDelegate.swift; sourceTree = "<group>"; };
-		9D7F51C621B3E6B500F04D5C /* RoundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundView.swift; sourceTree = "<group>"; };
-		9D7F51C721B3E6B500F04D5C /* RoundViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundViewDelegate.swift; sourceTree = "<group>"; };
-		9D7F51CB21B3E6B500F04D5C /* DotIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DotIndicator.swift; sourceTree = "<group>"; };
 		9D7F521B21B3E6F600F04D5C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		9D8AE8D721BC148700BA2EF2 /* FocusView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FocusView.swift; sourceTree = "<group>"; };
-		9D8AE8D821BC148700BA2EF2 /* PreviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewView.swift; sourceTree = "<group>"; };
-		9D8AE8D921BC148700BA2EF2 /* CaptureView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureView.swift; sourceTree = "<group>"; };
 		9D8AE8DE21BC14EA00BA2EF2 /* MessageListConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageListConfiguration.swift; sourceTree = "<group>"; };
 		9D8AE8E021BC14EA00BA2EF2 /* AudioPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
 		9D8AE8E121BC14EA00BA2EF2 /* AudioPlayerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioPlayerDelegate.swift; sourceTree = "<group>"; };
@@ -209,171 +211,204 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		9D7F516821B3E6B500F04D5C /* ChatView */ = {
+		9D76B85321CF746500A516C6 /* MessageInput */ = {
 			isa = PBXGroup;
 			children = (
-				9D8AE8DD21BC14EA00BA2EF2 /* MessageList */,
-				9D7F516921B3E6B500F04D5C /* CameraView */,
-				9D7F519E21B3E6B500F04D5C /* SimpleButton */,
-				9D7F51A021B3E6B500F04D5C /* MessageInput */,
-				9D7F51AA21B3E6B500F04D5C /* EmotionInput */,
-				9D7F51BD21B3E6B500F04D5C /* VoiceInput */,
-				9D7F51C221B3E6B500F04D5C /* CircleView */,
-				9D7F51C521B3E6B500F04D5C /* RoundView */,
-				9D7F51CA21B3E6B500F04D5C /* DotIndicator */,
-			);
-			path = ChatView;
-			sourceTree = "<group>";
-		};
-		9D7F516921B3E6B500F04D5C /* CameraView */ = {
-			isa = PBXGroup;
-			children = (
-				9D8AE8D621BC148700BA2EF2 /* view */,
-				9D7F516B21B3E6B500F04D5C /* CameraViewDelegate.swift */,
-				9D7F516D21B3E6B500F04D5C /* CameraViewConfiguration.swift */,
-				9D7F516E21B3E6B500F04D5C /* CameraViewController.swift */,
-				9D7F516F21B3E6B500F04D5C /* CameraView.swift */,
-				9D7F517021B3E6B500F04D5C /* CameraManager.swift */,
-			);
-			path = CameraView;
-			sourceTree = "<group>";
-		};
-		9D7F519E21B3E6B500F04D5C /* SimpleButton */ = {
-			isa = PBXGroup;
-			children = (
-				9D7F519F21B3E6B500F04D5C /* SimpleButton.swift */,
-			);
-			path = SimpleButton;
-			sourceTree = "<group>";
-		};
-		9D7F51A021B3E6B500F04D5C /* MessageInput */ = {
-			isa = PBXGroup;
-			children = (
-				9D7F51A121B3E6B500F04D5C /* MessageInputDelegate.swift */,
-				9D7F51A221B3E6B500F04D5C /* enum */,
-				9D7F51A421B3E6B500F04D5C /* MessageInput.swift */,
-				9D7F51A521B3E6B500F04D5C /* model */,
-				9D7F51A721B3E6B500F04D5C /* view */,
-				9D7F51A921B3E6B500F04D5C /* MessageInputConfiguration.swift */,
+				9D76B85421CF746500A516C6 /* CameraView */,
+				9D76B85F21CF746500A516C6 /* MessageInputDelegate.swift */,
+				9D76B86021CF746500A516C6 /* SimpleButton */,
+				9D76B86221CF746500A516C6 /* enum */,
+				9D76B86421CF746500A516C6 /* EmotionInput */,
+				9D76B87921CF746500A516C6 /* VoiceInput */,
+				9D76B88021CF746500A516C6 /* CircleView */,
+				9D76B88321CF746500A516C6 /* MessageInput.swift */,
+				9D76B88421CF746500A516C6 /* model */,
+				9D76B88621CF746500A516C6 /* RoundView */,
+				9D76B88921CF746500A516C6 /* view */,
+				9D76B88B21CF746500A516C6 /* MessageInputConfiguration.swift */,
+				9D76B88D21CF746500A516C6 /* DotIndicator */,
 			);
 			path = MessageInput;
 			sourceTree = "<group>";
 		};
-		9D7F51A221B3E6B500F04D5C /* enum */ = {
+		9D76B85421CF746500A516C6 /* CameraView */ = {
 			isa = PBXGroup;
 			children = (
-				9D7F51A321B3E6B500F04D5C /* ViewMode.swift */,
+				9D76B85521CF746500A516C6 /* CameraViewDelegate.swift */,
+				9D76B85621CF746500A516C6 /* CameraViewConfiguration.swift */,
+				9D76B85721CF746500A516C6 /* CameraViewController.swift */,
+				9D76B85821CF746500A516C6 /* CameraView.swift */,
+				9D76B85921CF746500A516C6 /* view */,
+				9D76B85D21CF746500A516C6 /* CameraManager.swift */,
+				9D76B85E21CF746500A516C6 /* Info.plist */,
+			);
+			path = CameraView;
+			sourceTree = "<group>";
+		};
+		9D76B85921CF746500A516C6 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				9D76B85A21CF746500A516C6 /* FocusView.swift */,
+				9D76B85B21CF746500A516C6 /* PreviewView.swift */,
+				9D76B85C21CF746500A516C6 /* CaptureView.swift */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		9D76B86021CF746500A516C6 /* SimpleButton */ = {
+			isa = PBXGroup;
+			children = (
+				9D76B86121CF746500A516C6 /* SimpleButton.swift */,
+			);
+			path = SimpleButton;
+			sourceTree = "<group>";
+		};
+		9D76B86221CF746500A516C6 /* enum */ = {
+			isa = PBXGroup;
+			children = (
+				9D76B86321CF746500A516C6 /* ViewMode.swift */,
 			);
 			path = enum;
 			sourceTree = "<group>";
 		};
-		9D7F51A521B3E6B500F04D5C /* model */ = {
+		9D76B86421CF746500A516C6 /* EmotionInput */ = {
 			isa = PBXGroup;
 			children = (
-				9D7F51A621B3E6B500F04D5C /* ImageFile.swift */,
-			);
-			path = model;
-			sourceTree = "<group>";
-		};
-		9D7F51A721B3E6B500F04D5C /* view */ = {
-			isa = PBXGroup;
-			children = (
-				9D7F51A821B3E6B500F04D5C /* FeatureButton.swift */,
-			);
-			path = view;
-			sourceTree = "<group>";
-		};
-		9D7F51AA21B3E6B500F04D5C /* EmotionInput */ = {
-			isa = PBXGroup;
-			children = (
-				9D7F51AB21B3E6B500F04D5C /* EmotionPagerConfiguration.swift */,
-				9D7F51AC21B3E6B500F04D5C /* EmotionTextareaConfiguration.swift */,
-				9D7F51AD21B3E6B500F04D5C /* model */,
-				9D7F51B221B3E6B500F04D5C /* view */,
-				9D7F51B921B3E6B500F04D5C /* filter */,
+				9D76B86521CF746500A516C6 /* EmotionPagerConfiguration.swift */,
+				9D76B86621CF746500A516C6 /* EmotionTextareaConfiguration.swift */,
+				9D76B86721CF746500A516C6 /* SimpleButton */,
+				9D76B86821CF746500A516C6 /* model */,
+				9D76B86D21CF746500A516C6 /* view */,
+				9D76B87421CF746500A516C6 /* filter */,
+				9D76B87821CF746500A516C6 /* DotIndicator */,
 			);
 			path = EmotionInput;
 			sourceTree = "<group>";
 		};
-		9D7F51AD21B3E6B500F04D5C /* model */ = {
+		9D76B86721CF746500A516C6 /* SimpleButton */ = {
 			isa = PBXGroup;
 			children = (
-				9D7F51AE21B3E6B500F04D5C /* EmotionIcon.swift */,
-				9D7F51AF21B3E6B500F04D5C /* EmotionSet.swift */,
-				9D7F51B021B3E6B500F04D5C /* Emotion.swift */,
-				9D7F51B121B3E6B500F04D5C /* EmotionPage.swift */,
+			);
+			path = SimpleButton;
+			sourceTree = "<group>";
+		};
+		9D76B86821CF746500A516C6 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				9D76B86921CF746500A516C6 /* EmotionIcon.swift */,
+				9D76B86A21CF746500A516C6 /* EmotionSet.swift */,
+				9D76B86B21CF746500A516C6 /* Emotion.swift */,
+				9D76B86C21CF746500A516C6 /* EmotionPage.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
 		};
-		9D7F51B221B3E6B500F04D5C /* view */ = {
+		9D76B86D21CF746500A516C6 /* view */ = {
 			isa = PBXGroup;
 			children = (
-				9D7F51B321B3E6B500F04D5C /* EmotionCell.swift */,
-				9D7F51B421B3E6B500F04D5C /* EmotionToolbar.swift */,
-				9D7F51B521B3E6B500F04D5C /* EmotionTextarea.swift */,
-				9D7F51B621B3E6B500F04D5C /* EmotionGrid.swift */,
-				9D7F51B721B3E6B500F04D5C /* EmotionAttachment.swift */,
-				9D7F51B821B3E6B500F04D5C /* EmotionPager.swift */,
+				9D76B86E21CF746500A516C6 /* EmotionCell.swift */,
+				9D76B86F21CF746500A516C6 /* EmotionToolbar.swift */,
+				9D76B87021CF746500A516C6 /* EmotionTextarea.swift */,
+				9D76B87121CF746500A516C6 /* EmotionGrid.swift */,
+				9D76B87221CF746500A516C6 /* EmotionAttachment.swift */,
+				9D76B87321CF746500A516C6 /* EmotionPager.swift */,
 			);
 			path = view;
 			sourceTree = "<group>";
 		};
-		9D7F51B921B3E6B500F04D5C /* filter */ = {
+		9D76B87421CF746500A516C6 /* filter */ = {
 			isa = PBXGroup;
 			children = (
-				9D7F51BA21B3E6B500F04D5C /* EmojiFilter.swift */,
-				9D7F51BB21B3E6B500F04D5C /* BracketFilter.swift */,
-				9D7F51BC21B3E6B500F04D5C /* EmotionFilter.swift */,
+				9D76B87521CF746500A516C6 /* EmojiFilter.swift */,
+				9D76B87621CF746500A516C6 /* BracketFilter.swift */,
+				9D76B87721CF746500A516C6 /* EmotionFilter.swift */,
 			);
 			path = filter;
 			sourceTree = "<group>";
 		};
-		9D7F51BD21B3E6B500F04D5C /* VoiceInput */ = {
+		9D76B87821CF746500A516C6 /* DotIndicator */ = {
 			isa = PBXGroup;
 			children = (
-				9D7F51BE21B3E6B500F04D5C /* VoiceInput.swift */,
-				9D7F51BF21B3E6B500F04D5C /* VoiceInputConfiguration.swift */,
-				9D7F51C021B3E6B500F04D5C /* VoiceInputDelegate.swift */,
-				9D7F51C121B3E6B500F04D5C /* VoiceManager.swift */,
-			);
-			path = VoiceInput;
-			sourceTree = "<group>";
-		};
-		9D7F51C221B3E6B500F04D5C /* CircleView */ = {
-			isa = PBXGroup;
-			children = (
-				9D7F51C321B3E6B500F04D5C /* CircleView.swift */,
-				9D7F51C421B3E6B500F04D5C /* CircleViewDelegate.swift */,
-			);
-			path = CircleView;
-			sourceTree = "<group>";
-		};
-		9D7F51C521B3E6B500F04D5C /* RoundView */ = {
-			isa = PBXGroup;
-			children = (
-				9D7F51C621B3E6B500F04D5C /* RoundView.swift */,
-				9D7F51C721B3E6B500F04D5C /* RoundViewDelegate.swift */,
-			);
-			path = RoundView;
-			sourceTree = "<group>";
-		};
-		9D7F51CA21B3E6B500F04D5C /* DotIndicator */ = {
-			isa = PBXGroup;
-			children = (
-				9D7F51CB21B3E6B500F04D5C /* DotIndicator.swift */,
 			);
 			path = DotIndicator;
 			sourceTree = "<group>";
 		};
-		9D8AE8D621BC148700BA2EF2 /* view */ = {
+		9D76B87921CF746500A516C6 /* VoiceInput */ = {
 			isa = PBXGroup;
 			children = (
-				9D8AE8D721BC148700BA2EF2 /* FocusView.swift */,
-				9D8AE8D821BC148700BA2EF2 /* PreviewView.swift */,
-				9D8AE8D921BC148700BA2EF2 /* CaptureView.swift */,
+				9D76B87A21CF746500A516C6 /* SimpleButton */,
+				9D76B87B21CF746500A516C6 /* VoiceInput.swift */,
+				9D76B87C21CF746500A516C6 /* CircleView */,
+				9D76B87D21CF746500A516C6 /* VoiceInputConfiguration.swift */,
+				9D76B87E21CF746500A516C6 /* VoiceInputDelegate.swift */,
+				9D76B87F21CF746500A516C6 /* VoiceManager.swift */,
+			);
+			path = VoiceInput;
+			sourceTree = "<group>";
+		};
+		9D76B87A21CF746500A516C6 /* SimpleButton */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = SimpleButton;
+			sourceTree = "<group>";
+		};
+		9D76B87C21CF746500A516C6 /* CircleView */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = CircleView;
+			sourceTree = "<group>";
+		};
+		9D76B88021CF746500A516C6 /* CircleView */ = {
+			isa = PBXGroup;
+			children = (
+				9D76B88121CF746500A516C6 /* CircleView.swift */,
+				9D76B88221CF746500A516C6 /* CircleViewDelegate.swift */,
+			);
+			path = CircleView;
+			sourceTree = "<group>";
+		};
+		9D76B88421CF746500A516C6 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				9D76B88521CF746500A516C6 /* ImageFile.swift */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		9D76B88621CF746500A516C6 /* RoundView */ = {
+			isa = PBXGroup;
+			children = (
+				9D76B88721CF746500A516C6 /* RoundView.swift */,
+				9D76B88821CF746500A516C6 /* RoundViewDelegate.swift */,
+			);
+			path = RoundView;
+			sourceTree = "<group>";
+		};
+		9D76B88921CF746500A516C6 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				9D76B88A21CF746500A516C6 /* FeatureButton.swift */,
 			);
 			path = view;
+			sourceTree = "<group>";
+		};
+		9D76B88D21CF746500A516C6 /* DotIndicator */ = {
+			isa = PBXGroup;
+			children = (
+				9D76B88E21CF746500A516C6 /* DotIndicator.swift */,
+			);
+			path = DotIndicator;
+			sourceTree = "<group>";
+		};
+		9D7F516821B3E6B500F04D5C /* ChatView */ = {
+			isa = PBXGroup;
+			children = (
+				9D76B85321CF746500A516C6 /* MessageInput */,
+				9D8AE8DD21BC14EA00BA2EF2 /* MessageList */,
+			);
+			path = ChatView;
 			sourceTree = "<group>";
 		};
 		9D8AE8DD21BC14EA00BA2EF2 /* MessageList */ = {
@@ -553,6 +588,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D76B89721CF746500A516C6 /* Info.plist in Resources */,
 				9D7F521C21B3E6F600F04D5C /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -565,88 +601,88 @@
 			buildActionMask = 2147483647;
 			files = (
 				9D8AE92521BC14EA00BA2EF2 /* RightVideoMessageCell.swift in Sources */,
+				9D76B89321CF746500A516C6 /* FocusView.swift in Sources */,
+				9D76B8A621CF746500A516C6 /* EmotionPager.swift in Sources */,
 				9D8AE91821BC14EA00BA2EF2 /* RightImageMessage.swift in Sources */,
-				9D7F51CF21B3E6B500F04D5C /* CameraViewConfiguration.swift in Sources */,
-				9D7F51FB21B3E6B500F04D5C /* MessageInputDelegate.swift in Sources */,
+				9D76B8AC21CF746500A516C6 /* VoiceInputDelegate.swift in Sources */,
 				9D8AE90F21BC14EA00BA2EF2 /* AudioPlayerDelegate.swift in Sources */,
 				9D8AE92E21BC14EA00BA2EF2 /* ImageMessage.swift in Sources */,
 				9DB008ED21B0D03F00358E85 /* RNTChatViewManager.m in Sources */,
-				9D7F51FE21B3E6B500F04D5C /* ImageFile.swift in Sources */,
-				9D7F520B21B3E6B500F04D5C /* EmotionAttachment.swift in Sources */,
-				9D7F520D21B3E6B500F04D5C /* EmojiFilter.swift in Sources */,
-				9D7F521321B3E6B500F04D5C /* VoiceManager.swift in Sources */,
-				9D7F51D121B3E6B500F04D5C /* CameraView.swift in Sources */,
+				9D76B8A521CF746500A516C6 /* EmotionAttachment.swift in Sources */,
 				9D8AE92A21BC14EA00BA2EF2 /* CardMessage.swift in Sources */,
 				9D8AE93521BC14EA00BA2EF2 /* MessageListDelegate.swift in Sources */,
-				9D7F520621B3E6B500F04D5C /* EmotionPage.swift in Sources */,
 				9D8AE92421BC14EA00BA2EF2 /* MessageCell.swift in Sources */,
-				9D7F51FC21B3E6B500F04D5C /* ViewMode.swift in Sources */,
+				9D76B8A321CF746500A516C6 /* EmotionTextarea.swift in Sources */,
 				9D8AE92121BC14EA00BA2EF2 /* LeftCardMessageCell.swift in Sources */,
-				9D7F51D221B3E6B500F04D5C /* CameraManager.swift in Sources */,
-				9D7F520C21B3E6B500F04D5C /* EmotionPager.swift in Sources */,
-				9D7F521521B3E6B500F04D5C /* CircleViewDelegate.swift in Sources */,
-				9D7F520521B3E6B500F04D5C /* Emotion.swift in Sources */,
 				9D8AE92721BC14EA00BA2EF2 /* AudioMessage.swift in Sources */,
+				9D76B89F21CF746500A516C6 /* Emotion.swift in Sources */,
+				9D76B8B321CF746500A516C6 /* RoundViewDelegate.swift in Sources */,
 				9DB008E921B0CD8800358E85 /* ChatView.swift in Sources */,
-				9D7F520921B3E6B500F04D5C /* EmotionTextarea.swift in Sources */,
-				9D7F521021B3E6B500F04D5C /* VoiceInput.swift in Sources */,
+				9D76B8B021CF746500A516C6 /* MessageInput.swift in Sources */,
 				9D8AE92321BC14EA00BA2EF2 /* VideoMessageCell.swift in Sources */,
 				9D8AE91121BC14EA00BA2EF2 /* SoundMode.swift in Sources */,
+				9D76B89621CF746500A516C6 /* CameraManager.swift in Sources */,
 				9D8AE93321BC14EA00BA2EF2 /* InteractiveButton.swift in Sources */,
+				9D76B8AE21CF746500A516C6 /* CircleView.swift in Sources */,
 				9D8AE91A21BC14EA00BA2EF2 /* LeftVideoMessageCell.swift in Sources */,
-				9D7F520821B3E6B500F04D5C /* EmotionToolbar.swift in Sources */,
-				9D8AE8DA21BC148700BA2EF2 /* FocusView.swift in Sources */,
-				9D7F521221B3E6B500F04D5C /* VoiceInputDelegate.swift in Sources */,
-				9D7F521421B3E6B500F04D5C /* CircleView.swift in Sources */,
+				9D76B89921CF746500A516C6 /* SimpleButton.swift in Sources */,
+				9D76B89221CF746500A516C6 /* CameraView.swift in Sources */,
+				9D76B8A421CF746500A516C6 /* EmotionGrid.swift in Sources */,
 				9D8AE92821BC14EA00BA2EF2 /* TextMessage.swift in Sources */,
-				9D7F51FA21B3E6B500F04D5C /* SimpleButton.swift in Sources */,
 				9D8AE93221BC14EA00BA2EF2 /* InteractiveTextView.swift in Sources */,
+				9D76B8AA21CF746500A516C6 /* VoiceInput.swift in Sources */,
+				9D76B8A221CF746500A516C6 /* EmotionToolbar.swift in Sources */,
+				9D76B89821CF746500A516C6 /* MessageInputDelegate.swift in Sources */,
 				9D8AE92C21BC14EA00BA2EF2 /* PostMessage.swift in Sources */,
-				9D7F521121B3E6B500F04D5C /* VoiceInputConfiguration.swift in Sources */,
+				9D76B8B121CF746500A516C6 /* ImageFile.swift in Sources */,
 				9D8AE91521BC14EA00BA2EF2 /* RightPostMessageCell.swift in Sources */,
-				9D7F520721B3E6B500F04D5C /* EmotionCell.swift in Sources */,
-				9D7F520F21B3E6B500F04D5C /* EmotionFilter.swift in Sources */,
-				9D7F521621B3E6B500F04D5C /* RoundView.swift in Sources */,
+				9D76B8A121CF746500A516C6 /* EmotionCell.swift in Sources */,
 				9D8AE91C21BC14EA00BA2EF2 /* PostMessageCell.swift in Sources */,
 				9D8AE92B21BC14EA00BA2EF2 /* EventMessage.swift in Sources */,
-				9D7F521721B3E6B500F04D5C /* RoundViewDelegate.swift in Sources */,
+				9D76B89521CF746500A516C6 /* CaptureView.swift in Sources */,
 				9D8AE91F21BC14EA00BA2EF2 /* RightAudioMessageCell.swift in Sources */,
 				9D8AE91221BC14EA00BA2EF2 /* MessageList.swift in Sources */,
 				9D8AE91621BC14EA00BA2EF2 /* LeftAudioMessageCell.swift in Sources */,
-				9D7F51CD21B3E6B500F04D5C /* CameraViewDelegate.swift in Sources */,
 				9D8AE93121BC14EA00BA2EF2 /* InsetLabel.swift in Sources */,
-				9D7F520E21B3E6B500F04D5C /* BracketFilter.swift in Sources */,
 				9D8AE91421BC14EA00BA2EF2 /* EventMessageCell.swift in Sources */,
-				9D7F51D021B3E6B500F04D5C /* CameraViewController.swift in Sources */,
-				9D7F520421B3E6B500F04D5C /* EmotionSet.swift in Sources */,
+				9D76B8A921CF746500A516C6 /* EmotionFilter.swift in Sources */,
 				9D8AE92921BC14EA00BA2EF2 /* VideoMessage.swift in Sources */,
-				9D7F520221B3E6B500F04D5C /* EmotionTextareaConfiguration.swift in Sources */,
 				9D7F516521B2A7A400F04D5C /* RNTChatView.m in Sources */,
+				9D76B89D21CF746500A516C6 /* EmotionIcon.swift in Sources */,
+				9D76B8A821CF746500A516C6 /* BracketFilter.swift in Sources */,
 				9D8AE91321BC14EA00BA2EF2 /* RightCardMessageCell.swift in Sources */,
-				9D8AE8DC21BC148700BA2EF2 /* CaptureView.swift in Sources */,
 				9D8AE91021BC14EA00BA2EF2 /* MessageStatus.swift in Sources */,
+				9D76B89B21CF746500A516C6 /* EmotionPagerConfiguration.swift in Sources */,
 				9D8AE92221BC14EA00BA2EF2 /* CardMessageCell.swift in Sources */,
 				9D8AE92D21BC14EA00BA2EF2 /* Message.swift in Sources */,
-				9D7F520321B3E6B500F04D5C /* EmotionIcon.swift in Sources */,
+				9D76B8A021CF746500A516C6 /* EmotionPage.swift in Sources */,
 				9D8AE91D21BC14EA00BA2EF2 /* TextMessageCell.swift in Sources */,
+				9D76B89A21CF746500A516C6 /* ViewMode.swift in Sources */,
+				9D76B8AD21CF746500A516C6 /* VoiceManager.swift in Sources */,
 				9D8AE90E21BC14EA00BA2EF2 /* AudioPlayer.swift in Sources */,
-				9D7F51FF21B3E6B500F04D5C /* FeatureButton.swift in Sources */,
-				9D7F51FD21B3E6B500F04D5C /* MessageInput.swift in Sources */,
-				9D8AE8DB21BC148700BA2EF2 /* PreviewView.swift in Sources */,
+				9D76B89021CF746500A516C6 /* CameraViewConfiguration.swift in Sources */,
 				9D8AE91921BC14EA00BA2EF2 /* LeftImageMessageCell.swift in Sources */,
-				9D7F520A21B3E6B500F04D5C /* EmotionGrid.swift in Sources */,
 				9D8AE91721BC14EA00BA2EF2 /* RightTextMessageCell.swift in Sources */,
+				9D76B8B721CF746500A516C6 /* DotIndicator.swift in Sources */,
+				9D76B8B221CF746500A516C6 /* RoundView.swift in Sources */,
 				9D8AE93421BC14EA00BA2EF2 /* InteractiveImageView.swift in Sources */,
+				9D76B8B521CF746500A516C6 /* MessageInputConfiguration.swift in Sources */,
 				9D8AE91E21BC14EA00BA2EF2 /* LeftPostMessageCell.swift in Sources */,
 				9D8AE90D21BC14EA00BA2EF2 /* MessageListConfiguration.swift in Sources */,
-				9D7F521A21B3E6B500F04D5C /* DotIndicator.swift in Sources */,
 				9D8AE93021BC14EA00BA2EF2 /* LinkToken.swift in Sources */,
-				9D7F520121B3E6B500F04D5C /* EmotionPagerConfiguration.swift in Sources */,
+				9D76B89121CF746500A516C6 /* CameraViewController.swift in Sources */,
+				9D76B8AB21CF746500A516C6 /* VoiceInputConfiguration.swift in Sources */,
 				9D8AE92621BC14EA00BA2EF2 /* AudioMessageCell.swift in Sources */,
+				9D76B8B421CF746500A516C6 /* FeatureButton.swift in Sources */,
+				9D76B89E21CF746500A516C6 /* EmotionSet.swift in Sources */,
+				9D76B89421CF746500A516C6 /* PreviewView.swift in Sources */,
+				9D76B8A721CF746500A516C6 /* EmojiFilter.swift in Sources */,
 				9D8AE92021BC14EA00BA2EF2 /* ImageMessageCell.swift in Sources */,
 				9D8AE91B21BC14EA00BA2EF2 /* LeftTextMessageCell.swift in Sources */,
-				9D7F520021B3E6B500F04D5C /* MessageInputConfiguration.swift in Sources */,
+				9D76B88F21CF746500A516C6 /* CameraViewDelegate.swift in Sources */,
+				9D76B89C21CF746500A516C6 /* EmotionTextareaConfiguration.swift in Sources */,
 				9D8AE92F21BC14EA00BA2EF2 /* User.swift in Sources */,
+				9D76B8AF21CF746500A516C6 /* CircleViewDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

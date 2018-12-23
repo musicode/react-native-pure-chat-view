@@ -5,57 +5,55 @@ class EmotionGrid: UICollectionViewCell {
     
     var onEmotionClick: ((Emotion) -> Void)?
     var onDeleteClick: (() -> Void)?
+
+    var configuration: EmotionPagerConfiguration!
     
     var emotionPage = EmotionPage() {
         didSet {
             collectionView.reloadData()
         }
     }
-
-    var configuration: EmotionPagerConfiguration!
-    
-    private var collectionView: UICollectionView!
-    private var flowLayout: UICollectionViewFlowLayout!
     
     private let cellIdentifier = "cell"
     
-    public override init(frame: CGRect) {
-        super.init(frame: frame)
-        setup()
-    }
+    private lazy var flowLayout: UICollectionViewFlowLayout = {
+        
+        let view = UICollectionViewFlowLayout()
+        
+        view.scrollDirection = .vertical
+        
+        return view
+        
+    }()
     
-    public required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func setup() {
-    
-        flowLayout = UICollectionViewFlowLayout()
-        flowLayout.scrollDirection = .vertical
+    private lazy var collectionView: UICollectionView = {
         
-        collectionView = UICollectionView(frame: frame, collectionViewLayout: flowLayout)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.showsVerticalScrollIndicator = false
-        collectionView.alwaysBounceVertical = false
+        let view = UICollectionView(frame: frame, collectionViewLayout: flowLayout)
         
-        collectionView.register(EmotionGridCell.self, forCellWithReuseIdentifier: cellIdentifier)
-        collectionView.dataSource = self
-        collectionView.delegate = self
-        collectionView.backgroundColor = .clear
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.showsVerticalScrollIndicator = false
+        view.alwaysBounceVertical = false
         
-        addSubview(collectionView)
+        view.register(EmotionGridCell.self, forCellWithReuseIdentifier: cellIdentifier)
+        view.dataSource = self
+        view.delegate = self
+        view.backgroundColor = .clear
         
-        addConstraints([
+        contentView.addSubview(view)
+        
+        contentView.addConstraints([
             
-            NSLayoutConstraint(item: collectionView, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: collectionView, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: collectionView, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: collectionView, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1, constant: 0)
+            NSLayoutConstraint(item: view, attribute: .left, relatedBy: .equal, toItem: contentView, attribute: .left, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: view, attribute: .right, relatedBy: .equal, toItem: contentView, attribute: .right, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: view, attribute: .top, relatedBy: .equal, toItem: contentView, attribute: .top, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: view, attribute: .bottom, relatedBy: .equal, toItem: contentView, attribute: .bottom, multiplier: 1, constant: 0)
             
         ])
+        
+        return view
+        
+    }()
 
-    }
-    
 }
 
 extension EmotionGrid: UICollectionViewDataSource {
@@ -176,34 +174,25 @@ extension EmotionGrid {
     // 为了让 View 垂直居中搞的这么麻烦...
     class EmotionGridCell: UICollectionViewCell {
         
-        var emotionCell: EmotionCell!
+        lazy var emotionCell: EmotionCell = {
+            
+            let view = EmotionCell(configuration: configuration)
+            
+            view.translatesAutoresizingMaskIntoConstraints = false
+            
+            contentView.addSubview(view)
+            
+            contentView.addConstraints([
+                NSLayoutConstraint(item: view, attribute: .centerX, relatedBy: .equal, toItem: contentView, attribute: .centerX, multiplier: 1, constant: 0),
+                NSLayoutConstraint(item: view, attribute: .centerY, relatedBy: .equal, toItem: contentView, attribute: .centerY, multiplier: 1, constant: 0),
+            ])
+            
+            return view
+            
+        }()
         
-        var configuration: EmotionPagerConfiguration! {
-            willSet {
-                
-                if (configuration == nil) {
-                    emotionCell = EmotionCell(configuration: newValue)
-                    emotionCell.translatesAutoresizingMaskIntoConstraints = false
-                    
-                    addSubview(emotionCell)
-                    
-                    addConstraints([
-                        NSLayoutConstraint(item: emotionCell, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0),
-                        NSLayoutConstraint(item: emotionCell, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0),
-                    ])
-                }
-                
-            }
-        }
+        var configuration: EmotionPagerConfiguration!
 
-        public override init(frame: CGRect) {
-            super.init(frame: frame)
-        }
-        
-        public required init?(coder aDecoder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
-        }
-        
     }
 
 }

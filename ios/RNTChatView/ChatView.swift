@@ -166,6 +166,9 @@ class Configuration: MessageListConfiguration {
         addSubview(messageList)
         
         let messageInputConfiguration = MessageInputConfiguration()
+        messageInputConfiguration.audioBitRate = 200000
+        messageInputConfiguration.audioQuality = .medium
+        messageInputConfiguration.audioSampleRate = 22050.0
         messageInputConfiguration.emotionTextHeightRatio = 1
         messageInput = MessageInput(configuration: messageInputConfiguration)
         

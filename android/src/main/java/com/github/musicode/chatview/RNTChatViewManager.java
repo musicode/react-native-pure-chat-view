@@ -46,7 +46,7 @@ public class RNTChatViewManager extends SimpleViewManager<RNTChatView> {
 
     @Override
     protected RNTChatView createViewInstance(ThemedReactContext reactContext) {
-        return new RNTChatView(reactContext, this.reactContext, imageLoader);
+        return new RNTChatView(reactContext, this.reactContext.getCurrentActivity(), imageLoader);
     }
 
     @ReactProp(name = "currentUserId")
@@ -201,6 +201,12 @@ public class RNTChatViewManager extends SimpleViewManager<RNTChatView> {
                 break;
         }
 
+    }
+
+    @Override
+    public void onDropViewInstance(RNTChatView view) {
+        super.onDropViewInstance(view);
+        view.destroy();
     }
 
 }

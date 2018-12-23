@@ -33,15 +33,7 @@ public class EmotionTextarea: UITextView {
         self.configuration = configuration
         setup()
     }
-    
-    private override init(frame: CGRect, textContainer: NSTextContainer?) {
-        super.init(frame: frame, textContainer: textContainer)
-    }
-    
-    public required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
+
     func setup() {
         
         typingAttributes[NSAttributedStringKey.foregroundColor.rawValue] = configuration.textColor

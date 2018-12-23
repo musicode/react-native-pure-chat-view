@@ -25,7 +25,7 @@ open class EmotionTextareaConfiguration {
     public var textColor = UIColor(red: 60 / 255, green: 60 / 255, blue: 60 / 255, alpha: 1)
     
     // 表情图片与文本的高度比例
-    public var emotionTextHeightRatio: CGFloat = 1.1
+    public var emotionTextHeightRatio: CGFloat = 1
     
     // 输入框的垂直内间距
     public var paddingVertical: CGFloat = 10

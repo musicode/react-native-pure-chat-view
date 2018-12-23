@@ -89,9 +89,6 @@ public class MessageInput: UIView {
                     sendButton.isHidden = false
                     moreButton.isHidden = true
                     emotionPanel.isSendButtonEnabled = true
-                    
-                    sendButton.setBackgroundColor(configuration.sendButtonBackgroundColorNormal, for: .normal)
-                    sendButton.setBackgroundColor(configuration.sendButtonBackgroundColorPressed, for: .highlighted)
                 }
                 else {
                     sendButton.isHidden = true
@@ -108,24 +105,15 @@ public class MessageInput: UIView {
         self.init()
         self.configuration = configuration
         
-        setup()
-        
-    }
-    
-    public override init(frame: CGRect) {
-        super.init(frame: frame)
-    }
-
-    public required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func setup() {
-        
-        backgroundColor = .gray
+        backgroundColor = configuration.inputBarBackgroundColor
         
         addContentPanel()
         addInputBar()
+        
+    }
+    
+    public override func didMoveToSuperview() {
+        super.didMoveToSuperview()
         
         NotificationCenter.default.addObserver(
             self,
@@ -143,6 +131,23 @@ public class MessageInput: UIView {
         
     }
     
+    public override func removeFromSuperview() {
+        super.removeFromSuperview()
+        
+        NotificationCenter.default.removeObserver(
+            self,
+            name: .UIKeyboardWillShow,
+            object: nil
+        )
+        
+        NotificationCenter.default.removeObserver(
+            self,
+            name: .UIKeyboardWillHide,
+            object: nil
+        )
+        
+    }
+
     public func reset() {
         if viewMode == .keyboard {
             if isKeyboardVisible {
@@ -181,9 +186,7 @@ public class MessageInput: UIView {
 extension MessageInput {
     
     private func addInputBar() {
-        
-        backgroundColor = configuration.inputBarBackgroundColor
-        
+
         addTextarea()
         
         addVoiceButton()
@@ -309,6 +312,10 @@ extension MessageInput {
         sendButton.translatesAutoresizingMaskIntoConstraints = false
         
         sendButton.isHidden = true
+        
+        sendButton.backgroundColor = configuration.sendButtonBackgroundColorNormal
+        sendButton.backgroundColorPressed = configuration.sendButtonBackgroundColorPressed
+        
         sendButton.titleLabel?.font = configuration.sendButtonTextFont
         sendButton.setTitle(configuration.sendButtonTitle, for: .normal)
         sendButton.setTitleColor(configuration.sendButtonTextColor, for: .normal)
@@ -316,7 +323,11 @@ extension MessageInput {
         sendButton.layer.borderWidth = configuration.sendButtonBorderWidth
         sendButton.layer.borderColor = configuration.sendButtonBorderColor.cgColor
         sendButton.layer.cornerRadius = configuration.sendButtonBorderRadius
-        sendButton.borderRadius = configuration.sendButtonBorderRadius
+        
+        if configuration.sendButtonBorderRadius > 0 {
+            sendButton.layer.cornerRadius = configuration.sendButtonBorderRadius
+            sendButton.clipsToBounds = true
+        }
         
         rightButtons.addSubview(sendButton)
         
@@ -396,9 +407,9 @@ extension MessageInput {
     private func addVoicePanel() {
         
         voicePanelConfiguration.backgroundColor = configuration.contentPanelBackgroundColor
-        voicePanelConfiguration.audioBitRate = 128000
-        voicePanelConfiguration.audioQuality = .medium
-        voicePanelConfiguration.audioSampleRate = 22050
+        voicePanelConfiguration.audioBitRate = configuration.audioBitRate
+        voicePanelConfiguration.audioQuality = configuration.audioQuality
+        voicePanelConfiguration.audioSampleRate = configuration.audioSampleRate
         
         voicePanel = VoiceInput(configuration: voicePanelConfiguration)
         

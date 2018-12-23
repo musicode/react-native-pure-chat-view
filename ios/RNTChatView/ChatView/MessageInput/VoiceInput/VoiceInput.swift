@@ -99,17 +99,13 @@ public class VoiceInput: UIView {
         setup()
     }
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-    }
-
-    public required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
     private func setup() {
         
         backgroundColor = configuration.backgroundColor
+        
+        addRecordView()
+        
+        addPreviewView()
         
         voiceManager.onPermissionsGranted = {
             self.delegate.voiceInputDidPermissionsGranted(self)
@@ -129,11 +125,6 @@ public class VoiceInput: UIView {
         voiceManager.onFinishPlay = { success in
             self.finishPlay()
         }
-    }
-
-    public override func didMoveToSuperview() {
-        addRecordView()
-        addPreviewView()
     }
 
     /**
@@ -488,6 +479,8 @@ extension VoiceInput {
 
     private func addCancelButton() {
 
+        cancelButton.backgroundColor = configuration.footerButtonBackgroundColorNormal
+        cancelButton.backgroundColorPressed = configuration.footerButtonBackgroundColorPressed
         cancelButton.setTitle(configuration.footerCancelButtonTitle, for: .normal)
         cancelButton.setTitleColor(configuration.footerButtonTextColor, for: .normal)
 
@@ -506,9 +499,6 @@ extension VoiceInput {
             NSLayoutConstraint(item: cancelButton, attribute: .right, relatedBy: .equal, toItem: previewView, attribute: .centerX, multiplier: 1, constant: 0)
         ])
 
-        cancelButton.setBackgroundColor(configuration.footerButtonBackgroundColorNormal, for: .normal)
-        cancelButton.setBackgroundColor(configuration.footerButtonBackgroundColorPressed, for: .highlighted)
-
         cancelButton.setTopBorder(width: configuration.footerButtonBorderWidth, color: configuration.footerButtonBorderColor)
         
         cancelButton.onClick = {
@@ -519,6 +509,9 @@ extension VoiceInput {
 
     private func addSendButton() {
 
+        sendButton.backgroundColor = configuration.footerButtonBackgroundColorNormal
+        sendButton.backgroundColorPressed = configuration.footerButtonBackgroundColorPressed
+        
         sendButton.setTitle(configuration.footerSendButtonTitle, for: .normal)
         sendButton.setTitleColor(configuration.footerButtonTextColor, for: .normal)
 
@@ -536,9 +529,6 @@ extension VoiceInput {
             NSLayoutConstraint(item: sendButton, attribute: .left, relatedBy: .equal, toItem: previewView, attribute: .centerX, multiplier: 1, constant: 0),
             NSLayoutConstraint(item: sendButton, attribute: .right, relatedBy: .equal, toItem: previewView, attribute: .right, multiplier: 1, constant: 0),
         ])
-
-        sendButton.setBackgroundColor(configuration.footerButtonBackgroundColorNormal, for: .normal)
-        sendButton.setBackgroundColor(configuration.footerButtonBackgroundColorPressed, for: .highlighted)
         
         sendButton.setLeftBorder(width: configuration.footerButtonBorderWidth, color: configuration.footerButtonBorderColor)
         sendButton.setTopBorder(width: configuration.footerButtonBorderWidth, color: configuration.footerButtonBorderColor)

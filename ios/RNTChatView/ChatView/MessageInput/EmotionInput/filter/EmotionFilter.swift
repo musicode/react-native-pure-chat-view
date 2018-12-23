@@ -60,7 +60,7 @@ public class EmotionFilter {
     private func getEmotionAttachment(emotion: Emotion, font: UIFont, emotionTextHeightRatio: CGFloat) -> EmotionAttachment? {
         if let localImage = emotion.localImage {
 
-            let attachment = EmotionAttachment(emotion)
+            let attachment = EmotionAttachment(emotion: emotion)
             attachment.image = localImage
             
             let textHeight = font.ascender - font.descender

@@ -1,7 +1,6 @@
 package com.github.musicode.chatview
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.support.v4.content.ContextCompat
@@ -26,9 +25,9 @@ import com.github.herokotlin.messageinput.MessageInputConfiguration
 import com.github.herokotlin.messagelist.enum.MessageStatus
 import com.facebook.react.modules.core.PermissionAwareActivity
 import com.facebook.react.ReactActivity
-import com.github.musicode.chatview.R
+import com.facebook.react.uimanager.ThemedReactContext
 
-class RNTChatView(context: Context, applicationContext: ReactApplicationContext, val imageLoader: RNTChatViewImageLoader): LinearLayout(context) {
+class RNTChatView(context: ThemedReactContext, val activity: Activity, val imageLoader: RNTChatViewImageLoader): LinearLayout(context), LifecycleEventListener, ActivityEventListener {
 
     var currentUserId = ""
 
@@ -73,8 +72,6 @@ class RNTChatView(context: Context, applicationContext: ReactApplicationContext,
 
     lateinit var messageList: MessageList
 
-    private var activity: Activity?
-
     private var permissionListener = { requestCode: Int, permissions: Array<out String>?, grantResults: IntArray? ->
         if (permissions != null && grantResults != null) {
             messageInput.requestPermissionsResult(requestCode, permissions, grantResults)
@@ -91,20 +88,20 @@ class RNTChatView(context: Context, applicationContext: ReactApplicationContext,
     }
 
     init {
-        applicationContext.addActivityEventListener(object: BaseActivityEventListener() {
-
-            override fun onActivityResult(activity: Activity?, requestCode: Int, resultCode: Int, data: Intent?) {
-                messageInput.onActivityResult(requestCode, resultCode, data)
-            }
-
-        })
-
-        activity = applicationContext.currentActivity
 
         LayoutInflater.from(activity).inflate(R.layout.rnt_chatview, this)
 
+        context.addActivityEventListener(this)
+        context.addLifecycleEventListener(this)
+
         init()
 
+    }
+
+    fun destroy() {
+        val reactContext = context as ThemedReactContext
+        reactContext.removeActivityEventListener(this)
+        reactContext.removeLifecycleEventListener(this)
     }
 
     private fun init() {
@@ -225,10 +222,10 @@ class RNTChatView(context: Context, applicationContext: ReactApplicationContext,
 
                 if (list.isNotEmpty()) {
                     if (activity is ReactActivity) {
-                        (activity as ReactActivity).requestPermissions(list, requestCode, permissionListener)
+                        activity.requestPermissions(list, requestCode, permissionListener)
                     }
                     else if (activity is PermissionAwareActivity) {
-                        (activity as PermissionAwareActivity).requestPermissions(list, requestCode, permissionListener)
+                        activity.requestPermissions(list, requestCode, permissionListener)
                     }
                     return false
                 }
@@ -238,7 +235,102 @@ class RNTChatView(context: Context, applicationContext: ReactApplicationContext,
             }
         }
 
+        messageInputConfiguration.audioBitRate = 200000
+        messageInputConfiguration.audioSampleRate = 22050
         messageInputConfiguration.emotionTextHeightRatio = 1f
+
+        messageInput.init(
+
+                messageInputConfiguration,
+
+                object: MessageInputCallback {
+
+                    override fun onChildViewChange() {
+                        requestLayout()
+                    }
+
+                    override fun onRecordAudioWithoutPermissions() {
+                        sendEvent("onRecordAudioWithoutPermissions")
+                    }
+
+                    override fun onRecordAudioDurationLessThanMinDuration() {
+                        sendEvent("onRecordAudioDurationLessThanMinDuration")
+                    }
+
+                    override fun onRecordAudioWithoutExternalStorage() {
+                        sendEvent("onRecordAudioWithoutExternalStorage")
+                    }
+
+                    override fun onRecordAudioPermissionsGranted() {
+                        sendEvent("onRecordAudioPermissionsGranted")
+                    }
+
+                    override fun onRecordAudioPermissionsDenied() {
+                        sendEvent("onRecordAudioPermissionsDenied")
+                    }
+
+                    override fun onRecordVideoPermissionsGranted() {
+                        sendEvent("onRecordVideoPermissionsGranted")
+                    }
+
+                    override fun onRecordVideoPermissionsDenied() {
+                        sendEvent("onRecordVideoPermissionsDenied")
+                    }
+
+                    override fun onSendAudio(audioPath: String, audioDuration: Int) {
+                        val event = Arguments.createMap()
+                        event.putString("audioPath", audioPath)
+                        event.putInt("audioDuration", audioDuration)
+                        sendEvent("onSendAudio", event)
+                    }
+
+                    override fun onSendVideo(videoPath: String, videoDuration: Int, thumbnail: ImageFile) {
+                        val event = Arguments.createMap()
+                        event.putString("videoPath", videoPath)
+                        event.putInt("videoDuration", videoDuration)
+                        event.putString("thumbnailPath", thumbnail.path)
+                        event.putInt("thumbnailWidth", thumbnail.width)
+                        event.putInt("thumbnailHeight", thumbnail.height)
+                        sendEvent("onSendVideo", event)
+                    }
+
+                    override fun onSendPhoto(photo: ImageFile) {
+                        val event = Arguments.createMap()
+                        event.putString("photoPath", photo.path)
+                        event.putInt("photoWidth", photo.width)
+                        event.putInt("photoHeight", photo.height)
+                        sendEvent("onSendPhoto", event)
+                    }
+
+                    override fun onSendText(text: String) {
+                        val event = Arguments.createMap()
+                        event.putString("text", text)
+                        sendEvent("onSendText", event)
+                    }
+
+                    override fun onTextChange(text: String) {
+                        val event = Arguments.createMap()
+                        event.putString("text", text)
+                        sendEvent("onTextChange", event)
+                        requestLayout()
+                    }
+
+                    override fun onClickPhotoFeature() {
+                        sendEvent("onClickPhotoFeature")
+                    }
+
+                    override fun onLift() {
+                        sendEvent("onLift")
+                        requestLayout()
+                    }
+
+                    override fun onFall() {
+                        sendEvent("onFall")
+                        requestLayout()
+                    }
+
+                }
+        )
 
         messageList.init(
             messageListConfiguration,
@@ -303,99 +395,6 @@ class RNTChatView(context: Context, applicationContext: ReactApplicationContext,
         ))
 
         messageInput.addEmotionFilter(emojiFilter)
-
-        messageInput.init(
-
-            messageInputConfiguration,
-
-            object: MessageInputCallback {
-
-                override fun onChildViewChange() {
-                    requestLayout()
-                }
-
-                override fun onRecordAudioWithoutPermissions() {
-                    sendEvent("onRecordAudioWithoutPermissions")
-                }
-
-                override fun onRecordAudioDurationLessThanMinDuration() {
-                    sendEvent("onRecordAudioDurationLessThanMinDuration")
-                }
-
-                override fun onRecordAudioWithoutExternalStorage() {
-                    sendEvent("onRecordAudioWithoutExternalStorage")
-                }
-
-                override fun onRecordAudioPermissionsGranted() {
-                    sendEvent("onRecordAudioPermissionsGranted")
-                }
-
-                override fun onRecordAudioPermissionsDenied() {
-                    sendEvent("onRecordAudioPermissionsDenied")
-                }
-
-                override fun onRecordVideoPermissionsGranted() {
-                    sendEvent("onRecordVideoPermissionsGranted")
-                }
-
-                override fun onRecordVideoPermissionsDenied() {
-                    sendEvent("onRecordVideoPermissionsDenied")
-                }
-
-                override fun onSendAudio(audioPath: String, audioDuration: Int) {
-                    val event = Arguments.createMap()
-                    event.putString("audioPath", audioPath)
-                    event.putInt("audioDuration", audioDuration)
-                    sendEvent("onSendAudio", event)
-                }
-
-                override fun onSendVideo(videoPath: String, videoDuration: Int, thumbnail: ImageFile) {
-                    val event = Arguments.createMap()
-                    event.putString("videoPath", videoPath)
-                    event.putInt("videoDuration", videoDuration)
-                    event.putString("thumbnailPath", thumbnail.path)
-                    event.putInt("thumbnailWidth", thumbnail.width)
-                    event.putInt("thumbnailHeight", thumbnail.height)
-                    sendEvent("onSendVideo", event)
-                }
-
-                override fun onSendPhoto(photo: ImageFile) {
-                    val event = Arguments.createMap()
-                    event.putString("photoPath", photo.path)
-                    event.putInt("photoWidth", photo.width)
-                    event.putInt("photoHeight", photo.height)
-                    sendEvent("onSendPhoto", event)
-                }
-
-                override fun onSendText(text: String) {
-                    val event = Arguments.createMap()
-                    event.putString("text", text)
-                    sendEvent("onSendText", event)
-                }
-
-                override fun onTextChange(text: String) {
-                    val event = Arguments.createMap()
-                    event.putString("text", text)
-                    sendEvent("onTextChange", event)
-                    requestLayout()
-                }
-
-                override fun onClickPhotoFeature() {
-                    sendEvent("onClickPhotoFeature")
-                }
-
-                override fun onLift() {
-                    sendEvent("onLift")
-                    requestLayout()
-                }
-
-                override fun onFall() {
-                    sendEvent("onFall")
-                    requestLayout()
-                }
-
-            }
-        )
 
         post {
             sendEvent("onReady")
@@ -580,4 +579,23 @@ class RNTChatView(context: Context, applicationContext: ReactApplicationContext,
         reactContext.getJSModule(RCTEventEmitter::class.java).receiveEvent(id, name, null)
     }
 
+    override fun onHostResume() {
+
+    }
+
+    override fun onHostPause() {
+
+    }
+
+    override fun onHostDestroy() {
+
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+
+    }
+
+    override fun onActivityResult(activity: Activity?, requestCode: Int, resultCode: Int, data: Intent?) {
+        messageInput.onActivityResult(requestCode, resultCode, data)
+    }
 }

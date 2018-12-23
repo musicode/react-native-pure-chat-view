@@ -20,13 +20,9 @@ class CameraManager : NSObject {
     var microphone: AVCaptureDevice?
     var microphoneInput: AVCaptureDeviceInput?
     
-    // 二维码
-    var metadataInput: AVCaptureMetadataInput?
-    
     // 兼容 9 和 10+
     var photoOutput: AVCaptureOutput?
     var videoOutput: AVCaptureMovieFileOutput?
-    var metadataOutput: AVCaptureMetadataOutput?
     
     var backgroundRecordingId: UIBackgroundTaskIdentifier?
     
@@ -598,33 +594,6 @@ extension CameraManager: AVCaptureFileOutputRecordingDelegate {
         return Int(seconds * 1000)
     }
     
-}
-
-// 识别二维码
-extension CameraManager: AVCaptureMetadataOutputObjectsDelegate {
-    
-    func metadataOutput(_ output: AVCaptureMetadataOutput,
-                        didOutput metadataObjects: [AVMetadataObject],
-                        from connection: AVCaptureConnection
-        ) {
-        
-        if metadataObjects.count == 0 {
-            return
-        }
-        
-        let metadataObject = metadataObjects[0]
-        
-        if metadataObject.type == AVMetadataObject.ObjectType.qr {
-            
-            let qrcodeObject = metadataObject as! AVMetadataMachineReadableCodeObject
-            
-            if let _ = qrcodeObject.stringValue {
-                
-            }
-            
-        }
-        
-    }
 }
 
 // 工具方法

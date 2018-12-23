@@ -1,6 +1,5 @@
 import UIKit
 
-// 配置
 open class EmotionPagerConfiguration {
     
     // 背景色
@@ -46,7 +45,7 @@ open class EmotionPagerConfiguration {
     public var indicatorRadiusNormal: Double = 3
     
     // 指示器当前圆点的颜色
-    public var indicatorColorActive = UIColor(red:0.55, green:0.55, blue:0.55, alpha: 1)
+    public var indicatorColorActive = UIColor(red: 0.55, green: 0.55, blue: 0.55, alpha: 1)
     
     // 指示器当前圆点的半径
     public var indicatorRadiusActive: Double = 3.2
@@ -70,7 +69,7 @@ open class EmotionPagerConfiguration {
     public var toolbarCellWidth: CGFloat = 44
     
     // 表情单元格分割线颜色
-    public var toolbarCellDividerColor = UIColor(red: 0.95, green: 0.95, blue: 0.95, alpha: 1)
+    public var toolbarCellDividerColor = UIColor(red: 0.9, green: 0.9, blue:0.9, alpha: 1)
     
     // 表情单元格分割线宽度
     public var toolbarCellDividerWidth = 1 / UIScreen.main.scale
@@ -79,10 +78,10 @@ open class EmotionPagerConfiguration {
     public var toolbarCellDividerOffset: CGFloat = 6
     
     // 表情单元格按下时的背景色
-    public var toolbarCellBackgroundColorPressed = UIColor(red: 244 / 255, green: 242 / 255, blue: 246 / 255, alpha: 1)
+    public var toolbarCellBackgroundColorPressed = UIColor(red: 0.95, green: 0.95, blue: 0.95, alpha: 1)
     
     // 发送按钮的文本
-    public var sendButtonText = "发送"
+    public var sendButtonTitle = "发送"
     
     // 发送按钮的文本字体
     public var sendButtonTextFont = UIFont.systemFont(ofSize: 14)
@@ -90,6 +89,9 @@ open class EmotionPagerConfiguration {
     // 发送按钮左边框的大小
     public var sendButtonLeftBorderWidth =  1 / UIScreen.main.scale
 
+    
+    
+    
     // 发送按钮置灰时
     
     // 发送按钮的文本颜色
@@ -100,6 +102,9 @@ open class EmotionPagerConfiguration {
     
     // 发送按钮左边框的颜色
     public var sendButtonLeftBorderColorDisabled = UIColor(red: 205 / 255, green: 205 / 255, blue: 205 / 255, alpha: 1)
+    
+    
+    
     
     // 发送按钮可用时
     
@@ -115,6 +120,9 @@ open class EmotionPagerConfiguration {
     
     // 发送按钮的左右内间距
     public var sendButtonPaddingHorizontal: CGFloat = 14
+    
+    
+    
     
     open func loadImage(imageView: UIImageView, url: String) {
         

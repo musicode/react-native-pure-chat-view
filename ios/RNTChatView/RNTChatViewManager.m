@@ -1,8 +1,6 @@
 
 #import "RNTChatViewManager.h"
 
-#import <React/RCTView.h>
-#import <React/RCTBridge.h>
 #import <React/RCTUIManager.h>
 #import "RNTChatView-Swift.h"
 #import "RNTChatView.h"

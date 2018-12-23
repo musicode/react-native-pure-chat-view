@@ -32,7 +32,20 @@ class VoiceManager: NSObject {
     // 外部实时读取的录音时长
     var duration: Int {
         get {
-            return recorder != nil ? timeInterval2Millisecond(recorder!.currentTime) : 0
+            guard let recorder = recorder else {
+                return 0
+            }
+            var currentTime = timeInterval2Millisecond(recorder.currentTime)
+            if currentTime > configuration.audioMaxDuration {
+                currentTime = configuration.audioMaxDuration
+                do {
+                    try stopRecord()
+                }
+                catch {
+                    print(error.localizedDescription)
+                }
+            }
+            return currentTime
         }
     }
 
@@ -148,11 +161,10 @@ class VoiceManager: NSObject {
             setSessionActive(true)
 
             recorder.delegate = self
-            recorder.isMeteringEnabled = true
+//            recorder.isMeteringEnabled = true
             recorder.prepareToRecord()
             
-            let duration = configuration.audioMaxDuration / 1000
-            recorder.record(forDuration: TimeInterval(duration))
+            recorder.record()
 
         }
 
@@ -312,13 +324,7 @@ extension VoiceManager {
 }
 
 enum VoiceManagerError: Swift.Error {
-    
-    // 没有指定录音目录
-    case fileDirIsMissing
-    
-    // 没有录音权限
-    case permissionIsDenied
-    
+
     // 录音器不可用
     case recorderIsNotAvailable
     
