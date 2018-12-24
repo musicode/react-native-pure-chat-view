@@ -27,7 +27,7 @@ import com.facebook.react.modules.core.PermissionAwareActivity
 import com.facebook.react.ReactActivity
 import com.facebook.react.uimanager.ThemedReactContext
 
-class RNTChatView(context: ThemedReactContext, val activity: Activity, val imageLoader: RNTChatViewImageLoader): LinearLayout(context), LifecycleEventListener, ActivityEventListener {
+class RNTChatView(context: ThemedReactContext, val appContext: ReactApplicationContext, val imageLoader: RNTChatViewImageLoader): LinearLayout(context), LifecycleEventListener, ActivityEventListener {
 
     var currentUserId = ""
 
@@ -66,11 +66,13 @@ class RNTChatView(context: ThemedReactContext, val activity: Activity, val image
             messageListConfiguration.userAvatarBorderRadius = value.toFloat()
         }
 
-    lateinit var messageListConfiguration: MessageListConfiguration
+    var activity: Activity = appContext.currentActivity!!
+
+    var messageListConfiguration: MessageListConfiguration
+
+    var messageList: MessageList
 
     lateinit var messageInput: MessageInput
-
-    lateinit var messageList: MessageList
 
     private var permissionListener = { requestCode: Int, permissions: Array<out String>?, grantResults: IntArray? ->
         if (permissions != null && grantResults != null) {
@@ -87,24 +89,18 @@ class RNTChatView(context: ThemedReactContext, val activity: Activity, val image
         layout(left, top, right, bottom)
     }
 
+
+    fun destroy() {
+        appContext.removeActivityEventListener(this)
+        appContext.removeLifecycleEventListener(this)
+    }
+
     init {
 
         LayoutInflater.from(activity).inflate(R.layout.rnt_chatview, this)
 
-        context.addActivityEventListener(this)
-        context.addLifecycleEventListener(this)
-
-        init()
-
-    }
-
-    fun destroy() {
-        val reactContext = context as ThemedReactContext
-        reactContext.removeActivityEventListener(this)
-        reactContext.removeLifecycleEventListener(this)
-    }
-
-    private fun init() {
+        appContext.addActivityEventListener(this)
+        appContext.addLifecycleEventListener(this)
 
         messageInput = findViewById(R.id.messageInput)
         messageList = findViewById(R.id.messageList)
@@ -222,10 +218,10 @@ class RNTChatView(context: ThemedReactContext, val activity: Activity, val image
 
                 if (list.isNotEmpty()) {
                     if (activity is ReactActivity) {
-                        activity.requestPermissions(list, requestCode, permissionListener)
+                        (activity as ReactActivity).requestPermissions(list, requestCode, permissionListener)
                     }
                     else if (activity is PermissionAwareActivity) {
-                        activity.requestPermissions(list, requestCode, permissionListener)
+                        (activity as PermissionAwareActivity).requestPermissions(list, requestCode, permissionListener)
                     }
                     return false
                 }

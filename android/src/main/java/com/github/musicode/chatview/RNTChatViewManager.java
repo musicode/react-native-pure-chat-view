@@ -46,7 +46,7 @@ public class RNTChatViewManager extends SimpleViewManager<RNTChatView> {
 
     @Override
     protected RNTChatView createViewInstance(ThemedReactContext reactContext) {
-        return new RNTChatView(reactContext, this.reactContext.getCurrentActivity(), imageLoader);
+        return new RNTChatView(reactContext, this.reactContext, imageLoader);
     }
 
     @ReactProp(name = "currentUserId")
