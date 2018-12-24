@@ -363,6 +363,12 @@ class RNTChatView(context: ThemedReactContext, val activity: Activity, val image
                     sendEvent("onCopyClick", event)
                 }
 
+                override fun onShareClick(message: Message) {
+                    val event = Arguments.createMap()
+                    event.putString("messageId", message.id)
+                    sendEvent("onShareClick", event)
+                }
+
                 override fun onFailureClick(message: Message) {
                     val event = Arguments.createMap()
                     event.putString("messageId", message.id)

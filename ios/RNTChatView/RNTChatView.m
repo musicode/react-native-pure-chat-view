@@ -58,6 +58,12 @@
                           });
 }
 
+- (void)messageListDidClickShareWithMessage:(Message *)message {
+    self.onShareClick(@{
+                        @"messageId": message.id
+                        });
+}
+
 - (void)messageListDidClickFailureWithMessage:(Message *)message {
     self.onFailureClick(@{
                            @"messageId": message.id

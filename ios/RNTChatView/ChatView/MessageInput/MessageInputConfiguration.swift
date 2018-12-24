@@ -135,6 +135,8 @@ public class MessageInputConfiguration {
     // 采样率
     public var audioSampleRate = 44100.0
     
+    // 视频预设
+    public var videoPreset = AVCaptureSession.Preset.medium
     
     // 键盘显示、隐藏的动画时长
     public var keyboardAnimationDuration: TimeInterval = 0.2

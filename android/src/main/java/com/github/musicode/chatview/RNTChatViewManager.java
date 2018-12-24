@@ -90,6 +90,7 @@ public class RNTChatViewManager extends SimpleViewManager<RNTChatView> {
                 .put("onUserAvatarClick", MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", "onUserAvatarClick")))
                 .put("onContentClick", MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", "onContentClick")))
                 .put("onCopyClick", MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", "onCopyClick")))
+                .put("onShareClick", MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", "onShareClick")))
                 .put("onFailureClick", MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", "onFailureClick")))
                 .put("onLinkClick", MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", "onLinkClick")))
                 .put("onLoadMore", MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", "onLoadMore")))
