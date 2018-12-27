@@ -39,6 +39,7 @@
 @property (nonatomic, copy) RCTBubblingEventBlock onLift;
 @property (nonatomic, copy) RCTBubblingEventBlock onFall;
 
-+ (void)setImageLoader:(void (^ _Null_unspecified)(UIImageView * imageView, NSString * url))value;
++ (void)setImageLoader:(void (^ _Null_unspecified)(UIImageView*, NSString*, NSInteger, NSInteger))value;
+
 
 @end

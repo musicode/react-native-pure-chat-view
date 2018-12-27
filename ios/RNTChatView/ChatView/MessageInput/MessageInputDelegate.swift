@@ -19,6 +19,8 @@ import UIKit
     
     func messageInputDidRecordVideoPermissionsDenied()
     
+    func messageInputWillUseAudio()
+    
     // 发送语音
     func messageInputDidSendAudio(audioPath: String, audioDuration: Int)
     
@@ -65,6 +67,8 @@ public extension MessageInputDelegate {
     func messageInputDidRecordVideoPermissionsGranted() { }
     
     func messageInputDidRecordVideoPermissionsDenied() { }
+    
+    func messageInputWillUseAudio() { }
     
     func messageInputDidSendAudio(audioPath: String, audioDuration: Int) { }
     

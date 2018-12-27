@@ -32,12 +32,12 @@ public class MessageList: UIView {
         setup()
     }
 
-    deinit {
-        stopAudio()
-    }
-    
     func setup() {
- 
+        
+        configuration.audioPlayer.onPlay = {
+            self.delegate.messageListWillUseAudio()
+        }
+        
         tableView.backgroundColor = .clear
         
         tableView.delegate = self
@@ -153,6 +153,11 @@ public class MessageList: UIView {
         }
         messageList[ index ] = message
         tableView.reloadRows(at: getIndexPaths(index: index, count: 1), with: .none)
+    }
+    
+    // 确保音频可用，通常是外部要用音频了
+    public func ensureAudioAvailable() {
+        stopAudio()
     }
     
     @objc private func refresh() {

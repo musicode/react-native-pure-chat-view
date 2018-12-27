@@ -39,8 +39,8 @@ class RightPostMessageCell: PostMessageCell {
             
             NSLayoutConstraint(item: thumbnailView, attribute: .top, relatedBy: .equal, toItem: titleView, attribute: .bottom, multiplier: 1, constant: configuration.rightPostMessageThumbnailMarginTop),
             NSLayoutConstraint(item: thumbnailView, attribute: .right, relatedBy: .equal, toItem: bubbleView, attribute: .right, multiplier: 1, constant: -configuration.rightPostMessageThumbnailMarginRight),
-            NSLayoutConstraint(item: thumbnailView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: configuration.rightPostMessageThumbnailWidth),
-            NSLayoutConstraint(item: thumbnailView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: configuration.rightPostMessageThumbnailHeight),
+            NSLayoutConstraint(item: thumbnailView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: configuration.postMessageThumbnailWidth),
+            NSLayoutConstraint(item: thumbnailView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: configuration.postMessageThumbnailHeight),
             
             NSLayoutConstraint(item: descView, attribute: .top, relatedBy: .equal, toItem: titleView, attribute: .bottom, multiplier: 1, constant: configuration.rightPostMessageDescMarginTop),
             NSLayoutConstraint(item: descView, attribute: .left, relatedBy: .equal, toItem: bubbleView, attribute: .left, multiplier: 1, constant: configuration.rightPostMessageDescMarginLeft),

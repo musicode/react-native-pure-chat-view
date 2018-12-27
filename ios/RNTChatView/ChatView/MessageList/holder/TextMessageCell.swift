@@ -67,6 +67,7 @@ class TextMessageCell: MessageCell {
             avatarView.layer.borderWidth = configuration.userAvatarBorderWidth
             avatarView.layer.borderColor = configuration.userAvatarBorderColor.cgColor
         }
+        avatarView.backgroundColor = configuration.userAvatarBackgroundColor
         avatarView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(avatarView)
         
@@ -129,7 +130,12 @@ class TextMessageCell: MessageCell {
     
     override func update() {
         
-        configuration.loadImage(imageView: avatarView, url: message.user.avatar)
+        configuration.loadImage(
+            imageView: avatarView,
+            url: message.user.avatar,
+            width: configuration.userAvatarWidth,
+            height: configuration.userAvatarHeight
+        )
 
         nameView.text = message.user.name
         nameView.sizeToFit()

@@ -4,6 +4,8 @@ import UIKit
 
 class AudioPlayer: NSObject {
     
+    var onPlay: (() -> Void)?
+    
     private var listeners = [AudioPlayerDelegate]()
     
     // 播放器实例
@@ -24,6 +26,8 @@ class AudioPlayer: NSObject {
     
     // 播放音频
     func play(id: String, url: String) {
+        
+        onPlay?()
         
         stop()
         

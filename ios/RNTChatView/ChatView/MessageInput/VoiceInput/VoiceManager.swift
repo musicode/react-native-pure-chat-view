@@ -74,10 +74,6 @@ class VoiceManager: NSObject {
     // 播放器
     private var player: AVAudioPlayer?
 
-    // 读取进入之前的 category
-    // 用完音频后再重置回去
-    private var defaultCategory = AVAudioSession.sharedInstance().category
-    
     var configuration: VoiceInputConfiguration!
     
     // 判断是否有权限录音，如没有，发起授权请求
@@ -181,7 +177,7 @@ class VoiceManager: NSObject {
             recorder.stop()
         }
 
-        setSessionCategory(defaultCategory)
+        setSessionCategory(AVAudioSessionCategoryPlayback)
         setSessionActive(false)
 
     }
@@ -203,10 +199,6 @@ class VoiceManager: NSObject {
 
         if let player = player {
 
-            // 独占播放，并且能响应静音键
-            // 比如手机在播放音乐，此时开始试听录音，应独占扬声器
-            setSessionCategory(AVAudioSessionCategorySoloAmbient)
-
             player.delegate = self
             player.prepareToPlay()
             player.play()
@@ -225,8 +217,6 @@ class VoiceManager: NSObject {
             player.stop()
             self.player = nil
         }
-
-        setSessionCategory(defaultCategory)
 
     }
 

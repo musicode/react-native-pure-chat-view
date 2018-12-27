@@ -56,6 +56,7 @@ class AudioMessageCell: MessageCell {
             avatarView.layer.borderWidth = configuration.userAvatarBorderWidth
             avatarView.layer.borderColor = configuration.userAvatarBorderColor.cgColor
         }
+        avatarView.backgroundColor = configuration.userAvatarBackgroundColor
         avatarView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(avatarView)
         
@@ -131,7 +132,12 @@ class AudioMessageCell: MessageCell {
         
         let audioMessage = message as! AudioMessage
 
-        configuration.loadImage(imageView: avatarView, url: message.user.avatar)
+        configuration.loadImage(
+            imageView: avatarView,
+            url: message.user.avatar,
+            width: configuration.userAvatarWidth,
+            height: configuration.userAvatarHeight
+        )
         
         nameView.text = message.user.name
         nameView.sizeToFit()

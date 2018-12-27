@@ -30,6 +30,9 @@ import Foundation
     // 加载历史消息
     func messageListDidLoadMore()
     
+    // 即将播放音频
+    func messageListWillUseAudio()
+    
 }
 
 public extension MessageListDelegate {
@@ -51,6 +54,8 @@ public extension MessageListDelegate {
     func messageListDidClickLink(link: String) { }
     
     func messageListDidLoadMore() { }
+    
+    func messageListWillUseAudio() { }
     
 }
 

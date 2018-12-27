@@ -5,6 +5,20 @@ public class VoiceInput: UIView {
 
     public var delegate: VoiceInputDelegate!
 
+    // 让外部判断当前是否在录制
+    public var isRecording: Bool {
+        get {
+            return voiceManager.isRecording
+        }
+    }
+    
+    // 让外部判断当前是否在播放
+    public var isPlaying: Bool {
+        get {
+            return voiceManager.isPlaying
+        }
+    }
+    
     //
     // MARK: - 录制界面
     //
@@ -36,6 +50,9 @@ public class VoiceInput: UIView {
 
     private var isPreviewButtonPressed = false {
         didSet {
+            if oldValue == isPreviewButtonPressed {
+                return
+            }
             if isPreviewButtonPressed {
                 previewButton.centerColor = configuration.previewButtonBackgroundColorHover
                 guideLabel.isHidden = false
@@ -54,6 +71,9 @@ public class VoiceInput: UIView {
 
     private var isDeleteButtonPressed = false {
         didSet {
+            if oldValue == isDeleteButtonPressed {
+                return
+            }
             if isDeleteButtonPressed {
                 deleteButton.centerColor = configuration.deleteButtonBackgroundColorHover
                 guideLabel.isHidden = false
@@ -191,7 +211,7 @@ public class VoiceInput: UIView {
 
     }
 
-    private func stopRecord() {
+    public func stopRecord() {
 
         do {
             try voiceManager.stopRecord()
@@ -250,7 +270,7 @@ public class VoiceInput: UIView {
 
     }
 
-    private func stopPlay() {
+    public func stopPlay() {
 
         voiceManager.stopPlay()
 
@@ -338,6 +358,7 @@ extension VoiceInput {
 
     private func addPreviewButton() {
 
+        previewButton.delegate = self
         previewButton.isHidden = true
 
         previewButton.centerRadius = configuration.previewButtonRadius
@@ -359,6 +380,7 @@ extension VoiceInput {
 
     private func addDeleteButton() {
 
+        deleteButton.delegate = self
         deleteButton.isHidden = true
 
         deleteButton.centerRadius = configuration.deleteButtonRadius
@@ -549,9 +571,11 @@ extension VoiceInput: CircleViewDelegate {
 
     public func circleViewDidTouchDown(_ circleView: CircleView) {
         if circleView == recordButton {
+            delegate.voiceInputDidRecordButtonClick(self)
             startRecord()
         }
         else if circleView == playButton {
+            delegate.voiceInputDidPlayButtonClick(self)
             playButton.centerColor = configuration.playButtonCenterColorPressed
             playButton.setNeedsDisplay()
         }
@@ -592,7 +616,7 @@ extension VoiceInput: CircleViewDelegate {
     }
 
     public func circleViewDidTouchMove(_ circleView: CircleView, _ x: CGFloat, _ y: CGFloat) {
-        if circleView == recordButton {
+        if circleView == recordButton && voiceManager.isRecording {
 
             let offsetY = y - configuration.recordButtonRadius
 

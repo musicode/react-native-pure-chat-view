@@ -81,8 +81,8 @@ class Configuration: MessageListConfiguration {
     
     var currentUserId = ""
     
-    override func loadImage(imageView: UIImageView, url: String) {
-        ChatView.loadImage(imageView, url)
+    override func loadImage(imageView: UIImageView, url: String, width: CGFloat, height: CGFloat) {
+        ChatView.loadImage(imageView, url, Int(width), Int(height))
     }
     
     override func isRightMessage(message: Message) -> Bool {
@@ -97,7 +97,7 @@ class Configuration: MessageListConfiguration {
 
 @objc open class ChatView: UIView {
     
-    @objc public static var loadImage: ((UIImageView, String) -> Void)!
+    @objc public static var loadImage: ((UIImageView, String, Int, Int) -> Void)!
     
     var messageList: MessageList!
     var messageInput: MessageInput!
@@ -161,14 +161,13 @@ class Configuration: MessageListConfiguration {
         messageList = MessageList(configuration: messageListConfiguration)
         
         messageList.delegate = messageListDelegate
-        messageList.hasMoreMessage = true
         messageList.translatesAutoresizingMaskIntoConstraints = false
         addSubview(messageList)
         
         let messageInputConfiguration = MessageInputConfiguration()
-        messageInputConfiguration.audioBitRate = 200000
+        messageInputConfiguration.audioBitRate = 128000
         messageInputConfiguration.audioQuality = .medium
-        messageInputConfiguration.audioSampleRate = 22050.0
+        messageInputConfiguration.audioSampleRate = 44100.0
         messageInputConfiguration.emotionTextHeightRatio = 1
         messageInput = MessageInput(configuration: messageInputConfiguration)
         
@@ -196,7 +195,15 @@ class Configuration: MessageListConfiguration {
             NSLayoutConstraint(item: messageList, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1, constant: 0),
             NSLayoutConstraint(item: messageList, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1, constant: 0),
         ])
-        
+
+    }
+    
+    @objc public func ensureInputAudioAvailable() {
+        messageInput.ensureAudioAvailable()
+    }
+    
+    @objc public func ensureListAudioAvailable() {
+        messageList.ensureAudioAvailable()
     }
     
     @objc public func resetInput() {

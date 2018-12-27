@@ -56,7 +56,6 @@
 		9D76B89421CF746500A516C6 /* PreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D76B85B21CF746500A516C6 /* PreviewView.swift */; };
 		9D76B89521CF746500A516C6 /* CaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D76B85C21CF746500A516C6 /* CaptureView.swift */; };
 		9D76B89621CF746500A516C6 /* CameraManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D76B85D21CF746500A516C6 /* CameraManager.swift */; };
-		9D76B89721CF746500A516C6 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9D76B85E21CF746500A516C6 /* Info.plist */; };
 		9D76B89821CF746500A516C6 /* MessageInputDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D76B85F21CF746500A516C6 /* MessageInputDelegate.swift */; };
 		9D76B89921CF746500A516C6 /* SimpleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D76B86121CF746500A516C6 /* SimpleButton.swift */; };
 		9D76B89A21CF746500A516C6 /* ViewMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D76B86321CF746500A516C6 /* ViewMode.swift */; };
@@ -158,7 +157,6 @@
 		9D76B85B21CF746500A516C6 /* PreviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewView.swift; sourceTree = "<group>"; };
 		9D76B85C21CF746500A516C6 /* CaptureView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureView.swift; sourceTree = "<group>"; };
 		9D76B85D21CF746500A516C6 /* CameraManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraManager.swift; sourceTree = "<group>"; };
-		9D76B85E21CF746500A516C6 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9D76B85F21CF746500A516C6 /* MessageInputDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageInputDelegate.swift; sourceTree = "<group>"; };
 		9D76B86121CF746500A516C6 /* SimpleButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleButton.swift; sourceTree = "<group>"; };
 		9D76B86321CF746500A516C6 /* ViewMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewMode.swift; sourceTree = "<group>"; };
@@ -328,7 +326,6 @@
 				9D76B85821CF746500A516C6 /* CameraView.swift */,
 				9D76B85921CF746500A516C6 /* view */,
 				9D76B85D21CF746500A516C6 /* CameraManager.swift */,
-				9D76B85E21CF746500A516C6 /* Info.plist */,
 			);
 			path = CameraView;
 			sourceTree = "<group>";
@@ -556,7 +553,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9D76B89721CF746500A516C6 /* Info.plist in Resources */,
 				9D7F521C21B3E6F600F04D5C /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -180,6 +180,16 @@ public class MessageInput: UIView {
     public func removeEmotionFilter(_ emotionFilter: EmotionFilter) {
         textarea.removeFilter(emotionFilter)
     }
+    
+    // 确保音频可用，通常是外部要用音频了
+    public func ensureAudioAvailable() {
+        if voicePanel.isRecording {
+            voicePanel.stopRecord()
+        }
+        else if voicePanel.isPlaying {
+            voicePanel.stopPlay()
+        }
+    }
 
 }
 
@@ -702,6 +712,14 @@ extension MessageInput: VoiceInputDelegate {
     public func voiceInputDidPreviewingChange(_ voiceInput: VoiceInput, isPreviewing: Bool) {
         isVoicePreviewing = isPreviewing
         updateVoicePanelBackgroundColor()
+    }
+    
+    public func voiceInputDidRecordButtonClick(_ voiceInput: VoiceInput) {
+        delegate.messageInputWillUseAudio()
+    }
+    
+    public func voiceInputDidPlayButtonClick(_ voiceInput: VoiceInput) {
+        delegate.messageInputWillUseAudio()
     }
     
     public func voiceInputDidFinishRecord(_ voiceInput: VoiceInput, audioPath: String, audioDuration: Int) {

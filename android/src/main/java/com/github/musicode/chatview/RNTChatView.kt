@@ -182,8 +182,6 @@ class RNTChatView(context: ThemedReactContext, val appContext: ReactApplicationC
 
         val emojiFilter = EmojiFilter(emotionList)
 
-        messageList.hasMoreMessage = true
-
         messageListConfiguration = object: MessageListConfiguration(messageList.context) {
 
             override fun formatText(textView: TextView, text: SpannableString) {
@@ -231,8 +229,8 @@ class RNTChatView(context: ThemedReactContext, val appContext: ReactApplicationC
             }
         }
 
-        messageInputConfiguration.audioBitRate = 200000
-        messageInputConfiguration.audioSampleRate = 22050
+        messageInputConfiguration.audioBitRate = 128000
+        messageInputConfiguration.audioSampleRate = 44100
         messageInputConfiguration.emotionTextHeightRatio = 1f
 
         messageInput.init(

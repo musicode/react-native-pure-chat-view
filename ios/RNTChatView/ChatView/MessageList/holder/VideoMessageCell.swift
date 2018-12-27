@@ -64,6 +64,7 @@ class VideoMessageCell: MessageCell {
             avatarView.layer.borderWidth = configuration.userAvatarBorderWidth
             avatarView.layer.borderColor = configuration.userAvatarBorderColor.cgColor
         }
+        avatarView.backgroundColor = configuration.userAvatarBackgroundColor
         avatarView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(avatarView)
         
@@ -83,6 +84,7 @@ class VideoMessageCell: MessageCell {
         }
         thumbnailView.bind(cell: self)
         thumbnailView.contentMode = .scaleAspectFill
+        thumbnailView.backgroundColor = configuration.videoMessageBackgroundColor
         thumbnailView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(thumbnailView)
         
@@ -131,7 +133,12 @@ class VideoMessageCell: MessageCell {
         
         let videoMessage = message as! VideoMessage
         
-        configuration.loadImage(imageView: avatarView, url: message.user.avatar)
+        configuration.loadImage(
+            imageView: avatarView,
+            url: message.user.avatar,
+            width: configuration.userAvatarWidth,
+            height: configuration.userAvatarHeight
+        )
         
         nameView.text = message.user.name
         nameView.sizeToFit()
@@ -139,7 +146,12 @@ class VideoMessageCell: MessageCell {
         durationView.text = formatDuration(videoMessage.duration)
         durationView.sizeToFit()
         
-        configuration.loadImage(imageView: thumbnailView, url: videoMessage.thumbnail)
+        configuration.loadImage(
+            imageView: thumbnailView,
+            url: videoMessage.thumbnail,
+            width: CGFloat(integerLiteral: videoMessage.width),
+            height: CGFloat(integerLiteral: videoMessage.height)
+        )
         
         updateImageSize(width: videoMessage.width, height: videoMessage.height, widthConstraint: thumbnailWidthConstraint, heightConstraint: thumbnailHeightConstraint)
 

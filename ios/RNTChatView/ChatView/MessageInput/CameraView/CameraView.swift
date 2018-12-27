@@ -52,14 +52,6 @@ public class CameraView: UIView {
         setup()
     }
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-    }
-    
-    public required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     private func setup() {
         
         backgroundColor = .clear
@@ -552,10 +544,8 @@ extension CameraView: CircleViewDelegate {
     }
     
     public func circleViewDidLongPressEnd(_ circleView: CircleView) {
-        if circleView == captureButton {
-            if cameraManager.isVideoRecording {
-                cameraManager.stopRecordVideo()
-            }
+        if circleView == captureButton && cameraManager.isVideoRecording {
+            cameraManager.stopRecordVideo()
         }
     }
     

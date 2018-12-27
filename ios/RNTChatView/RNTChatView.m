@@ -8,8 +8,7 @@
 
 @implementation RNTChatView
 
-+ (void)setImageLoader:(void (^ _Null_unspecified)(UIImageView * _Nonnull, NSString * _Nonnull))value
-{
++ (void)setImageLoader:(void (^)(UIImageView *, NSString *, NSInteger, NSInteger))value {
     ChatView.loadImage = value;
 }
 
@@ -21,7 +20,7 @@
         [chatView setupWithMessageListDelegate:self messageInputDelegate:self];
         [self addSubview:chatView];
         chatView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        _chatView = chatView;
+        self.chatView = chatView;
     }
     return self;
 }
@@ -78,6 +77,14 @@
 
 - (void)messageListDidLoadMore {
     self.onLoadMore(@{});
+}
+
+- (void)messageListWillUseAudio {
+    [self.chatView ensureInputAudioAvailable];
+}
+
+- (void)messageInputWillUseAudio {
+    [self.chatView ensureListAudioAvailable];
 }
 
 - (void)messageInputWillRecordAudioWithoutPermissions {

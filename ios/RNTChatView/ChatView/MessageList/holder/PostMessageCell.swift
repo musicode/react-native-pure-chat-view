@@ -64,6 +64,7 @@ class PostMessageCell: MessageCell {
             avatarView.layer.borderWidth = configuration.userAvatarBorderWidth
             avatarView.layer.borderColor = configuration.userAvatarBorderColor.cgColor
         }
+        avatarView.backgroundColor = configuration.userAvatarBackgroundColor
         avatarView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(avatarView)
         
@@ -94,6 +95,7 @@ class PostMessageCell: MessageCell {
             thumbnailView.clipsToBounds = true
             thumbnailView.layer.cornerRadius = configuration.postMessageThumbnailBorderRadius
         }
+        thumbnailView.backgroundColor = configuration.postMessageThumbnailBackgroundColor
         thumbnailView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(thumbnailView)
         
@@ -137,12 +139,22 @@ class PostMessageCell: MessageCell {
         
         let postMessage = message as! PostMessage
         
-        configuration.loadImage(imageView: avatarView, url: message.user.avatar)
+        configuration.loadImage(
+            imageView: avatarView,
+            url: message.user.avatar,
+            width: configuration.userAvatarWidth,
+            height: configuration.userAvatarHeight
+        )
         
         nameView.text = message.user.name
         nameView.sizeToFit()
         
-        configuration.loadImage(imageView: thumbnailView, url: postMessage.thumbnail)
+        configuration.loadImage(
+            imageView: thumbnailView,
+            url: postMessage.thumbnail,
+            width: configuration.postMessageThumbnailWidth,
+            height: configuration.postMessageThumbnailHeight
+        )
         
         titleView.text = postMessage.title
         titleView.sizeToFit()

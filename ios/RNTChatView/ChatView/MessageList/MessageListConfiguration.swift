@@ -29,6 +29,9 @@ open class MessageListConfiguration {
     // 用户头像的圆角
     public var userAvatarBorderRadius: CGFloat = 4
     
+    // 用户头像的背景色
+    public var userAvatarBackgroundColor = UIColor(red: 0.92, green: 0.92, blue: 0.92, alpha: 1)
+    
     // 发送失败的图标
     public var messageFailureIconNormal = UIImage(named: "message_list_failure_normal")!
     public var messageFailureIconPressed = UIImage(named: "message_list_failure_pressed")!
@@ -224,6 +227,9 @@ open class MessageListConfiguration {
     // 图片圆角
     public var imageMessageBorderRadius: CGFloat = 4
     
+    // 图片背景色
+    public var imageMessageBackgroundColor = UIColor(red: 0.92, green: 0.92, blue: 0.92, alpha: 1)
+    
     // 左侧图片消息到头像的距离
     public var leftImageMessageMarginLeft: CGFloat = 10
     
@@ -355,6 +361,9 @@ open class MessageListConfiguration {
     // 视频缩略图圆角
     public var videoMessageBorderRadius: CGFloat = 4
     
+    // 视频缩略图背景色
+    public var videoMessageBackgroundColor = UIColor(red: 0.92, green: 0.92, blue: 0.92, alpha: 1)
+    
     // 视频播放图标
     public var videoMessagePlayImage = UIImage(named: "message_list_play")!
     
@@ -414,6 +423,9 @@ open class MessageListConfiguration {
     
     // 名片消息的缩略图圆角
     public var cardMessageThumbnailBorderRadius: CGFloat = 0
+    
+    // 名片消息的缩略图背景色
+    public var cardMessageThumbnailBackgroundColor = UIColor.clear
     
     // 名片消息的分割线大小
     public var cardMessageDividerWidth: CGFloat = 1 / UIScreen.main.scale
@@ -582,8 +594,17 @@ open class MessageListConfiguration {
     // 文章消息的气泡宽度
     public var postMessageBubbleWidth: CGFloat = 230
     
+    // 名片消息的缩略图宽度
+    public var postMessageThumbnailWidth: CGFloat = 38
+    
+    // 名片消息的缩略图高度
+    public var postMessageThumbnailHeight: CGFloat = 38
+    
     // 文章消息的缩略图圆角
     public var postMessageThumbnailBorderRadius: CGFloat = 0
+    
+    // 文章消息的缩略图背景色
+    public var postMessageThumbnailBackgroundColor = UIColor.clear
     
     // 文章消息的分割线大小
     public var postMessageDividerWidth: CGFloat = 1 / UIScreen.main.scale
@@ -626,12 +647,6 @@ open class MessageListConfiguration {
     
     // 左侧文章消息的描述到标题的距离
     public var leftPostMessageDescMarginTop: CGFloat = 7
-    
-    // 左侧文章消息的缩略图宽度
-    public var leftPostMessageThumbnailWidth: CGFloat = 38
-    
-    // 左侧文章消息的缩略图高度
-    public var leftPostMessageThumbnailHeight: CGFloat = 38
     
     // 左侧文章消息的缩略图到描述的距离
     public var leftPostMessageThumbnailMarginLeft: CGFloat = 5
@@ -710,12 +725,6 @@ open class MessageListConfiguration {
     // 右侧文章消息的描述到标题的距离
     public var rightPostMessageDescMarginTop: CGFloat = 7
     
-    // 右侧文章消息的缩略图宽度
-    public var rightPostMessageThumbnailWidth: CGFloat = 38
-    
-    // 右侧文章消息的缩略图高度
-    public var rightPostMessageThumbnailHeight: CGFloat = 38
-    
     // 右侧文章消息的缩略图到描述的距离
     public var rightPostMessageThumbnailMarginLeft: CGFloat = 5
     
@@ -770,7 +779,7 @@ open class MessageListConfiguration {
         
     }
     
-    open func loadImage(imageView: UIImageView, url: String) {
+    open func loadImage(imageView: UIImageView, url: String, width: CGFloat, height: CGFloat) {
         
     }
     

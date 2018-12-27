@@ -61,6 +61,7 @@ class ImageMessageCell: MessageCell {
             avatarView.layer.borderWidth = configuration.userAvatarBorderWidth
             avatarView.layer.borderColor = configuration.userAvatarBorderColor.cgColor
         }
+        avatarView.backgroundColor = configuration.userAvatarBackgroundColor
         avatarView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(avatarView)
         
@@ -80,6 +81,7 @@ class ImageMessageCell: MessageCell {
         }
         photoView.bind(cell: self)
         photoView.contentMode = .scaleAspectFill
+        photoView.backgroundColor = configuration.imageMessageBackgroundColor
         photoView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(photoView)
         
@@ -119,12 +121,22 @@ class ImageMessageCell: MessageCell {
         
         let imageMessage = message as! ImageMessage
         
-        configuration.loadImage(imageView: avatarView, url: message.user.avatar)
+        configuration.loadImage(
+            imageView: avatarView,
+            url: message.user.avatar,
+            width: configuration.userAvatarWidth,
+            height: configuration.userAvatarHeight
+        )
         
         nameView.text = message.user.name
         nameView.sizeToFit()
         
-        configuration.loadImage(imageView: photoView, url: imageMessage.url)
+        configuration.loadImage(
+            imageView: photoView,
+            url: imageMessage.url,
+            width: CGFloat(integerLiteral: imageMessage.width),
+            height: CGFloat(integerLiteral: imageMessage.height)
+        )
         
         updateImageSize(width: imageMessage.width, height: imageMessage.height, widthConstraint: photoWidthConstraint, heightConstraint: photoHeightConstraint)
         
