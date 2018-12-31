@@ -688,7 +688,7 @@ extension CameraManager {
         
     }
     
-    func getImageOrientation(deviceOrientation: UIDeviceOrientation) -> UIImageOrientation {
+    func getImageOrientation(deviceOrientation: UIDeviceOrientation) -> UIImage.Orientation {
         
         let isBackCamera = cameraPosition == .back
         
@@ -783,8 +783,8 @@ extension CameraManager {
         let generator = AVAssetImageGenerator.init(asset: avAsset)
         generator.appliesPreferredTrackTransform = true
         
-        let time = CMTimeMakeWithSeconds(0.0, 600) // 取第0秒， 一秒600帧
-        var actualTime = CMTimeMake(0, 0)
+        let time = CMTimeMakeWithSeconds(0.0, preferredTimescale: 600) // 取第0秒， 一秒600帧
+        var actualTime = CMTimeMake(value: 0, timescale: 0)
         
         do {
             let cgImage = try generator.copyCGImage(at: time, actualTime: &actualTime)
@@ -800,8 +800,8 @@ extension CameraManager {
     
     // 把图片保存到磁盘
     func saveToDisk(image: UIImage, compressionQuality: CGFloat = 0.7) -> String? {
-        
-        if let imageData = UIImageJPEGRepresentation(image, compressionQuality) as NSData? {
+
+        if let imageData = image.jpegData(compressionQuality: compressionQuality) as NSData? {
             let filePath = getFilePath(dirname: configuration.photoDir, extname: ".jpeg")
             if imageData.write(toFile: filePath, atomically: true) {
                 return filePath

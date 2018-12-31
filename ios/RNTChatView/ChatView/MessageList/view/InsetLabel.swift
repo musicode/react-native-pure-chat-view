@@ -14,7 +14,7 @@ class InsetLabel: UILabel {
     }
     
     override func drawText(in rect: CGRect) {
-        super.drawText(in: UIEdgeInsetsInsetRect(rect, contentInsets))
+        super.drawText(in: rect.inset(by: contentInsets))
     }
     
 }

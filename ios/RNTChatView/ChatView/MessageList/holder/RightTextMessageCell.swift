@@ -11,11 +11,11 @@ class RightTextMessageCell: TextMessageCell {
         bubbleView.setBackgroundImage(configuration.rightTextMessageBubbleImagePressed, for: .selected)
         bubbleView.setBackgroundImage(configuration.rightTextMessageBubbleImagePressed, for: .highlighted)
         
-        textView.textContainerInset = UIEdgeInsetsMake(
-            configuration.rightTextMessagePaddingTop,
-            configuration.rightTextMessagePaddingLeft,
-            configuration.rightTextMessagePaddingBottom,
-            configuration.rightTextMessagePaddingRight
+        textView.textContainerInset = UIEdgeInsets(
+            top: configuration.rightTextMessagePaddingTop,
+            left: configuration.rightTextMessagePaddingLeft,
+            bottom: configuration.rightTextMessagePaddingBottom,
+            right: configuration.rightTextMessagePaddingRight
         )
         
         contentView.addConstraints([

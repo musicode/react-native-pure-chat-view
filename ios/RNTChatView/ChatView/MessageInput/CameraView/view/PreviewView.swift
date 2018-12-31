@@ -62,7 +62,7 @@ class PreviewView: UIImageView {
         guard let player = playerLayer?.player else {
             return
         }
-        player.seek(to: kCMTimeZero)
+        player.seek(to: CMTime.zero)
         player.play()
     }
     

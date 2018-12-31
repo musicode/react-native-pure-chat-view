@@ -19,7 +19,7 @@ class CardMessageCell: MessageCell {
 
     var avatarTopConstraint: NSLayoutConstraint!
     
-    var spinnerView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
+    var spinnerView = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.gray)
     
     var failureView = UIButton()
     
@@ -42,11 +42,11 @@ class CardMessageCell: MessageCell {
         timeView.font = configuration.timeTextFont
         timeView.textColor = configuration.timeTextColor
         timeView.backgroundColor = configuration.timeBackgroundColor
-        timeView.contentInsets = UIEdgeInsetsMake(
-            configuration.timePaddingVertical,
-            configuration.timePaddingHorizontal,
-            configuration.timePaddingVertical,
-            configuration.timePaddingHorizontal
+        timeView.contentInsets = UIEdgeInsets(
+            top: configuration.timePaddingVertical,
+            left: configuration.timePaddingHorizontal,
+            bottom: configuration.timePaddingVertical,
+            right: configuration.timePaddingHorizontal
         )
         if configuration.timeBorderRadius > 0 {
             timeView.clipsToBounds = true

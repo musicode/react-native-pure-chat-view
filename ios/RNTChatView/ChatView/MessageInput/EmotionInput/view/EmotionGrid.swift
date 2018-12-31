@@ -160,7 +160,12 @@ extension EmotionGrid {
     func getCellSize() -> CGSize {
         
         let columnCount = CGFloat(emotionPage.columns)
-        let spacing = configuration.emotionGridPaddingHorizontal * 2 + flowLayout.sectionInset.left + flowLayout.sectionInset.right + configuration.emotionGridColumnSpacing * (columnCount - 1)
+        
+        let paddingHorizontal = configuration.emotionGridPaddingHorizontal * 2
+        let insetHorizontal = flowLayout.sectionInset.left + flowLayout.sectionInset.right
+        let gapHorizontal = configuration.emotionGridColumnSpacing * (columnCount - 1)
+        
+        let spacing = paddingHorizontal + insetHorizontal + gapHorizontal
         let width = ((collectionView.frame.width - spacing) / columnCount).rounded(.down)
 
         // 计算 itemHeight 最大值

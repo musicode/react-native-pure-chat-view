@@ -118,14 +118,14 @@ public class MessageInput: UIView {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(onKeyboardVisible(notification:)),
-            name: .UIKeyboardWillShow,
+            name: UIResponder.keyboardWillShowNotification,
             object: nil
         )
         
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(onKeyboardHidden(notification:)),
-            name: .UIKeyboardWillHide,
+            name: UIResponder.keyboardWillHideNotification,
             object: nil
         )
         
@@ -136,13 +136,13 @@ public class MessageInput: UIView {
         
         NotificationCenter.default.removeObserver(
             self,
-            name: .UIKeyboardWillShow,
+            name: UIResponder.keyboardWillShowNotification,
             object: nil
         )
         
         NotificationCenter.default.removeObserver(
             self,
-            name: .UIKeyboardWillHide,
+            name: UIResponder.keyboardWillHideNotification,
             object: nil
         )
         
@@ -624,7 +624,7 @@ extension MessageInput {
     
     @objc func onKeyboardVisible(notification: NSNotification) {
         
-        if let keyboardFrame: NSValue = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue {
+        if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             
             isKeyboardVisible = true
             

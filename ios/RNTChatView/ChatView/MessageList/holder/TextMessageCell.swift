@@ -18,7 +18,7 @@ class TextMessageCell: MessageCell {
     
     var avatarTopConstraint: NSLayoutConstraint!
     
-    var spinnerView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
+    var spinnerView = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.gray)
     
     var failureView = UIButton()
     
@@ -45,11 +45,11 @@ class TextMessageCell: MessageCell {
         timeView.font = configuration.timeTextFont
         timeView.textColor = configuration.timeTextColor
         timeView.backgroundColor = configuration.timeBackgroundColor
-        timeView.contentInsets = UIEdgeInsetsMake(
-            configuration.timePaddingVertical,
-            configuration.timePaddingHorizontal,
-            configuration.timePaddingVertical,
-            configuration.timePaddingHorizontal
+        timeView.contentInsets = UIEdgeInsets(
+            top: configuration.timePaddingVertical,
+            left: configuration.timePaddingHorizontal,
+            bottom: configuration.timePaddingVertical,
+            right: configuration.timePaddingHorizontal
         )
         if configuration.timeBorderRadius > 0 {
             timeView.clipsToBounds = true
@@ -91,7 +91,7 @@ class TextMessageCell: MessageCell {
         textView.textContainer.lineFragmentPadding = 0
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.linkTextAttributes = [
-            NSAttributedStringKey.foregroundColor.rawValue: configuration.linkTextColor
+            NSAttributedString.Key.foregroundColor: configuration.linkTextColor
         ]
         contentView.addSubview(textView)
         

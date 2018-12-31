@@ -17,7 +17,7 @@ public class EmotionTextarea: UITextView {
     
     private var filters = [EmotionFilter]()
     
-    private var typingAttrs: [String: Any]!
+    private var typingAttrs: [NSAttributedString.Key: Any]!
     
     private var minHeight: CGFloat = 0
     private var maxHeight: CGFloat = 0
@@ -36,8 +36,8 @@ public class EmotionTextarea: UITextView {
 
     func setup() {
         
-        typingAttributes[NSAttributedStringKey.foregroundColor.rawValue] = configuration.textColor
-        typingAttributes[NSAttributedStringKey.font.rawValue] = configuration.textFont
+        typingAttributes[NSAttributedString.Key.foregroundColor] = configuration.textColor
+        typingAttributes[NSAttributedString.Key.font] = configuration.textFont
         
         typingAttrs = typingAttributes
         
@@ -50,11 +50,11 @@ public class EmotionTextarea: UITextView {
         // 拼写检查
         spellCheckingType = .no
         
-        textContainerInset = UIEdgeInsetsMake(
-            configuration.paddingVertical,
-            configuration.paddingHorizontal,
-            configuration.paddingVertical,
-            configuration.paddingHorizontal
+        textContainerInset = UIEdgeInsets(
+            top: configuration.paddingVertical,
+            left: configuration.paddingHorizontal,
+            bottom: configuration.paddingVertical,
+            right: configuration.paddingHorizontal
         )
         
         textContainer.lineFragmentPadding = 0
@@ -102,8 +102,8 @@ public class EmotionTextarea: UITextView {
     override public func insertText(_ text: String) {
         
         let pastedAttributedString = NSMutableAttributedString(string: text, attributes: [
-            NSAttributedStringKey.foregroundColor: configuration.textColor,
-            NSAttributedStringKey.font: configuration.textFont
+            NSAttributedString.Key.foregroundColor: configuration.textColor,
+            NSAttributedString.Key.font: configuration.textFont
         ])
         
         let pastedString = NSString(string: text)
@@ -140,7 +140,7 @@ public class EmotionTextarea: UITextView {
         let maxLength = NSMaxRange(range)
         
         while NSMaxRange(effectiveRange) < maxLength {
-            if let attachment = attributedText.attribute(NSAttributedStringKey.attachment, at: NSMaxRange(effectiveRange), effectiveRange: &effectiveRange) {
+            if let attachment = attributedText.attribute(NSAttributedString.Key.attachment, at: NSMaxRange(effectiveRange), effectiveRange: &effectiveRange) {
                 if (attachment is EmotionAttachment) {
                     plainText += (attachment as! EmotionAttachment).emotion.code
                 }

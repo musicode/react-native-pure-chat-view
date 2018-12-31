@@ -2,7 +2,6 @@
 import UIKit
 import AVFoundation
 
-// 配置
 public class CameraViewConfiguration {
 
     // 引导文本颜色

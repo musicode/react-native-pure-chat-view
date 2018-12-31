@@ -100,7 +100,7 @@ class AudioPlayer: NSObject {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(sensorStateChange),
-            name: Notification.Name.UIDeviceProximityStateDidChange,
+            name: UIDevice.proximityStateDidChangeNotification,
             object: nil
         )
         
@@ -122,7 +122,7 @@ class AudioPlayer: NSObject {
         
         NotificationCenter.default.removeObserver(
             self,
-            name: Notification.Name.UIDeviceProximityStateDidChange,
+            name: UIDevice.proximityStateDidChangeNotification,
             object: nil
         )
         
@@ -169,11 +169,21 @@ class AudioPlayer: NSObject {
     }
     
     private func useSpeaker() {
-        try! AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+        if #available(iOS 10.0, *) {
+            try! AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback, mode: .default, options: [])
+        }
+        else {
+            // 妈的，swift 不支持调用 setCategory 了
+        }
     }
     
     private func useEar() {
-        try! AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord)
+        if #available(iOS 10.0, *) {
+            try! AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playAndRecord, mode: .default, options: [])
+        }
+        else {
+            // 妈的，swift 不支持调用 setCategory 了
+        }
     }
 
 }

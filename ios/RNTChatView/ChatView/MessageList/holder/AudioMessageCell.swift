@@ -20,9 +20,9 @@ class AudioMessageCell: MessageCell {
     var bubbleWidthConstraint: NSLayoutConstraint!
     var avatarTopConstraint: NSLayoutConstraint!
     
-    var loadingView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
+    var loadingView = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.gray)
     
-    var spinnerView = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
+    var spinnerView = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.gray)
     
     var failureView = UIButton()
 
@@ -34,11 +34,11 @@ class AudioMessageCell: MessageCell {
         timeView.font = configuration.timeTextFont
         timeView.textColor = configuration.timeTextColor
         timeView.backgroundColor = configuration.timeBackgroundColor
-        timeView.contentInsets = UIEdgeInsetsMake(
-            configuration.timePaddingVertical,
-            configuration.timePaddingHorizontal,
-            configuration.timePaddingVertical,
-            configuration.timePaddingHorizontal
+        timeView.contentInsets = UIEdgeInsets(
+            top: configuration.timePaddingVertical,
+            left: configuration.timePaddingHorizontal,
+            bottom: configuration.timePaddingVertical,
+            right: configuration.timePaddingHorizontal
         )
         if configuration.timeBorderRadius > 0 {
             timeView.clipsToBounds = true

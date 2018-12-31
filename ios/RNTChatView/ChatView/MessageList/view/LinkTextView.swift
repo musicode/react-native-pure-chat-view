@@ -5,7 +5,7 @@ class LinkTextView: UITextView {
     
     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
         
-        guard let pos = closestPosition(to: point), let range = tokenizer.rangeEnclosingPosition(pos, with: .character, inDirection: UITextLayoutDirection.left.rawValue) else {
+        guard let pos = closestPosition(to: point), let range = tokenizer.rangeEnclosingPosition(pos, with: .character, inDirection: UITextDirection(rawValue: UITextLayoutDirection.left.rawValue)) else {
             return false
         }
         

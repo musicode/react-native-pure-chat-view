@@ -133,14 +133,14 @@ class MessageCell: UITableViewCell {
         
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = lineSpacing
-        attributedString.addAttribute(NSAttributedStringKey.paragraphStyle, value: paragraphStyle, range: fullRange)
+        attributedString.addAttribute(NSAttributedString.Key.paragraphStyle, value: paragraphStyle, range: fullRange)
         
-        attributedString.addAttribute(NSAttributedStringKey.font, value: font, range: fullRange)
-        attributedString.addAttribute(NSAttributedStringKey.foregroundColor, value: color, range: fullRange)
+        attributedString.addAttribute(NSAttributedString.Key.font, value: font, range: fullRange)
+        attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: color, range: fullRange)
         
         for item in links {
             let range = NSMakeRange(item.position, NSString(string: item.text).length)
-            attributedString.addAttribute(NSAttributedStringKey.link, value: item.link, range: range)
+            attributedString.addAttribute(NSAttributedString.Key.link, value: item.link, range: range)
         }
         
         return attributedString

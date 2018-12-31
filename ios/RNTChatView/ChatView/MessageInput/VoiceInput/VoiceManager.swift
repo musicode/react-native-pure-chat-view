@@ -81,7 +81,7 @@ class VoiceManager: NSObject {
 
         let session = AVAudioSession.sharedInstance()
 
-        if session.recordPermission() == .undetermined {
+        if session.recordPermission == .undetermined {
             session.requestRecordPermission { granted in
                 if granted {
                     self.onPermissionsGranted?()
@@ -93,14 +93,19 @@ class VoiceManager: NSObject {
             return false
         }
         
-        return session.recordPermission() == .granted
+        return session.recordPermission == .granted
 
     }
 
-    private func setSessionCategory(_ category: String) {
+    private func setSessionCategory(_ category: AVAudioSession.Category) {
 
         do {
-            try AVAudioSession.sharedInstance().setCategory(category)
+            if #available(iOS 10.0, *) {
+                try AVAudioSession.sharedInstance().setCategory(category, mode: .default)
+            }
+            else {
+                // Fallback on earlier versions
+            }
         }
         catch {
             print("could not set session category: \(category)")
@@ -153,7 +158,7 @@ class VoiceManager: NSObject {
         if let recorder = recorder {
 
             // 设置 session
-            setSessionCategory(AVAudioSessionCategoryRecord)
+            setSessionCategory(AVAudioSession.Category.record)
             setSessionActive(true)
 
             recorder.delegate = self
@@ -177,7 +182,7 @@ class VoiceManager: NSObject {
             recorder.stop()
         }
 
-        setSessionCategory(AVAudioSessionCategoryPlayback)
+        setSessionCategory(AVAudioSession.Category.playback)
         setSessionActive(false)
 
     }

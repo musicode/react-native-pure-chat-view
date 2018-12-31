@@ -20,14 +20,14 @@ class EventMessageCell: MessageCell {
 
         
         eventView.linkTextAttributes = [
-            NSAttributedStringKey.foregroundColor.rawValue: configuration.linkTextColor
+            NSAttributedString.Key.foregroundColor: configuration.linkTextColor
         ]
         
-        eventView.textContainerInset = UIEdgeInsetsMake(
-            configuration.eventPaddingVertical,
-            configuration.eventPaddingHorizontal,
-            configuration.eventPaddingVertical,
-            configuration.eventPaddingHorizontal
+        eventView.textContainerInset = UIEdgeInsets(
+            top: configuration.eventPaddingVertical,
+            left: configuration.eventPaddingHorizontal,
+            bottom: configuration.eventPaddingVertical,
+            right: configuration.eventPaddingHorizontal
         )
         
         if configuration.eventBorderRadius > 0 {

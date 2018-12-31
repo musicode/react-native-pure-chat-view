@@ -45,7 +45,7 @@ public class MessageList: UIView {
         tableView.separatorStyle = .none
         tableView.showsVerticalScrollIndicator = false
         tableView.estimatedRowHeight = 100
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
         
         tableView.register(LeftTextMessageCell.self, forCellReuseIdentifier: "LeftTextMessage")
         tableView.register(RightTextMessageCell.self, forCellReuseIdentifier: "RightTextMessage")
