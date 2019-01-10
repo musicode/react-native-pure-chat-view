@@ -47,25 +47,25 @@ public class MessageList: UIView {
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableView.automaticDimension
         
-        tableView.register(LeftTextMessageCell.self, forCellReuseIdentifier: "LeftTextMessage")
-        tableView.register(RightTextMessageCell.self, forCellReuseIdentifier: "RightTextMessage")
+        tableView.register(LeftTextMessageCell.self, forCellReuseIdentifier: CellIdentifier.leftTextMessage.rawValue)
+        tableView.register(RightTextMessageCell.self, forCellReuseIdentifier: CellIdentifier.rightTextMessage.rawValue)
         
-        tableView.register(LeftImageMessageCell.self, forCellReuseIdentifier: "LeftImageMessage")
-        tableView.register(RightImageMessageCell.self, forCellReuseIdentifier: "RightImageMessage")
+        tableView.register(LeftImageMessageCell.self, forCellReuseIdentifier: CellIdentifier.leftImageMessage.rawValue)
+        tableView.register(RightImageMessageCell.self, forCellReuseIdentifier: CellIdentifier.rightImageMessage.rawValue)
         
-        tableView.register(LeftAudioMessageCell.self, forCellReuseIdentifier: "LeftAudioMessage")
-        tableView.register(RightAudioMessageCell.self, forCellReuseIdentifier: "RightAudioMessage")
+        tableView.register(LeftAudioMessageCell.self, forCellReuseIdentifier: CellIdentifier.leftAudioMessage.rawValue)
+        tableView.register(RightAudioMessageCell.self, forCellReuseIdentifier: CellIdentifier.rightAudioMessage.rawValue)
         
-        tableView.register(LeftVideoMessageCell.self, forCellReuseIdentifier: "LeftVideoMessage")
-        tableView.register(RightVideoMessageCell.self, forCellReuseIdentifier: "RightVideoMessage")
+        tableView.register(LeftVideoMessageCell.self, forCellReuseIdentifier: CellIdentifier.leftVideoMessage.rawValue)
+        tableView.register(RightVideoMessageCell.self, forCellReuseIdentifier: CellIdentifier.rightVideoMessage.rawValue)
         
-        tableView.register(LeftCardMessageCell.self, forCellReuseIdentifier: "LeftCardMessage")
-        tableView.register(RightCardMessageCell.self, forCellReuseIdentifier: "RightCardMessage")
+        tableView.register(LeftCardMessageCell.self, forCellReuseIdentifier: CellIdentifier.leftCardMessage.rawValue)
+        tableView.register(RightCardMessageCell.self, forCellReuseIdentifier: CellIdentifier.rightCardMessage.rawValue)
         
-        tableView.register(LeftPostMessageCell.self, forCellReuseIdentifier: "LeftPostMessage")
-        tableView.register(RightPostMessageCell.self, forCellReuseIdentifier: "RightPostMessage")
+        tableView.register(LeftPostMessageCell.self, forCellReuseIdentifier: CellIdentifier.leftPostMessage.rawValue)
+        tableView.register(RightPostMessageCell.self, forCellReuseIdentifier: CellIdentifier.rightPostMessage.rawValue)
         
-        tableView.register(EventMessageCell.self, forCellReuseIdentifier: "EventMessage")
+        tableView.register(EventMessageCell.self, forCellReuseIdentifier: CellIdentifier.eventMessage.rawValue)
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(tableView)
@@ -201,54 +201,54 @@ extension MessageList: UITableViewDataSource, UITableViewDelegate {
         let isRight = configuration.isRightMessage(message: message)
         if message is TextMessage {
             if isRight {
-                messageCell = tableView.dequeueReusableCell(withIdentifier: "RightTextMessage") as? MessageCell
+                messageCell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.rightTextMessage.rawValue) as? MessageCell
             }
             else {
-                messageCell = tableView.dequeueReusableCell(withIdentifier: "LeftTextMessage") as? MessageCell
+                messageCell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.leftTextMessage.rawValue) as? MessageCell
             }
         }
         else if message is ImageMessage {
             if isRight {
-                messageCell = tableView.dequeueReusableCell(withIdentifier: "RightImageMessage") as? MessageCell
+                messageCell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.rightImageMessage.rawValue) as? MessageCell
             }
             else {
-                messageCell = tableView.dequeueReusableCell(withIdentifier: "LeftImageMessage") as? MessageCell
+                messageCell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.leftImageMessage.rawValue) as? MessageCell
             }
         }
         else if message is AudioMessage {
             if isRight {
-                messageCell = tableView.dequeueReusableCell(withIdentifier: "RightAudioMessage") as? MessageCell
+                messageCell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.rightAudioMessage.rawValue) as? MessageCell
             }
             else {
-                messageCell = tableView.dequeueReusableCell(withIdentifier: "LeftAudioMessage") as? MessageCell
+                messageCell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.leftAudioMessage.rawValue) as? MessageCell
             }
         }
         else if message is VideoMessage {
             if isRight {
-                messageCell = tableView.dequeueReusableCell(withIdentifier: "RightVideoMessage") as? MessageCell
+                messageCell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.rightVideoMessage.rawValue) as? MessageCell
             }
             else {
-                messageCell = tableView.dequeueReusableCell(withIdentifier: "LeftVideoMessage") as? MessageCell
+                messageCell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.leftVideoMessage.rawValue) as? MessageCell
             }
         }
         else if message is CardMessage {
             if isRight {
-                messageCell = tableView.dequeueReusableCell(withIdentifier: "RightCardMessage") as? MessageCell
+                messageCell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.rightCardMessage.rawValue) as? MessageCell
             }
             else {
-                messageCell = tableView.dequeueReusableCell(withIdentifier: "LeftCardMessage") as? MessageCell
+                messageCell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.leftCardMessage.rawValue) as? MessageCell
             }
         }
         else if message is PostMessage {
             if isRight {
-                messageCell = tableView.dequeueReusableCell(withIdentifier: "RightPostMessage") as? MessageCell
+                messageCell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.rightPostMessage.rawValue) as? MessageCell
             }
             else {
-                messageCell = tableView.dequeueReusableCell(withIdentifier: "LeftPostMessage") as? MessageCell
+                messageCell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.leftPostMessage.rawValue) as? MessageCell
             }
         }
         else if message is EventMessage {
-            messageCell = tableView.dequeueReusableCell(withIdentifier: "EventMessage") as? MessageCell
+            messageCell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.eventMessage.rawValue) as? MessageCell
         }
         
         messageCell?.bind(configuration: configuration, delegate: delegate, message: message, index: rowIndex, count: messageList.count)
@@ -259,3 +259,19 @@ extension MessageList: UITableViewDataSource, UITableViewDelegate {
     
 }
 
+//
+// MARK: - 枚举
+//
+
+extension MessageList {
+    
+    enum CellIdentifier: String {
+        case leftTextMessage, rightTextMessage
+        case leftImageMessage, rightImageMessage
+        case leftAudioMessage, rightAudioMessage
+        case leftVideoMessage, rightVideoMessage
+        case leftCardMessage, rightCardMessage
+        case leftPostMessage, rightPostMessage
+        case eventMessage
+    }
+}
