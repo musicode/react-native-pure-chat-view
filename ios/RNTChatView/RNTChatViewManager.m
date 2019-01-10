@@ -44,6 +44,8 @@ RCT_EXPORT_VIEW_PROPERTY(onUserAvatarClick, RCTBubblingEventBlock);
 RCT_EXPORT_VIEW_PROPERTY(onContentClick, RCTBubblingEventBlock);
 RCT_EXPORT_VIEW_PROPERTY(onCopyClick, RCTBubblingEventBlock);
 RCT_EXPORT_VIEW_PROPERTY(onShareClick, RCTBubblingEventBlock);
+RCT_EXPORT_VIEW_PROPERTY(onRecallClick, RCTBubblingEventBlock);
+RCT_EXPORT_VIEW_PROPERTY(onDeleteClick, RCTBubblingEventBlock);
 RCT_EXPORT_VIEW_PROPERTY(onFailureClick, RCTBubblingEventBlock);
 RCT_EXPORT_VIEW_PROPERTY(onLinkClick, RCTBubblingEventBlock);
 RCT_EXPORT_VIEW_PROPERTY(onLoadMore, RCTBubblingEventBlock);

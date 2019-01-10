@@ -16,6 +16,8 @@
 @property (nonatomic, copy) RCTBubblingEventBlock onContentClick;
 @property (nonatomic, copy) RCTBubblingEventBlock onCopyClick;
 @property (nonatomic, copy) RCTBubblingEventBlock onShareClick;
+@property (nonatomic, copy) RCTBubblingEventBlock onRecallClick;
+@property (nonatomic, copy) RCTBubblingEventBlock onDeleteClick;
 @property (nonatomic, copy) RCTBubblingEventBlock onFailureClick;
 @property (nonatomic, copy) RCTBubblingEventBlock onLinkClick;
 @property (nonatomic, copy) RCTBubblingEventBlock onLoadMore;

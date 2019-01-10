@@ -63,6 +63,18 @@
                         });
 }
 
+- (void)messageListDidClickRecallWithMessage:(Message *)message {
+    self.onRecallClick(@{
+                        @"messageId": message.id
+                        });
+}
+
+- (void)messageListDidClickDeleteWithMessage:(Message *)message {
+    self.onDeleteClick(@{
+                        @"messageId": message.id
+                        });
+}
+
 - (void)messageListDidClickFailureWithMessage:(Message *)message {
     self.onFailureClick(@{
                            @"messageId": message.id

@@ -291,27 +291,31 @@ class Configuration: MessageListConfiguration {
         let id = data["id"] as! String
         let time = data["time"] as! String
         
+        let canShare = data["canShare"] as? Bool ?? false
+        let canRecall = data["canRecall"] as? Bool ?? false
+        let canDelete = data["canDelete"] as? Bool ?? false
+        
         let typeInt = data["type"] as! Int
         var message: Message!
         
         switch typeInt {
         case 1:
-            message = TextMessage(id: id, user: user, status: status, time: time, text: data["text"] as! String)
+            message = TextMessage(id: id, user: user, status: status, time: time, canShare: canShare, canRecall: canRecall, canDelete: canDelete, text: data["text"] as! String)
             break
         case 2:
-            message = ImageMessage(id: id, user: user, status: status, time: time, url: data["url"] as! String, width: data["width"] as! Int, height: data["height"] as! Int)
+            message = ImageMessage(id: id, user: user, status: status, time: time, canShare: canShare, canRecall: canRecall, canDelete: canDelete, url: data["url"] as! String, width: data["width"] as! Int, height: data["height"] as! Int)
             break
         case 3:
-            message = AudioMessage(id: id, user: user, status: status, time: time, url: data["url"] as! String, duration: data["duration"] as! Int)
+            message = AudioMessage(id: id, user: user, status: status, time: time, canShare: canShare, canRecall: canRecall, canDelete: canDelete, url: data["url"] as! String, duration: data["duration"] as! Int)
             break
         case 4:
-            message = VideoMessage(id: id, user: user, status: status, time: time, url: data["url"] as! String, duration: data["duration"] as! Int, thumbnail: data["thumbnail"] as! String, width: data["width"] as! Int, height: data["height"] as! Int)
+            message = VideoMessage(id: id, user: user, status: status, time: time, canShare: canShare, canRecall: canRecall, canDelete: canDelete, url: data["url"] as! String, duration: data["duration"] as! Int, thumbnail: data["thumbnail"] as! String, width: data["width"] as! Int, height: data["height"] as! Int)
             break
         case 5:
-            message = CardMessage(id: id, user: user, status: status, time: time, thumbnail: data["thumbnail"] as! String, title: data["title"] as! String, desc: data["desc"] as! String, label: data["label"] as! String, link: data["link"] as! String)
+            message = CardMessage(id: id, user: user, status: status, time: time, canShare: canShare, canRecall: canRecall, canDelete: canDelete, thumbnail: data["thumbnail"] as! String, title: data["title"] as! String, desc: data["desc"] as! String, label: data["label"] as! String, link: data["link"] as! String)
             break
         case 6:
-            message = PostMessage(id: id, user: user, status: status, time: time, thumbnail: data["thumbnail"] as! String, title: data["title"] as! String, desc: data["desc"] as! String, label: data["label"] as! String, link: data["link"] as! String)
+            message = PostMessage(id: id, user: user, status: status, time: time, canShare: canShare, canRecall: canRecall, canDelete: canDelete, thumbnail: data["thumbnail"] as! String, title: data["title"] as! String, desc: data["desc"] as! String, label: data["label"] as! String, link: data["link"] as! String)
             break
         default:
             message = EventMessage(id: id, user: user, status: status, time: time, event: data["event"] as! String)
