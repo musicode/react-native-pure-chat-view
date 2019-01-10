@@ -66,7 +66,7 @@ class AudioMessageCell: MessageCell {
         nameView.translatesAutoresizingMaskIntoConstraints = false
         
         // 气泡
-        bubbleView.bind(cell: self)
+        bubbleView.cell = self
         bubbleView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(bubbleView)
         
@@ -168,6 +168,41 @@ class AudioMessageCell: MessageCell {
             stopAnimation()
         }
         
+    }
+    
+    override func createMenuItems() -> [UIMenuItem] {
+        var items = [UIMenuItem]()
+        
+        if message.canShare {
+            items.append(
+                UIMenuItem(
+                    title: configuration.menuItemShare,
+                    action: #selector(InteractiveButton.onShare)
+                )
+            )
+        }
+        if message.canRecall {
+            items.append(
+                UIMenuItem(
+                    title: configuration.menuItemRecall,
+                    action: #selector(InteractiveButton.onRecall)
+                )
+            )
+        }
+        if message.canDelete {
+            items.append(
+                UIMenuItem(
+                    title: configuration.menuItemDelete,
+                    action: #selector(InteractiveButton.onDelete)
+                )
+            )
+        }
+        
+        bubbleView.actions = items.map {
+            return $0.action
+        }
+        
+        return items
     }
     
     private func updateContentSize(duration: Int) {

@@ -366,6 +366,18 @@ class RNTChatView(context: ThemedReactContext, val appContext: ReactApplicationC
                     sendEvent("onShareClick", event)
                 }
 
+                override fun onRecallClick(message: Message) {
+                    val event = Arguments.createMap()
+                    event.putString("messageId", message.id)
+                    sendEvent("onRecallClick", event)
+                }
+
+                override fun onDeleteClick(message: Message) {
+                    val event = Arguments.createMap()
+                    event.putString("messageId", message.id)
+                    sendEvent("onDeleteClick", event)
+                }
+
                 override fun onFailureClick(message: Message) {
                     val event = Arguments.createMap()
                     event.putString("messageId", message.id)
@@ -493,6 +505,11 @@ class RNTChatView(context: ThemedReactContext, val appContext: ReactApplicationC
             }
         }
 
+
+        val canShare = if (message.hasKey("canShare")) message.getBoolean("canShare") else false
+        val canRecall = if (message.hasKey("canRecall")) message.getBoolean("canRecall") else false
+        val canDelete = if (message.hasKey("canDelete")) message.getBoolean("canDelete") else false
+
         return when (message.getInt("type")) {
             1 -> {
                 TextMessage(
@@ -500,6 +517,9 @@ class RNTChatView(context: ThemedReactContext, val appContext: ReactApplicationC
                     user,
                     status,
                     message.getString("time"),
+                    canShare,
+                    canRecall,
+                    canDelete,
                     message.getString("text")
                 )
             }
@@ -509,6 +529,9 @@ class RNTChatView(context: ThemedReactContext, val appContext: ReactApplicationC
                     user,
                     status,
                     message.getString("time"),
+                    canShare,
+                    canRecall,
+                    canDelete,
                     message.getString("url"),
                     message.getInt("width"),
                     message.getInt("height")
@@ -520,6 +543,9 @@ class RNTChatView(context: ThemedReactContext, val appContext: ReactApplicationC
                     user,
                     status,
                     message.getString("time"),
+                    canShare,
+                    canRecall,
+                    canDelete,
                     message.getString("url"),
                     message.getInt("duration")
                 )
@@ -530,6 +556,9 @@ class RNTChatView(context: ThemedReactContext, val appContext: ReactApplicationC
                     user,
                     status,
                     message.getString("time"),
+                    canShare,
+                    canRecall,
+                    canDelete,
                     message.getString("url"),
                     message.getInt("duration"),
                     message.getString("thumbnail"),
@@ -543,6 +572,9 @@ class RNTChatView(context: ThemedReactContext, val appContext: ReactApplicationC
                     user,
                     status,
                     message.getString("time"),
+                    canShare,
+                    canRecall,
+                    canDelete,
                     message.getString("thumbnail"),
                     message.getString("title"),
                     message.getString("desc"),
@@ -556,6 +588,9 @@ class RNTChatView(context: ThemedReactContext, val appContext: ReactApplicationC
                     user,
                     status,
                     message.getString("time"),
+                    canShare,
+                    canRecall,
+                    canDelete,
                     message.getString("thumbnail"),
                     message.getString("title"),
                     message.getString("desc"),
@@ -569,6 +604,9 @@ class RNTChatView(context: ThemedReactContext, val appContext: ReactApplicationC
                     user,
                     status,
                     message.getString("time"),
+                    canShare,
+                    canRecall,
+                    canDelete,
                     message.getString("event")
                 )
             }

@@ -22,18 +22,7 @@ class CardMessageCell: MessageCell {
     var spinnerView = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.gray)
     
     var failureView = UIButton()
-    
-    override var menuItems: [UIMenuItem] {
-        get {
-            return createMenuItems([
-                UIMenuItem(
-                    title: configuration.menuItemShare,
-                    action: #selector(InteractiveButton.onShare)
-                )
-            ])
-        }
-    }
-    
+
     override func create() {
         
         // 时间
@@ -74,7 +63,7 @@ class CardMessageCell: MessageCell {
         nameView.translatesAutoresizingMaskIntoConstraints = false
         
         // 气泡
-        bubbleView.bind(cell: self)
+        bubbleView.cell = self
         bubbleView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(bubbleView)
         
@@ -172,4 +161,38 @@ class CardMessageCell: MessageCell {
         
     }
     
+    override func createMenuItems() -> [UIMenuItem] {
+        var items = [UIMenuItem]()
+        
+        if message.canShare {
+            items.append(
+                UIMenuItem(
+                    title: configuration.menuItemShare,
+                    action: #selector(InteractiveButton.onShare)
+                )
+            )
+        }
+        if message.canRecall {
+            items.append(
+                UIMenuItem(
+                    title: configuration.menuItemRecall,
+                    action: #selector(InteractiveButton.onRecall)
+                )
+            )
+        }
+        if message.canDelete {
+            items.append(
+                UIMenuItem(
+                    title: configuration.menuItemDelete,
+                    action: #selector(InteractiveButton.onDelete)
+                )
+            )
+        }
+        
+        bubbleView.actions = items.map {
+            return $0.action
+        }
+        
+        return items
+    }
 }

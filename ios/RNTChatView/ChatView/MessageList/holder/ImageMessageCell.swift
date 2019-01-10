@@ -20,17 +20,6 @@ class ImageMessageCell: MessageCell {
     
     var failureView = UIButton()
     
-    override var menuItems: [UIMenuItem] {
-        get {
-            return createMenuItems([
-                UIMenuItem(
-                    title: configuration.menuItemShare,
-                    action: #selector(InteractiveImageView.onShare)
-                )
-            ])
-        }
-    }
-
     override func create() {
         
         // 时间
@@ -79,7 +68,7 @@ class ImageMessageCell: MessageCell {
             photoView.layer.borderWidth = configuration.imageMessageBorderWidth
             photoView.layer.borderColor = configuration.imageMessageBorderColor.cgColor
         }
-        photoView.bind(cell: self)
+        photoView.cell = self
         photoView.contentMode = .scaleAspectFill
         photoView.backgroundColor = configuration.imageMessageBackgroundColor
         photoView.translatesAutoresizingMaskIntoConstraints = false
@@ -146,4 +135,38 @@ class ImageMessageCell: MessageCell {
         
     }
     
+    override func createMenuItems() -> [UIMenuItem] {
+        var items = [UIMenuItem]()
+        
+        if message.canShare {
+            items.append(
+                UIMenuItem(
+                    title: configuration.menuItemShare,
+                    action: #selector(InteractiveImageView.onShare)
+                )
+            )
+        }
+        if message.canRecall {
+            items.append(
+                UIMenuItem(
+                    title: configuration.menuItemRecall,
+                    action: #selector(InteractiveImageView.onRecall)
+                )
+            )
+        }
+        if message.canDelete {
+            items.append(
+                UIMenuItem(
+                    title: configuration.menuItemDelete,
+                    action: #selector(InteractiveImageView.onDelete)
+                )
+            )
+        }
+        
+        photoView.actions = items.map {
+            return $0.action
+        }
+        
+        return items
+    }
 }

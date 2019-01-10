@@ -767,7 +767,9 @@ open class MessageListConfiguration {
     
     public var menuItemShare = "转发"
     
+    public var menuItemRecall = "撤回"
     
+    public var menuItemDelete = "删除"
     
     public init() { }
     

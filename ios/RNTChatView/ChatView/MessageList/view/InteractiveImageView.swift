@@ -3,8 +3,8 @@ import UIKit
 
 class InteractiveImageView: UIImageView {
     
-    private var cell: MessageCell!
-    private var actions: [Selector]!
+    var cell: MessageCell!
+    var actions: [Selector]!
     
     override var canBecomeFirstResponder: Bool {
         return true
@@ -14,15 +14,16 @@ class InteractiveImageView: UIImageView {
         return actions.contains(action)
     }
     
-    func bind(cell: MessageCell) {
-        self.cell = cell
-        self.actions = cell.menuItems.map {
-            return $0.action
-        }
-    }
-    
     @objc func onShare(_ controller: UIMenuController) {
         cell.delegate.messageListDidClickShare(message: cell.message)
+    }
+    
+    @objc func onRecall(_ controller: UIMenuController) {
+        cell.delegate.messageListDidClickRecall(message: cell.message)
+    }
+    
+    @objc func onDelete(_ controller: UIMenuController) {
+        cell.delegate.messageListDidClickDelete(message: cell.message)
     }
     
 }

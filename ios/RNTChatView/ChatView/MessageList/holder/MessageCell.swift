@@ -16,8 +16,6 @@ class MessageCell: UITableViewCell {
     var topConstraint: NSLayoutConstraint!
     var bottomConstraint: NSLayoutConstraint!
     
-    private(set) var menuItems: [UIMenuItem] = [ ]
-    
     var count = 0
     
     var index = -1 {
@@ -78,10 +76,8 @@ class MessageCell: UITableViewCell {
         
     }
     
-    func createMenuItems(_ menuItems: [UIMenuItem]) -> [UIMenuItem] {
-        return menuItems.filter {
-            return $0.title != ""
-        }
+    func createMenuItems() -> [UIMenuItem] {
+        return []
     }
     
     func formatLinks(text: String, font: UIFont, color: UIColor, lineSpacing: CGFloat) -> NSMutableAttributedString {
@@ -249,11 +245,9 @@ class MessageCell: UITableViewCell {
             UITapGestureRecognizer(target: self, action: #selector(onContentClick))
         )
 
-        if menuItems.count > 0 {
-            view.addGestureRecognizer(
-                UILongPressGestureRecognizer(target: self, action: #selector(onContentLongPress))
-            )
-        }
+        view.addGestureRecognizer(
+            UILongPressGestureRecognizer(target: self, action: #selector(onContentLongPress))
+        )
         
     }
 
@@ -276,13 +270,22 @@ class MessageCell: UITableViewCell {
     }
     
     @objc func onContentClick() {
+        // 点击触发 UIMenuController 显示的 view
+        // 不会自动隐藏 UIMenuController，
+        // 因此这里强制隐藏一下
+        let menuController = UIMenuController.shared
+        if menuController.isMenuVisible {
+            menuController.isMenuVisible = false
+        }
         delegate.messageListDidClickContent(message: message)
     }
     
     @objc func onContentLongPress(_ gesture: UILongPressGestureRecognizer) {
         
+        let menuItems = createMenuItems()
+        
         // 会触发两次，第一次是 began 第二次是 ended
-        guard gesture.state == .began else {
+        guard gesture.state == .began, menuItems.count > 0 else {
             return
         }
         

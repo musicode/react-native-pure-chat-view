@@ -22,17 +22,6 @@ class PostMessageCell: MessageCell {
     var spinnerView = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.gray)
     
     var failureView = UIButton()
-
-    override var menuItems: [UIMenuItem] {
-        get {
-            return createMenuItems([
-                UIMenuItem(
-                    title: configuration.menuItemShare,
-                    action: #selector(InteractiveButton.onShare)
-                )
-            ])
-        }
-    }
     
     override func create() {
         
@@ -74,7 +63,7 @@ class PostMessageCell: MessageCell {
         nameView.translatesAutoresizingMaskIntoConstraints = false
         
         // 气泡
-        bubbleView.bind(cell: self)
+        bubbleView.cell = self
         bubbleView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(bubbleView)
         
@@ -168,6 +157,43 @@ class PostMessageCell: MessageCell {
         showStatusView(spinnerView: spinnerView, failureView: failureView)
         
         showTimeView(timeView: timeView, time: message.time, avatarView: avatarView, avatarTopConstraint: avatarTopConstraint)
+        
+    }
+    
+    override func createMenuItems() -> [UIMenuItem] {
+        
+        var items = [UIMenuItem]()
+        
+        if message.canShare {
+            items.append(
+                UIMenuItem(
+                    title: configuration.menuItemShare,
+                    action: #selector(InteractiveButton.onShare)
+                )
+            )
+        }
+        if message.canRecall {
+            items.append(
+                UIMenuItem(
+                    title: configuration.menuItemRecall,
+                    action: #selector(InteractiveButton.onRecall)
+                )
+            )
+        }
+        if message.canDelete {
+            items.append(
+                UIMenuItem(
+                    title: configuration.menuItemDelete,
+                    action: #selector(InteractiveButton.onDelete)
+                )
+            )
+        }
+        
+        bubbleView.actions = items.map {
+            return $0.action
+        }
+        
+        return items
         
     }
     
