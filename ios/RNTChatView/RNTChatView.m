@@ -140,8 +140,8 @@
 - (void)messageInputDidSendPhotoWithPhoto:(ImageFile *)photo {
     self.onSendPhoto(@{
                        @"photoPath": photo.path,
-                       @"photoWidth": [NSNumber numberWithInteger:photo.width],
-                       @"photoHeight": [NSNumber numberWithInteger:photo.height]
+                       @"photoWidth": @(photo.width),
+                       @"photoHeight": @(photo.height)
                        });
 }
 
@@ -152,17 +152,17 @@
 - (void)messageInputDidSendAudioWithAudioPath:(NSString *)audioPath audioDuration:(NSInteger)audioDuration {
     self.onSendAudio(@{
                        @"audioPath": audioPath,
-                       @"audioDuration": [NSNumber numberWithInteger:audioDuration]
+                       @"audioDuration": @(audioDuration)
                        });
 }
 
 - (void)messageInputDidSendVideoWithVideoPath:(NSString *)videoPath videoDuration:(NSInteger)videoDuration thumbnail:(ImageFile *)thumbnail {
     self.onSendVideo(@{
                        @"videoPath": videoPath,
-                       @"videoDuration": [NSNumber numberWithInteger:videoDuration],
+                       @"videoDuration": @(videoDuration),
                        @"thumbnailPath": thumbnail.path,
-                       @"thumbnailWidth": [NSNumber numberWithInteger:thumbnail.width],
-                       @"thumbnailHeight": [NSNumber numberWithInteger:thumbnail.height],
+                       @"thumbnailWidth": @(thumbnail.width),
+                       @"thumbnailHeight": @(thumbnail.height),
                        });
 }
 

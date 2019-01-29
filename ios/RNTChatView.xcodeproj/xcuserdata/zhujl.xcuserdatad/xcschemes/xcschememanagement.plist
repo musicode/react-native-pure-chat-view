@@ -4,15 +4,10 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>RNTChatView.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>55</integer>
-		</dict>
 		<key>RNTChatView.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>57</integer>
+			<integer>50</integer>
 		</dict>
 	</dict>
 </dict>

@@ -5,7 +5,9 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.support.v4.content.ContextCompat
 import android.text.SpannableString
+import android.view.Choreographer
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -27,7 +29,7 @@ import com.facebook.react.modules.core.PermissionAwareActivity
 import com.facebook.react.ReactActivity
 import com.facebook.react.uimanager.ThemedReactContext
 
-class RNTChatView(context: ThemedReactContext, val appContext: ReactApplicationContext, val imageLoader: RNTChatViewImageLoader): LinearLayout(context), LifecycleEventListener, ActivityEventListener {
+class RNTChatView(context: ThemedReactContext, val appContext: ReactApplicationContext, val imageLoader: RNTChatViewLoader): LinearLayout(context), LifecycleEventListener, ActivityEventListener {
 
     var currentUserId = ""
 
@@ -81,17 +83,23 @@ class RNTChatView(context: ThemedReactContext, val appContext: ReactApplicationC
         true
     }
 
-    private val measureAndLayout = {
-        measure(
-            MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY),
-            MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY)
-        )
-        layout(left, top, right, bottom)
+    private val frameCallback = object : Choreographer.FrameCallback {
+        override fun doFrame(frameTimeNanos: Long) {
+            for (i in 0 until childCount) {
+                val child = getChildAt(i)
+                child.measure(View.MeasureSpec.makeMeasureSpec(measuredWidth, View.MeasureSpec.EXACTLY),
+                        View.MeasureSpec.makeMeasureSpec(measuredHeight, View.MeasureSpec.EXACTLY))
+                child.layout(0, 0, child.measuredWidth, child.measuredHeight)
+            }
+            viewTreeObserver.dispatchOnGlobalLayout()
+            Choreographer.getInstance().postFrameCallback(this)
+        }
     }
 
     fun destroy() {
         appContext.removeActivityEventListener(this)
         appContext.removeLifecycleEventListener(this)
+        Choreographer.getInstance().removeFrameCallback(frameCallback)
     }
 
     init {
@@ -100,6 +108,7 @@ class RNTChatView(context: ThemedReactContext, val appContext: ReactApplicationC
 
         appContext.addActivityEventListener(this)
         appContext.addLifecycleEventListener(this)
+        Choreographer.getInstance().postFrameCallback(frameCallback)
 
         messageInput = findViewById(R.id.messageInput)
         messageList = findViewById(R.id.messageList)
@@ -238,10 +247,6 @@ class RNTChatView(context: ThemedReactContext, val appContext: ReactApplicationC
 
             object: MessageInputCallback {
 
-                override fun onChildViewChange() {
-                    requestLayout()
-                }
-
                 override fun onRecordAudioWithoutPermissions() {
                     sendEvent("onRecordAudioWithoutPermissions")
                 }
@@ -309,7 +314,6 @@ class RNTChatView(context: ThemedReactContext, val appContext: ReactApplicationC
                     val event = Arguments.createMap()
                     event.putString("text", text)
                     sendEvent("onTextChange", event)
-                    requestLayout()
                 }
 
                 override fun onClickPhotoFeature() {
@@ -318,12 +322,10 @@ class RNTChatView(context: ThemedReactContext, val appContext: ReactApplicationC
 
                 override fun onLift() {
                     sendEvent("onLift")
-                    requestLayout()
                 }
 
                 override fun onFall() {
                     sendEvent("onFall")
-                    requestLayout()
                 }
 
             }
@@ -481,11 +483,6 @@ class RNTChatView(context: ThemedReactContext, val appContext: ReactApplicationC
 
     fun resetInput() {
         messageInput.reset()
-    }
-
-    override fun requestLayout() {
-        super.requestLayout()
-        post(measureAndLayout)
     }
 
     private fun formatMessage(message: ReadableMap): Message {
