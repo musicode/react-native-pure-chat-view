@@ -72,7 +72,6 @@ class TextMessageCell: MessageCell {
         textView.backgroundColor = .clear
         textView.tintColor = configuration.textMessageTintColor
         textView.isScrollEnabled = false
-        textView.isUserInteractionEnabled = true
         textView.textContainer.lineFragmentPadding = 0
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.linkTextAttributes = [
@@ -177,6 +176,12 @@ class TextMessageCell: MessageCell {
 extension TextMessageCell: UITextViewDelegate {
     
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange) -> Bool {
+        delegate.messageListDidClickLink(link: URL.absoluteString)
+        return false
+    }
+    
+    @available(iOS 10.0, *)
+    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
         delegate.messageListDidClickLink(link: URL.absoluteString)
         return false
     }

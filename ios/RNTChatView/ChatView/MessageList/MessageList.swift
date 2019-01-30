@@ -37,6 +37,7 @@ public class MessageList: UIView {
         configuration.audioPlayer.onPlay = {
             self.delegate.messageListWillUseAudio()
         }
+        configuration.audioPlayer.setCategory = configuration.setAudioCategory
         
         tableView.backgroundColor = .clear
         

@@ -6,6 +6,8 @@ class AudioPlayer: NSObject {
     
     var onPlay: (() -> Void)?
     
+    var setCategory: ((AVAudioSession.Category) -> Void)!
+    
     private var listeners = [AudioPlayerDelegate]()
     
     // 播放器实例
@@ -17,12 +19,6 @@ class AudioPlayer: NSObject {
     // 当前正在播放的音频
     private var id = ""
     private var url = ""
-    
-    override init() {
-        super.init()
-        // 避免静音时播不了声音或视频
-        useSpeaker()
-    }
     
     // 播放音频
     func play(id: String, url: String) {
@@ -169,21 +165,11 @@ class AudioPlayer: NSObject {
     }
     
     private func useSpeaker() {
-        if #available(iOS 10.0, *) {
-            try! AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback, mode: .default, options: [])
-        }
-        else {
-            // 妈的，swift 不支持调用 setCategory 了
-        }
+        setCategory(AVAudioSession.Category.playback)
     }
     
     private func useEar() {
-        if #available(iOS 10.0, *) {
-            try! AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playAndRecord, mode: .default, options: [])
-        }
-        else {
-            // 妈的，swift 不支持调用 setCategory 了
-        }
+        setCategory(AVAudioSession.Category.playAndRecord)
     }
 
 }

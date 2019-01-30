@@ -141,6 +141,14 @@ public class MessageInputConfiguration {
     // 键盘显示、隐藏的动画时长
     public var keyboardAnimationDuration: TimeInterval = 0.2
     
+    public var setAudioCategory: (AVAudioSession.Category) -> Void = {
+        if #available(iOS 10.0, *) {
+            try! AVAudioSession.sharedInstance().setCategory($0, mode: .default, options: [])
+        }
+        else {
+            // 妈的，swift 不支持调用 setCategory 了，外部自己实现吧
+        }
+    }
     
     public init() { }
     

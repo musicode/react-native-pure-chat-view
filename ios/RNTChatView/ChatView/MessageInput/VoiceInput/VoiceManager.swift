@@ -68,6 +68,8 @@ class VoiceManager: NSObject {
 
     var onFinishPlay: ((Bool) -> Void)?
     
+    var setCategory: ((AVAudioSession.Category) -> Void)!
+    
     // 录音器
     private var recorder: AVAudioRecorder?
     
@@ -99,18 +101,7 @@ class VoiceManager: NSObject {
 
     private func setSessionCategory(_ category: AVAudioSession.Category) {
 
-        do {
-            if #available(iOS 10.0, *) {
-                try AVAudioSession.sharedInstance().setCategory(category, mode: .default)
-            }
-            else {
-                // Fallback on earlier versions
-            }
-        }
-        catch {
-            print("could not set session category: \(category)")
-            print(error.localizedDescription)
-        }
+        setCategory(category)
 
     }
 

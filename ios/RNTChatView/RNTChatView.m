@@ -1,4 +1,6 @@
 
+@import AVFoundation;
+
 #import "RNTChatView.h"
 #import "RNTChatView-Swift.h"
 
@@ -10,6 +12,9 @@
 
 + (void)setImageLoader:(void (^)(UIImageView *, NSString *, NSInteger, NSInteger))value {
     ChatView.loadImage = value;
+    ChatView.setAudioCategory = ^(AVAudioSessionCategory category) {
+        [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryRecord error:nil];
+    };
 }
 
 - (instancetype)init

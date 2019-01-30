@@ -127,6 +127,7 @@ public class VoiceInput: UIView {
         
         addPreviewView()
         
+        voiceManager.setCategory = configuration.setAudioCategory
         voiceManager.onPermissionsGranted = {
             self.delegate.voiceInputDidPermissionsGranted(self)
         }

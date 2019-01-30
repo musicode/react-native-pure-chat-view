@@ -1,4 +1,5 @@
 import UIKit
+import AVFoundation
 
 let emotionList = [
     
@@ -99,6 +100,8 @@ class Configuration: MessageListConfiguration {
     
     @objc public static var loadImage: ((UIImageView, String, Int, Int) -> Void)!
     
+    @objc public static var setAudioCategory: ((AVAudioSession.Category) -> Void)!
+    
     var messageList: MessageList!
     var messageInput: MessageInput!
     
@@ -158,6 +161,7 @@ class Configuration: MessageListConfiguration {
     @objc public func setup(messageListDelegate: MessageListDelegate, messageInputDelegate: MessageInputDelegate) {
         
         messageListConfiguration = Configuration()
+        messageListConfiguration.setAudioCategory = ChatView.setAudioCategory
         messageList = MessageList(configuration: messageListConfiguration)
         
         messageList.delegate = messageListDelegate
@@ -169,6 +173,7 @@ class Configuration: MessageListConfiguration {
         messageInputConfiguration.audioQuality = .medium
         messageInputConfiguration.audioSampleRate = 44100.0
         messageInputConfiguration.emotionTextHeightRatio = 1
+        messageInputConfiguration.setAudioCategory = ChatView.setAudioCategory
         messageInput = MessageInput(configuration: messageInputConfiguration)
         
         messageInput.delegate = messageInputDelegate

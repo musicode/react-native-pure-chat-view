@@ -183,6 +183,15 @@ public class VoiceInputConfiguration {
     
     // 支持的最长录音时长
     public var audioMaxDuration: Int = 60000
+
+    public var setAudioCategory: (AVAudioSession.Category) -> Void = {
+        if #available(iOS 10.0, *) {
+            try! AVAudioSession.sharedInstance().setCategory($0, mode: .default, options: [])
+        }
+        else {
+            // 妈的，swift 不支持调用 setCategory 了，外部自己实现吧
+        }
+    }
     
     public init() { }
     
