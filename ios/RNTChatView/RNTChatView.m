@@ -13,7 +13,7 @@
 + (void)setImageLoader:(void (^)(UIImageView *, NSString *, NSInteger, NSInteger))value {
     ChatView.loadImage = value;
     ChatView.setAudioCategory = ^(AVAudioSessionCategory category) {
-        [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryRecord error:nil];
+        [[AVAudioSession sharedInstance] setCategory:category error:nil];
     };
 }
 

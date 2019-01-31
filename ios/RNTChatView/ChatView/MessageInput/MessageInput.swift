@@ -13,7 +13,6 @@ public class MessageInput: UIView {
     private let voiceButton = CircleView()
     private let emotionButton = CircleView()
     private var textarea: EmotionTextarea!
-    private var textareaContainer = UIView()
     
     private let rightButtons = UIView()
     private let moreButton = CircleView()
@@ -220,32 +219,12 @@ extension MessageInput {
             self.plainText = self.textarea.plainText
         }
         
-        // 这里只设置上下，左右通过 auto layout 设置
-        textarea.textContainerInset = UIEdgeInsets(
-            top: textareaConfiguration.paddingVertical,
-            left: 0,
-            bottom: textareaConfiguration.paddingVertical,
-            right: 0
-        )
+        addSubview(textarea)
         
-        // 用一个 UIView 包住 textarea，用来解决粘贴大段文本的 Bug
-        textareaContainer.backgroundColor = textareaConfiguration.backgroundColor
-        textareaContainer.layer.borderColor = textareaConfiguration.borderColor.cgColor
-        textareaContainer.layer.borderWidth = textareaConfiguration.borderWidth
-        textareaContainer.layer.cornerRadius = textareaConfiguration.borderRadius
-        
-        textareaContainer.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(textareaContainer)
-        
-        textareaContainer.addSubview(textarea)
-        
-        textareaBottomConstraint = NSLayoutConstraint(item: textareaContainer, attribute: .bottom, relatedBy: .equal, toItem: contentPanel, attribute: .top, multiplier: 1, constant: -configuration.inputBarPaddingVertical)
+        textareaBottomConstraint = NSLayoutConstraint(item: textarea, attribute: .bottom, relatedBy: .equal, toItem: contentPanel, attribute: .top, multiplier: 1, constant: -configuration.inputBarPaddingVertical)
         
         addConstraints([
             textareaBottomConstraint,
-            NSLayoutConstraint(item: textarea, attribute: .left, relatedBy: .equal, toItem: textareaContainer, attribute: .left, multiplier: 1, constant: textareaConfiguration.paddingHorizontal),
-            NSLayoutConstraint(item: textarea, attribute: .right, relatedBy: .equal, toItem: textareaContainer, attribute: .right, multiplier: 1, constant: -textareaConfiguration.paddingHorizontal),
-            NSLayoutConstraint(item: textareaContainer, attribute: .height, relatedBy: .equal, toItem: textarea, attribute: .height, multiplier: 1, constant: 0),
         ])
         
     }
@@ -266,10 +245,10 @@ extension MessageInput {
         
         addConstraints([
             NSLayoutConstraint(item: voiceButton, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1, constant: configuration.inputBarPaddingHorizontal),
-            NSLayoutConstraint(item: voiceButton, attribute: .right, relatedBy: .equal, toItem: textareaContainer, attribute: .left, multiplier: 1, constant: -configuration.inputBarItemSpacing),
+            NSLayoutConstraint(item: voiceButton, attribute: .right, relatedBy: .equal, toItem: textarea, attribute: .left, multiplier: 1, constant: -configuration.inputBarItemSpacing),
             NSLayoutConstraint(item: voiceButton, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: 2 * configuration.circleButtonRadius),
             NSLayoutConstraint(item: voiceButton, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 2 * configuration.circleButtonRadius),
-            NSLayoutConstraint(item: voiceButton, attribute: .bottom, relatedBy: .equal, toItem: textareaContainer, attribute: .bottom, multiplier: 1, constant: -configuration.circleButtonMarginBottom),
+            NSLayoutConstraint(item: voiceButton, attribute: .bottom, relatedBy: .equal, toItem: textarea, attribute: .bottom, multiplier: 1, constant: -configuration.circleButtonMarginBottom),
         ])
         
     }
@@ -289,7 +268,7 @@ extension MessageInput {
         addSubview(emotionButton)
         
         addConstraints([
-            NSLayoutConstraint(item: emotionButton, attribute: .left, relatedBy: .equal, toItem: textareaContainer, attribute: .right, multiplier: 1, constant: configuration.inputBarItemSpacing),
+            NSLayoutConstraint(item: emotionButton, attribute: .left, relatedBy: .equal, toItem: textarea, attribute: .right, multiplier: 1, constant: configuration.inputBarItemSpacing),
             NSLayoutConstraint(item: emotionButton, attribute: .right, relatedBy: .equal, toItem: rightButtons, attribute: .left, multiplier: 1, constant: -configuration.inputBarItemSpacing),
             NSLayoutConstraint(item: emotionButton, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: 2 * configuration.circleButtonRadius),
             NSLayoutConstraint(item: emotionButton, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 2 * configuration.circleButtonRadius),
@@ -309,7 +288,7 @@ extension MessageInput {
             NSLayoutConstraint(item: rightButtons, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1, constant: -configuration.inputBarPaddingHorizontal),
             NSLayoutConstraint(item: rightButtons, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: configuration.sendButtonWidth),
             NSLayoutConstraint(item: rightButtons, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: configuration.sendButtonHeight),
-            NSLayoutConstraint(item: rightButtons, attribute: .bottom, relatedBy: .equal, toItem: textareaContainer, attribute: .bottom, multiplier: 1, constant: -configuration.sendButtonMarginBottom),
+            NSLayoutConstraint(item: rightButtons, attribute: .bottom, relatedBy: .equal, toItem: textarea, attribute: .bottom, multiplier: 1, constant: -configuration.sendButtonMarginBottom),
         ])
         
         addMoreButton()
@@ -387,7 +366,7 @@ extension MessageInput {
         
         addConstraints([
             NSLayoutConstraint(item: border, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: border, attribute: .bottom, relatedBy: .equal, toItem: textareaContainer, attribute: .top, multiplier: 1, constant: -configuration.inputBarPaddingVertical),
+            NSLayoutConstraint(item: border, attribute: .bottom, relatedBy: .equal, toItem: textarea, attribute: .top, multiplier: 1, constant: -configuration.inputBarPaddingVertical),
             NSLayoutConstraint(item: border, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1, constant: 0),
             NSLayoutConstraint(item: border, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1, constant: 0),
             NSLayoutConstraint(item: border, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: configuration.inputBarBorderWidth),
