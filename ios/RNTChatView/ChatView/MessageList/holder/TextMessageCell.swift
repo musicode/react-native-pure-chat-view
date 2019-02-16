@@ -68,6 +68,7 @@ class TextMessageCell: MessageCell {
 
         // 文本内容
         textView.delegate = self
+        textView.isSelectable = true
         textView.isEditable = false
         textView.backgroundColor = .clear
         textView.tintColor = configuration.textMessageTintColor
@@ -175,13 +176,16 @@ class TextMessageCell: MessageCell {
 
 extension TextMessageCell: UITextViewDelegate {
     
-    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange) -> Bool {
-        delegate.messageListDidClickLink(link: URL.absoluteString)
-        return false
-    }
-    
     @available(iOS 10.0, *)
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        return textViewShouldInteractWithURL(URL: URL)
+    }
+
+    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange) -> Bool {
+        return textViewShouldInteractWithURL(URL: URL)
+    }
+
+    func textViewShouldInteractWithURL(URL: URL) -> Bool {
         delegate.messageListDidClickLink(link: URL.absoluteString)
         return false
     }

@@ -4,8 +4,8 @@ import UIKit
 
 class MessageCell: UITableViewCell {
     
-    // 文本消息和事件消息，传入 [type:link] 格式就能展现成链接
-    private static let linkPattern = try! NSRegularExpression(pattern: "\\[[^:]+:[^]]+\\]")
+    // 文本消息和事件消息，传入 [type:link] 格式就能展现成链接，注意不能匹配 [haha]xx[xx:yy]
+    private static let linkPattern = try! NSRegularExpression(pattern: "\\[[^\\[:]+:[^\\]]+\\]")
     
     private var isReady = false
 
