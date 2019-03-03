@@ -28,6 +28,7 @@ import com.github.herokotlin.messagelist.enum.MessageStatus
 import com.facebook.react.modules.core.PermissionAwareActivity
 import com.facebook.react.ReactActivity
 import com.facebook.react.uimanager.ThemedReactContext
+import com.github.herokotlin.messagelist.enum.FileIcon
 
 class RNTChatView(context: ThemedReactContext, val appContext: ReactApplicationContext, val imageLoader: RNTChatViewLoader): LinearLayout(context), LifecycleEventListener, ActivityEventListener {
 
@@ -503,6 +504,7 @@ class RNTChatView(context: ThemedReactContext, val appContext: ReactApplicationC
         }
 
 
+        val canCopy = if (message.hasKey("canCopy")) message.getBoolean("canCopy") else false
         val canShare = if (message.hasKey("canShare")) message.getBoolean("canShare") else false
         val canRecall = if (message.hasKey("canRecall")) message.getBoolean("canRecall") else false
         val canDelete = if (message.hasKey("canDelete")) message.getBoolean("canDelete") else false
@@ -514,6 +516,7 @@ class RNTChatView(context: ThemedReactContext, val appContext: ReactApplicationC
                     user,
                     status,
                     message.getString("time"),
+                    canCopy,
                     canShare,
                     canRecall,
                     canDelete,
@@ -526,6 +529,7 @@ class RNTChatView(context: ThemedReactContext, val appContext: ReactApplicationC
                     user,
                     status,
                     message.getString("time"),
+                    canCopy,
                     canShare,
                     canRecall,
                     canDelete,
@@ -540,6 +544,7 @@ class RNTChatView(context: ThemedReactContext, val appContext: ReactApplicationC
                     user,
                     status,
                     message.getString("time"),
+                    canCopy,
                     canShare,
                     canRecall,
                     canDelete,
@@ -553,6 +558,7 @@ class RNTChatView(context: ThemedReactContext, val appContext: ReactApplicationC
                     user,
                     status,
                     message.getString("time"),
+                    canCopy,
                     canShare,
                     canRecall,
                     canDelete,
@@ -569,6 +575,7 @@ class RNTChatView(context: ThemedReactContext, val appContext: ReactApplicationC
                     user,
                     status,
                     message.getString("time"),
+                    canCopy,
                     canShare,
                     canRecall,
                     canDelete,
@@ -585,6 +592,7 @@ class RNTChatView(context: ThemedReactContext, val appContext: ReactApplicationC
                     user,
                     status,
                     message.getString("time"),
+                    canCopy,
                     canShare,
                     canRecall,
                     canDelete,
@@ -595,12 +603,45 @@ class RNTChatView(context: ThemedReactContext, val appContext: ReactApplicationC
                     message.getString("link")
                 )
             }
+            7 -> {
+                FileMessage(
+                    message.getString("id"),
+                    user,
+                    status,
+                    message.getString("time"),
+                    canCopy,
+                    canShare,
+                    canRecall,
+                    canDelete,
+                    when (message.getInt("icon")) {
+                        1 -> {
+                            FileIcon.WORD
+                        }
+                        2 -> {
+                            FileIcon.EXCEL
+                        }
+                        3 -> {
+                            FileIcon.PPT
+                        }
+                        4 -> {
+                            FileIcon.PDF
+                        }
+                        else -> {
+                            FileIcon.TXT
+                        }
+                    },
+                    message.getString("title"),
+                    message.getString("desc"),
+                    message.getString("link")
+                )
+            }
             else -> {
                 EventMessage(
                     message.getString("id"),
                     user,
                     status,
                     message.getString("time"),
+                    canCopy,
                     canShare,
                     canRecall,
                     canDelete,

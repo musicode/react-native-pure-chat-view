@@ -75,7 +75,16 @@ class EventMessageCell: MessageCell {
 
 extension EventMessageCell: UITextViewDelegate {
     
+    @available(iOS 10.0, *)
+    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        return textViewShouldInteractWithURL(URL: URL)
+    }
+    
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange) -> Bool {
+        return textViewShouldInteractWithURL(URL: URL)
+    }
+    
+    func textViewShouldInteractWithURL(URL: URL) -> Bool {
         delegate.messageListDidClickLink(link: URL.absoluteString)
         return false
     }

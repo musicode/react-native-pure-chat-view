@@ -13,6 +13,12 @@ class MessageCell: UITableViewCell {
     var delegate: MessageListDelegate!
     var message: Message!
     
+    var copySelector = #selector(InteractiveButton.onCopy)
+    var shareSelector = #selector(InteractiveButton.onShare)
+    var recallSelector = #selector(InteractiveButton.onRecall)
+    var deleteSelector = #selector(InteractiveButton.onDelete)
+    var menuAtions: [Selector]!
+    
     var topConstraint: NSLayoutConstraint!
     var bottomConstraint: NSLayoutConstraint!
     
@@ -77,7 +83,108 @@ class MessageCell: UITableViewCell {
     }
     
     func createMenuItems() -> [UIMenuItem] {
-        return []
+        var items = [UIMenuItem]()
+        
+        if message.canCopy {
+            items.append(
+                UIMenuItem(
+                    title: configuration.menuItemCopy,
+                    action: copySelector
+                )
+            )
+        }
+        if message.canShare {
+            items.append(
+                UIMenuItem(
+                    title: configuration.menuItemShare,
+                    action: shareSelector
+                )
+            )
+        }
+        if message.canRecall {
+            items.append(
+                UIMenuItem(
+                    title: configuration.menuItemRecall,
+                    action: recallSelector
+                )
+            )
+        }
+        if message.canDelete {
+            items.append(
+                UIMenuItem(
+                    title: configuration.menuItemDelete,
+                    action: deleteSelector
+                )
+            )
+        }
+
+        return items
+    }
+    
+    func addTimeView(_ timeView: InsetLabel) {
+        
+        timeView.numberOfLines = 1
+        timeView.textAlignment = .center
+        timeView.font = configuration.timeTextFont
+        timeView.textColor = configuration.timeTextColor
+        timeView.backgroundColor = configuration.timeBackgroundColor
+        timeView.contentInsets = UIEdgeInsets(
+            top: configuration.timePaddingVertical,
+            left: configuration.timePaddingHorizontal,
+            bottom: configuration.timePaddingVertical,
+            right: configuration.timePaddingHorizontal
+        )
+        if configuration.timeBorderRadius > 0 {
+            timeView.clipsToBounds = true
+            timeView.layer.cornerRadius = configuration.timeBorderRadius
+        }
+        timeView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(timeView)
+        
+    }
+    
+    func addAvatarView(_ avatarView: UIImageView) {
+        
+        if configuration.userAvatarBorderRadius > 0 {
+            avatarView.clipsToBounds = true
+            avatarView.layer.cornerRadius = configuration.userAvatarBorderRadius
+        }
+        if configuration.userAvatarBorderWidth > 0 {
+            avatarView.layer.borderWidth = configuration.userAvatarBorderWidth
+            avatarView.layer.borderColor = configuration.userAvatarBorderColor.cgColor
+        }
+        avatarView.backgroundColor = configuration.userAvatarBackgroundColor
+        avatarView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(avatarView)
+        
+        addClickHandler(view: avatarView, selector: #selector(onUserAvatarClick))
+        
+    }
+    
+    func addNameView(_ nameView: UILabel) {
+        
+        nameView.numberOfLines = 1
+        nameView.lineBreakMode = .byTruncatingTail
+        nameView.translatesAutoresizingMaskIntoConstraints = false
+        
+    }
+    
+    func addSpinnerView(_ spinnerView: UIView) {
+        
+        spinnerView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(spinnerView)
+        
+    }
+    
+    func addFailureView(_ failureView: UIButton) {
+        
+        failureView.translatesAutoresizingMaskIntoConstraints = false
+        failureView.setBackgroundImage(configuration.messageFailureIconNormal, for: .normal)
+        failureView.setBackgroundImage(configuration.messageFailureIconPressed, for: .highlighted)
+        contentView.addSubview(failureView)
+        
+        addClickHandler(view: failureView, selector: #selector(onFailureClick))
+        
     }
     
     func formatLinks(text: String, font: UIFont, color: UIColor, lineSpacing: CGFloat) -> NSMutableAttributedString {
@@ -298,6 +405,10 @@ class MessageCell: UITableViewCell {
         
         guard !menuController.isMenuVisible else {
             return
+        }
+        
+        menuAtions = menuItems.map {
+            return $0.action
         }
         
         view.becomeFirstResponder()

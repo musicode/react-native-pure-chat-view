@@ -66,6 +66,9 @@ public class MessageList: UIView {
         tableView.register(LeftPostMessageCell.self, forCellReuseIdentifier: CellIdentifier.leftPostMessage.rawValue)
         tableView.register(RightPostMessageCell.self, forCellReuseIdentifier: CellIdentifier.rightPostMessage.rawValue)
         
+        tableView.register(LeftFileMessageCell.self, forCellReuseIdentifier: CellIdentifier.leftFileMessage.rawValue)
+        tableView.register(RightFileMessageCell.self, forCellReuseIdentifier: CellIdentifier.rightFileMessage.rawValue)
+        
         tableView.register(EventMessageCell.self, forCellReuseIdentifier: CellIdentifier.eventMessage.rawValue)
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -248,6 +251,14 @@ extension MessageList: UITableViewDataSource, UITableViewDelegate {
                 messageCell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.leftPostMessage.rawValue) as? MessageCell
             }
         }
+        else if message is FileMessage {
+            if isRight {
+                messageCell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.rightFileMessage.rawValue) as? MessageCell
+            }
+            else {
+                messageCell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.leftFileMessage.rawValue) as? MessageCell
+            }
+        }
         else if message is EventMessage {
             messageCell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.eventMessage.rawValue) as? MessageCell
         }
@@ -273,6 +284,7 @@ extension MessageList {
         case leftVideoMessage, rightVideoMessage
         case leftCardMessage, rightCardMessage
         case leftPostMessage, rightPostMessage
+        case leftFileMessage, rightFileMessage
         case eventMessage
     }
 }

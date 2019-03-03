@@ -4,14 +4,13 @@ import UIKit
 class InteractiveButton: UIButton {
     
     var cell: MessageCell!
-    var actions: [Selector]!
-    
+
     override var canBecomeFirstResponder: Bool {
         return true
     }
     
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
-        return actions.contains(action)
+        return cell.menuAtions.contains(action)
     }
     
     @objc func onCopy(_ controller: UIMenuController) {

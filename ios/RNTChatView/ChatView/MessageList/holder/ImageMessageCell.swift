@@ -22,42 +22,19 @@ class ImageMessageCell: MessageCell {
     
     override func create() {
         
+        copySelector = #selector(InteractiveImageView.onCopy)
+        shareSelector = #selector(InteractiveImageView.onShare)
+        recallSelector = #selector(InteractiveImageView.onRecall)
+        deleteSelector = #selector(InteractiveImageView.onDelete)
+        
         // 时间
-        timeView.numberOfLines = 1
-        timeView.textAlignment = .center
-        timeView.font = configuration.timeTextFont
-        timeView.textColor = configuration.timeTextColor
-        timeView.backgroundColor = configuration.timeBackgroundColor
-        timeView.contentInsets = UIEdgeInsets(
-            top: configuration.timePaddingVertical,
-            left: configuration.timePaddingHorizontal,
-            bottom: configuration.timePaddingVertical,
-            right: configuration.timePaddingHorizontal
-        )
-        if configuration.timeBorderRadius > 0 {
-            timeView.clipsToBounds = true
-            timeView.layer.cornerRadius = configuration.timeBorderRadius
-        }
-        timeView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(timeView)
+        addTimeView(timeView)
         
         // 头像
-        if configuration.userAvatarBorderRadius > 0 {
-            avatarView.clipsToBounds = true
-            avatarView.layer.cornerRadius = configuration.userAvatarBorderRadius
-        }
-        if configuration.userAvatarBorderWidth > 0 {
-            avatarView.layer.borderWidth = configuration.userAvatarBorderWidth
-            avatarView.layer.borderColor = configuration.userAvatarBorderColor.cgColor
-        }
-        avatarView.backgroundColor = configuration.userAvatarBackgroundColor
-        avatarView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(avatarView)
+        addAvatarView(avatarView)
         
         // 昵称
-        nameView.numberOfLines = 1
-        nameView.lineBreakMode = .byTruncatingTail
-        nameView.translatesAutoresizingMaskIntoConstraints = false
+        addNameView(nameView)
         
         // 图片
         if configuration.imageMessageBorderRadius > 0 {
@@ -75,18 +52,12 @@ class ImageMessageCell: MessageCell {
         contentView.addSubview(photoView)
         
         // spinner icon
-        spinnerView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(spinnerView)
+        addSpinnerView(spinnerView)
         
         // failure icon
-        failureView.translatesAutoresizingMaskIntoConstraints = false
-        failureView.setBackgroundImage(configuration.messageFailureIconNormal, for: .normal)
-        failureView.setBackgroundImage(configuration.messageFailureIconPressed, for: .highlighted)
-        contentView.addSubview(failureView)
+        addFailureView(failureView)
         
         addContentGesture(view: photoView)
-        addClickHandler(view: avatarView, selector: #selector(onUserAvatarClick))
-        addClickHandler(view: failureView, selector: #selector(onFailureClick))
         
         topConstraint = NSLayoutConstraint(item: timeView, attribute: .top, relatedBy: .equal, toItem: contentView, attribute: .top, multiplier: 1, constant: 0)
         bottomConstraint = NSLayoutConstraint(item: photoView, attribute: .bottom, relatedBy: .equal, toItem: contentView, attribute: .bottom, multiplier: 1, constant: 0)
@@ -135,38 +106,4 @@ class ImageMessageCell: MessageCell {
         
     }
     
-    override func createMenuItems() -> [UIMenuItem] {
-        var items = [UIMenuItem]()
-        
-        if message.canShare {
-            items.append(
-                UIMenuItem(
-                    title: configuration.menuItemShare,
-                    action: #selector(InteractiveImageView.onShare)
-                )
-            )
-        }
-        if message.canRecall {
-            items.append(
-                UIMenuItem(
-                    title: configuration.menuItemRecall,
-                    action: #selector(InteractiveImageView.onRecall)
-                )
-            )
-        }
-        if message.canDelete {
-            items.append(
-                UIMenuItem(
-                    title: configuration.menuItemDelete,
-                    action: #selector(InteractiveImageView.onDelete)
-                )
-            )
-        }
-        
-        photoView.actions = items.map {
-            return $0.action
-        }
-        
-        return items
-    }
 }

@@ -1,7 +1,7 @@
 
 import UIKit
 
-class PostMessageCell: MessageCell {
+class FileMessageCell: MessageCell {
     
     var timeView = InsetLabel()
     
@@ -11,11 +11,9 @@ class PostMessageCell: MessageCell {
     
     var bubbleView = InteractiveButton()
     
-    var thumbnailView = UIImageView()
+    var iconView = UIImageView()
     var titleView = UILabel()
     var descView = UILabel()
-    var dividerView = UIView()
-    var labelView = UILabel()
     
     var avatarTopConstraint: NSLayoutConstraint!
     
@@ -39,34 +37,27 @@ class PostMessageCell: MessageCell {
         bubbleView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(bubbleView)
         
-        // 标题
+        // 文件类型图标
+        if configuration.fileMessageIconBorderRadius > 0 {
+            iconView.clipsToBounds = true
+            iconView.layer.cornerRadius = configuration.fileMessageIconBorderRadius
+        }
+        iconView.backgroundColor = configuration.fileMessageIconBackgroundColor
+        iconView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(iconView)
+        
+        // 文件名称
         titleView.numberOfLines = 2
-        titleView.lineBreakMode = .byTruncatingTail
+        titleView.lineBreakMode = .byTruncatingMiddle
         titleView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(titleView)
         
         // 描述
-        descView.numberOfLines = 3
+        descView.numberOfLines = 1
         descView.lineBreakMode = .byTruncatingTail
+        descView.textAlignment = .left
         descView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(descView)
-        
-        // 缩略图
-        if configuration.postMessageThumbnailBorderRadius > 0 {
-            thumbnailView.clipsToBounds = true
-            thumbnailView.layer.cornerRadius = configuration.postMessageThumbnailBorderRadius
-        }
-        thumbnailView.backgroundColor = configuration.postMessageThumbnailBackgroundColor
-        thumbnailView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(thumbnailView)
-        
-        // 分割线
-        dividerView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(dividerView)
-        
-        labelView.numberOfLines = 1
-        labelView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(labelView)
         
         // spinner icon
         addSpinnerView(spinnerView)
@@ -78,7 +69,6 @@ class PostMessageCell: MessageCell {
         
         topConstraint = NSLayoutConstraint(item: timeView, attribute: .top, relatedBy: .equal, toItem: contentView, attribute: .top, multiplier: 1, constant: 0)
         bottomConstraint = NSLayoutConstraint(item: bubbleView, attribute: .bottom, relatedBy: .equal, toItem: contentView, attribute: .bottom, multiplier: 1, constant: 0)
-        
         avatarTopConstraint = NSLayoutConstraint(item: avatarView, attribute: .top, relatedBy: .equal, toItem: timeView, attribute: .bottom, multiplier: 1, constant: 0)
         avatarTopConstraint.priority = .defaultLow
         
@@ -92,7 +82,7 @@ class PostMessageCell: MessageCell {
     
     override func update() {
         
-        let postMessage = message as! PostMessage
+        let fileMessage = message as! FileMessage
         
         configuration.loadImage(
             imageView: avatarView,
@@ -104,26 +94,35 @@ class PostMessageCell: MessageCell {
         nameView.text = message.user.name
         nameView.sizeToFit()
         
-        configuration.loadImage(
-            imageView: thumbnailView,
-            url: postMessage.thumbnail,
-            width: configuration.postMessageThumbnailWidth,
-            height: configuration.postMessageThumbnailHeight
-        )
+        switch fileMessage.icon {
+        case .word:
+            iconView.image = configuration.fileMessageIconWord
+            break
+        case .excel:
+            iconView.image = configuration.fileMessageIconExcel
+            break
+        case .ppt:
+            iconView.image = configuration.fileMessageIconPpt
+            break
+        case .pdf:
+            iconView.image = configuration.fileMessageIconPdf
+            break
+        default:
+            iconView.image = configuration.fileMessageIconTxt
+            break
+        }
         
-        titleView.text = postMessage.title
+        // 撑起高度
+        titleView.text = fileMessage.title != "" ? fileMessage.title : " "
         titleView.sizeToFit()
         
-        descView.text = postMessage.desc
+        descView.text = fileMessage.desc
         descView.sizeToFit()
-        
-        labelView.text = postMessage.label
-        labelView.sizeToFit()
         
         showStatusView(spinnerView: spinnerView, failureView: failureView)
         
         showTimeView(timeView: timeView, time: message.time, avatarView: avatarView, avatarTopConstraint: avatarTopConstraint)
         
     }
-    
+
 }
