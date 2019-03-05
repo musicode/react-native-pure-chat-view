@@ -17,6 +17,11 @@ RCT_CUSTOM_VIEW_PROPERTY(currentUserId, NSString, RNTChatView) {
     view.chatView.currentUserId = [RCTConvert NSString:json];
 }
 
+RCT_CUSTOM_VIEW_PROPERTY(featureList, NSArray, RNTChatView) {
+    NSArray *array = [RCTConvert NSArray:json];
+    view.chatView.featureList = array;
+}
+
 RCT_CUSTOM_VIEW_PROPERTY(leftUserNameVisible, BOOL, RNTChatView) {
     view.chatView.leftUserNameVisible = [RCTConvert BOOL:json];
 }
@@ -65,6 +70,11 @@ RCT_EXPORT_VIEW_PROPERTY(onSendAudio, RCTBubblingEventBlock);
 RCT_EXPORT_VIEW_PROPERTY(onSendVideo, RCTBubblingEventBlock);
 RCT_EXPORT_VIEW_PROPERTY(onTextChange, RCTBubblingEventBlock);
 RCT_EXPORT_VIEW_PROPERTY(onPhotoFeatureClick, RCTBubblingEventBlock);
+RCT_EXPORT_VIEW_PROPERTY(onFileFeatureClick, RCTBubblingEventBlock);
+RCT_EXPORT_VIEW_PROPERTY(onUserFeatureClick, RCTBubblingEventBlock);
+RCT_EXPORT_VIEW_PROPERTY(onMovieFeatureClick, RCTBubblingEventBlock);
+RCT_EXPORT_VIEW_PROPERTY(onPhoneFeatureClick, RCTBubblingEventBlock);
+RCT_EXPORT_VIEW_PROPERTY(onLocationFeatureClick, RCTBubblingEventBlock);
 RCT_EXPORT_VIEW_PROPERTY(onLift, RCTBubblingEventBlock);
 RCT_EXPORT_VIEW_PROPERTY(onFall, RCTBubblingEventBlock);
 

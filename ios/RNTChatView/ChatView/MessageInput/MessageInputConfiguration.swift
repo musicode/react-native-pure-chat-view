@@ -90,11 +90,11 @@ public class MessageInputConfiguration {
     public var contentPanelBackgroundColor = UIColor(red: 0.96, green: 0.96, blue: 0.96, alpha: 1)
     
     // 特性面板内边距
-    public var featurePanelPaddingHorizontal: CGFloat = 34
     public var featurePanelPaddingVertical: CGFloat = 30
     
     // 特性按钮之间的间距
-    public var featureButtonSpacing: CGFloat = 30
+    public var featureButtonRowSpacing: CGFloat = 40
+    public var featureButtonColumnSpacing: CGFloat = 28
     
     // 图标按钮尺寸
     public var featureButtonWidth: CGFloat = 56
@@ -107,7 +107,7 @@ public class MessageInputConfiguration {
     // 图标按钮边框
     public var featureButtonBorderRadius: CGFloat = 12
     public var featureButtonBorderWidth: CGFloat = 1 / UIScreen.main.scale
-    public var featureButtonBorderColor = UIColor(red: 0.7, green: 0.7, blue: 0.7, alpha: 1)
+    public var featureButtonBorderColor = UIColor(red: 0.8, green: 0.8, blue: 0.8, alpha: 1)
     
     // 特性按钮标题
     public var featureButtonTitleMarginTop: CGFloat = 8
@@ -115,14 +115,37 @@ public class MessageInputConfiguration {
     public var featureButtonTitleTextColor = UIColor(red: 120 / 255, green: 120 / 255, blue: 120 / 255, alpha: 1)
     
     // 图片按钮
-    public var photoFeatureImage = UIImage(named: "message_input_photo")!
-    
+    public var photoFeatureIcon = UIImage(named: "message_input_photo_feature_icon")!
     public var photoFeatureTitle = "图片"
     
     // 拍摄按钮
-    public var cameraFeatureImage = UIImage(named: "message_input_camera")!
-    
+    public var cameraFeatureIcon = UIImage(named: "message_input_camera_feature_icon")!
     public var cameraFeatureTitle = "拍摄"
+    
+    // 文件按钮
+    public var fileFeatureIcon = UIImage(named: "message_input_file_feature_icon")!
+    public var fileFeatureTitle = "文件"
+    
+    // 用户按钮
+    public var userFeatureIcon = UIImage(named: "message_input_user_feature_icon")!
+    public var userFeatureTitle = "名片"
+    
+    // 视频通话
+    public var movieFeatureIcon = UIImage(named: "message_input_movie_feature_icon")!
+    public var movieFeatureTitle = "视频通话"
+    
+    // 语音通话
+    public var phoneFeatureIcon = UIImage(named: "message_input_phone_feature_icon")!
+    public var phoneFeatureTitle = "语音通话"
+    
+    // 位置按钮
+    public var locationFeatureIcon = UIImage(named: "message_input_location_feature_icon")!
+    public var locationFeatureTitle = "位置"
+    
+    public var featureList = [
+        FeatureType.photo, FeatureType.camera, FeatureType.file, FeatureType.user,
+        FeatureType.movie, FeatureType.phone, FeatureType.location
+    ]
     
     // 录音配置
     

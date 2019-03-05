@@ -39,6 +39,21 @@ import UIKit
     // 点击图片按钮
     func messageInputDidClickPhotoFeature()
     
+    // 点击文件按钮
+    func messageInputDidClickFileFeature()
+    
+    // 点击用户按钮
+    func messageInputDidClickUserFeature()
+    
+    // 点击视频通话按钮
+    func messageInputDidClickMovieFeature()
+    
+    // 点击语音通话按钮
+    func messageInputDidClickPhoneFeature()
+    
+    // 点击定位按钮
+    func messageInputDidClickLocationFeature()
+    
     // 文本变化
     func messageInputDidTextChange(text: String)
     
@@ -81,6 +96,16 @@ public extension MessageInputDelegate {
     func messageInputDidSendVideo(videoPath: String, videoDuration: Int, thumbnail: ImageFile) { }
     
     func messageInputDidClickPhotoFeature() { }
+    
+    func messageInputDidClickFileFeature() { }
+    
+    func messageInputDidClickUserFeature() { }
+    
+    func messageInputDidClickMovieFeature() { }
+    
+    func messageInputDidClickPhoneFeature() { }
+    
+    func messageInputDidClickLocationFeature() { }
     
     func messageInputDidTextChange(text: String) { }
     

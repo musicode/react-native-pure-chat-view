@@ -44,6 +44,8 @@ public class MessageInput: UIView {
     
     private var isVoicePreviewing = false
     
+    private var isFeatureListCreated = false
+    
     public var viewMode = ViewMode.keyboard {
         didSet {
             
@@ -483,20 +485,6 @@ extension MessageInput {
         morePanel.translatesAutoresizingMaskIntoConstraints = false
         contentPanel.addSubview(morePanel)
         
-        let photoFeature = FeatureButton(title: configuration.photoFeatureTitle, image: configuration.photoFeatureImage, configuration: configuration)
-        photoFeature.translatesAutoresizingMaskIntoConstraints = false
-        photoFeature.onClick = {
-            self.delegate.messageInputDidClickPhotoFeature()
-        }
-        morePanel.addSubview(photoFeature)
-        
-        let cameraFeature = FeatureButton(title: configuration.cameraFeatureTitle, image: configuration.cameraFeatureImage, configuration: configuration)
-        cameraFeature.translatesAutoresizingMaskIntoConstraints = false
-        cameraFeature.onClick = {
-            self.openCamera()
-        }
-        morePanel.addSubview(cameraFeature)
-        
         morePanelBottomConstraint = NSLayoutConstraint(item: morePanel, attribute: .bottom, relatedBy: .equal, toItem: contentPanel, attribute: .bottom, multiplier: 1, constant: 0)
         
         contentPanel.addConstraints([
@@ -504,13 +492,98 @@ extension MessageInput {
             NSLayoutConstraint(item: morePanel, attribute: .right, relatedBy: .equal, toItem: contentPanel, attribute: .right, multiplier: 1, constant: 0),
             NSLayoutConstraint(item: morePanel, attribute: .top, relatedBy: .equal, toItem: contentPanelTopBorder, attribute: .bottom, multiplier: 1, constant: 0),
             morePanelBottomConstraint,
-
-            NSLayoutConstraint(item: photoFeature, attribute: .top, relatedBy: .equal, toItem: morePanel, attribute: .top, multiplier: 1, constant: configuration.featurePanelPaddingVertical),
-            NSLayoutConstraint(item: photoFeature, attribute: .left, relatedBy: .equal, toItem: morePanel, attribute: .left, multiplier: 1, constant: configuration.featurePanelPaddingHorizontal),
-
-            NSLayoutConstraint(item: cameraFeature, attribute: .top, relatedBy: .equal, toItem: morePanel, attribute: .top, multiplier: 1, constant: configuration.featurePanelPaddingVertical),
-            NSLayoutConstraint(item: cameraFeature, attribute: .left, relatedBy: .equal, toItem: morePanel, attribute: .left, multiplier: 1, constant: configuration.featurePanelPaddingHorizontal + configuration.featureButtonWidth + configuration.featureButtonSpacing),
         ])
+
+    }
+    
+    private func ensureFeatureListCreated(width: CGFloat) {
+        
+        guard !isFeatureListCreated, width > 0 else {
+            return
+        }
+        
+        // 屏幕宽度不可控，因此改成计算获得
+        let columnCount: CGFloat = 4
+        
+        let columnSpaing = (columnCount - 1) * configuration.featureButtonColumnSpacing
+        
+        let buttonWidth = configuration.featureButtonWidth
+        let buttonHeight = configuration.featureButtonHeight
+
+        let paddingHorizontal = (width - columnCount * buttonWidth - columnSpaing) / 2
+        let paddingVertical = configuration.featurePanelPaddingVertical
+        
+        let featureList = configuration.featureList
+        for i in 0..<featureList.count {
+
+            let featureButton: FeatureButton
+            
+            switch featureList[i] {
+            case .photo:
+                featureButton = createFeatureButton(title: configuration.photoFeatureTitle, icon: configuration.photoFeatureIcon) {
+                    self.delegate.messageInputDidClickPhotoFeature()
+                }
+                break;
+            case .camera:
+                featureButton = createFeatureButton(title: configuration.cameraFeatureTitle, icon: configuration.cameraFeatureIcon) {
+                    self.openCamera()
+                }
+                break;
+            case .file:
+                featureButton = createFeatureButton(title: configuration.fileFeatureTitle, icon: configuration.fileFeatureIcon) {
+                    self.delegate.messageInputDidClickFileFeature()
+                }
+                break;
+            case .user:
+                featureButton = createFeatureButton(title: configuration.userFeatureTitle, icon: configuration.userFeatureIcon) {
+                    self.delegate.messageInputDidClickUserFeature()
+                }
+            case .movie:
+                featureButton = createFeatureButton(title: configuration.movieFeatureTitle, icon: configuration.movieFeatureIcon) {
+                    self.delegate.messageInputDidClickMovieFeature()
+                }
+            case .phone:
+                featureButton = createFeatureButton(title: configuration.phoneFeatureTitle, icon: configuration.phoneFeatureIcon) {
+                    self.delegate.messageInputDidClickPhoneFeature()
+                }
+            case .location:
+                featureButton = createFeatureButton(title: configuration.locationFeatureTitle, icon: configuration.locationFeatureIcon) {
+                    self.delegate.messageInputDidClickLocationFeature()
+                }
+                break;
+            default:
+                // 未匹配直接返回
+                return
+            }
+            
+            let index = CGFloat(i)
+            let row = floor(index / columnCount)
+            let column = index.truncatingRemainder(dividingBy: columnCount)
+            
+            morePanel.addConstraints([
+                
+                NSLayoutConstraint(item: featureButton, attribute: .top, relatedBy: .equal, toItem: morePanel, attribute: .top, multiplier: 1, constant:
+                    paddingVertical + row * (buttonHeight + configuration.featureButtonRowSpacing)),
+                
+                NSLayoutConstraint(item: featureButton, attribute: .left, relatedBy: .equal, toItem: morePanel, attribute: .left, multiplier: 1, constant:
+                    paddingHorizontal + column * (buttonWidth + configuration.featureButtonColumnSpacing))
+                
+            ])
+
+        }
+
+        isFeatureListCreated = true
+        
+    }
+    
+    private func createFeatureButton(title: String, icon: UIImage, onClick: @escaping () -> Void) -> FeatureButton {
+        
+        let feature = FeatureButton(title: title, icon: icon, configuration: configuration)
+        feature.translatesAutoresizingMaskIntoConstraints = false
+        feature.onClick = onClick
+        morePanel.addSubview(feature)
+        
+        return feature
         
     }
     
@@ -615,6 +688,8 @@ extension MessageInput {
                 
             }
         }
+        
+        ensureFeatureListCreated(width: frame.width)
         
     }
 }

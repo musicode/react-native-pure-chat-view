@@ -151,7 +151,7 @@
 }
 
 - (void)messageInputDidSendEmotionWithEmotion:(Emotion *)emotion {
-    NSLog(@"send emotion");
+    
 }
 
 - (void)messageInputDidSendAudioWithAudioPath:(NSString *)audioPath audioDuration:(NSInteger)audioDuration {
@@ -173,6 +173,26 @@
 
 - (void)messageInputDidClickPhotoFeature {
     self.onPhotoFeatureClick(@{});
+}
+
+- (void)messageInputDidClickFileFeature {
+    self.onFileFeatureClick(@{});
+}
+
+- (void)messageInputDidClickUserFeature {
+    self.onUserFeatureClick(@{});
+}
+
+- (void)messageInputDidClickMovieFeature {
+    self.onMovieFeatureClick(@{});
+}
+
+- (void)messageInputDidClickPhoneFeature {
+    self.onPhoneFeatureClick(@{});
+}
+
+- (void)messageInputDidClickLocationFeature {
+    self.onLocationFeatureClick(@{});
 }
 
 - (void)messageInputDidTextChangeWithText:(NSString *)text {

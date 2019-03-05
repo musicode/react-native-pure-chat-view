@@ -54,6 +54,11 @@ public class RNTChatViewManager extends SimpleViewManager<RNTChatView> {
         view.setCurrentUserId(currentUserId);
     }
 
+    @ReactProp(name = "featureList")
+    public void setFeatureList(RNTChatView view, ReadableArray featureList) {
+        view.setFeatureList(featureList.toArrayList());
+    }
+
     @ReactProp(name = "leftUserNameVisible", defaultBoolean = false)
     public void setLeftUserNameVisible(RNTChatView view, boolean leftUserNameVisible) {
         view.setLeftUserNameVisible(leftUserNameVisible);
@@ -112,6 +117,11 @@ public class RNTChatViewManager extends SimpleViewManager<RNTChatView> {
 
                 .put("onTextChange", MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", "onTextChange")))
                 .put("onClickPhotoFeature", MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", "onPhotoFeatureClick")))
+                .put("onClickFileFeature", MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", "onFileFeatureClick")))
+                .put("onClickUserFeature", MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", "onUserFeatureClick")))
+                .put("onClickMovieFeature", MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", "onMovieFeatureClick")))
+                .put("onClickPhoneFeature", MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", "onPhoneFeatureClick")))
+                .put("onClickLocationFeature", MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", "onLocationFeatureClick")))
                 .put("onLift", MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", "onLift")))
                 .put("onFall", MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", "onFall")))
                 .build();

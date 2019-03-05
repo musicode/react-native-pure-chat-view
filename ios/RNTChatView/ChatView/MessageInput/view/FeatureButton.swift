@@ -59,10 +59,10 @@ class FeatureButton: UIView {
     
     private var configuration: MessageInputConfiguration!
     
-    public convenience init(title: String, image: UIImage, configuration: MessageInputConfiguration) {
+    public convenience init(title: String, icon: UIImage, configuration: MessageInputConfiguration) {
         self.init()
         self.configuration = configuration
-        buttonView.centerImage = image
+        buttonView.centerImage = icon
         titleView.text = title
     }
     

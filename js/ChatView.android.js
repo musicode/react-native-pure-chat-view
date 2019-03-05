@@ -49,6 +49,11 @@ class ChatView extends Component {
 
     onTextChange: PropTypes.func,
     onPhotoFeatureClick: PropTypes.func,
+    onFileFeatureClick: PropTypes.func,
+    onUserFeatureClick: PropTypes.func,
+    onMovieFeatureClick: PropTypes.func,
+    onPhoneFeatureClick: PropTypes.func,
+    onLocationFeatureClick: PropTypes.func,
     onLift: PropTypes.func,
     onFall: PropTypes.func,
   }
@@ -339,6 +344,41 @@ class ChatView extends Component {
     }
   }
 
+  handleFileFeatureClick = () => {
+    let { onFileFeatureClick } = this.props
+    if (onFileFeatureClick) {
+      onFileFeatureClick()
+    }
+  }
+
+  handleUserFeatureClick = () => {
+    let { onUserFeatureClick } = this.props
+    if (onUserFeatureClick) {
+      onUserFeatureClick()
+    }
+  }
+
+  handleMovieFeatureClick = () => {
+    let { onMovieFeatureClick } = this.props
+    if (onMovieFeatureClick) {
+      onMovieFeatureClick()
+    }
+  }
+
+  handlePhoneFeatureClick = () => {
+    let { onPhoneFeatureClick } = this.props
+    if (onPhoneFeatureClick) {
+      onPhoneFeatureClick()
+    }
+  }
+
+  handleLocationFeatureClick = () => {
+    let { onLocationFeatureClick } = this.props
+    if (onLocationFeatureClick) {
+      onLocationFeatureClick()
+    }
+  }
+
   handleLift = () => {
     let { onLift } = this.props
     if (onLift) {
@@ -391,6 +431,11 @@ class ChatView extends Component {
 
         onTextChange={this.handleTextChange}
         onPhotoFeatureClick={this.handlePhotoFeatureClick}
+        onFileFeatureClick={this.handleFileFeatureClick}
+        onUserFeatureClick={this.handleUserFeatureClick}
+        onMovieFeatureClick={this.handleMovieFeatureClick}
+        onPhoneFeatureClick={this.handlePhoneFeatureClick}
+        onLocationFeatureClick={this.handleLocationFeatureClick}
         onLift={this.handleLift}
         onFall={this.handleFall}
       />

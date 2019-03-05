@@ -37,6 +37,11 @@
 @property (nonatomic, copy) RCTBubblingEventBlock onSendVideo;
 @property (nonatomic, copy) RCTBubblingEventBlock onTextChange;
 @property (nonatomic, copy) RCTBubblingEventBlock onPhotoFeatureClick;
+@property (nonatomic, copy) RCTBubblingEventBlock onFileFeatureClick;
+@property (nonatomic, copy) RCTBubblingEventBlock onUserFeatureClick;
+@property (nonatomic, copy) RCTBubblingEventBlock onMovieFeatureClick;
+@property (nonatomic, copy) RCTBubblingEventBlock onPhoneFeatureClick;
+@property (nonatomic, copy) RCTBubblingEventBlock onLocationFeatureClick;
 
 @property (nonatomic, copy) RCTBubblingEventBlock onLift;
 @property (nonatomic, copy) RCTBubblingEventBlock onFall;

@@ -622,7 +622,7 @@ open class MessageListConfiguration {
     public var leftPostMessageDescMarginTop: CGFloat = 7
     
     // 左侧文章消息的描述到缩略图的距离
-    public var leftPostMessageDescMarginRight: CGFloat = 7
+    public var leftPostMessageDescMarginRight: CGFloat = 6
     
     // 左侧文章消息的缩略图到标题的距离
     public var leftPostMessageThumbnailMarginTop: CGFloat = 8
@@ -687,7 +687,7 @@ open class MessageListConfiguration {
     public var rightPostMessageDescMarginTop: CGFloat = 7
     
     // 右侧文章消息的描述到缩略图的距离
-    public var rightPostMessageDescMarginRight: CGFloat = 7
+    public var rightPostMessageDescMarginRight: CGFloat = 6
     
     // 右侧文章消息的缩略图到标题的距离
     public var rightPostMessageThumbnailMarginTop: CGFloat = 8

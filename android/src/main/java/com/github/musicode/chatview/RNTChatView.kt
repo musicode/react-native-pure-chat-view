@@ -28,11 +28,43 @@ import com.github.herokotlin.messagelist.enum.MessageStatus
 import com.facebook.react.modules.core.PermissionAwareActivity
 import com.facebook.react.ReactActivity
 import com.facebook.react.uimanager.ThemedReactContext
+import com.github.herokotlin.messageinput.enum.FeatureType
 import com.github.herokotlin.messagelist.enum.FileIcon
 
 class RNTChatView(context: ThemedReactContext, val appContext: ReactApplicationContext, val imageLoader: RNTChatViewLoader): LinearLayout(context), LifecycleEventListener, ActivityEventListener {
 
     var currentUserId = ""
+
+    var featureList = ArrayList<Any>()
+
+        set(value) {
+            field = value
+            messageInputConfiguration.featureList = value.map {
+                when (it as String) {
+                    "photo" -> {
+                        FeatureType.PHOTO
+                    }
+                    "camera" -> {
+                        FeatureType.CAMERA
+                    }
+                    "file" -> {
+                        FeatureType.FILE
+                    }
+                    "user" -> {
+                        FeatureType.USER
+                    }
+                    "movie" -> {
+                        FeatureType.MOVIE
+                    }
+                    "phone" -> {
+                        FeatureType.PHONE
+                    }
+                    else -> {
+                        FeatureType.LOCATION
+                    }
+                }
+            }
+        }
 
     var leftUserNameVisible = false
 
@@ -71,7 +103,8 @@ class RNTChatView(context: ThemedReactContext, val appContext: ReactApplicationC
 
     var activity: Activity = appContext.currentActivity!!
 
-    var messageListConfiguration: MessageListConfiguration
+    private var messageListConfiguration: MessageListConfiguration
+    private var messageInputConfiguration: MessageInputConfiguration
 
     var messageList: MessageList
 
@@ -207,7 +240,7 @@ class RNTChatView(context: ThemedReactContext, val appContext: ReactApplicationC
 
         }
 
-        val messageInputConfiguration = object: MessageInputConfiguration(context) {
+        messageInputConfiguration = object: MessageInputConfiguration(context) {
 
             override fun loadImage(imageView: ImageView, url: String) {
                 imageLoader.loadImage(imageView, url, 40, 40)
@@ -319,6 +352,26 @@ class RNTChatView(context: ThemedReactContext, val appContext: ReactApplicationC
 
                 override fun onClickPhotoFeature() {
                     sendEvent("onClickPhotoFeature")
+                }
+
+                override fun onClickFileFeature() {
+                    sendEvent("onClickFileFeature")
+                }
+
+                override fun onClickUserFeature() {
+                    sendEvent("onClickUserFeature")
+                }
+
+                override fun onClickMovieFeature() {
+                    sendEvent("onClickMovieFeature")
+                }
+
+                override fun onClickPhoneFeature() {
+                    sendEvent("onClickPhoneFeature")
+                }
+
+                override fun onClickLocationFeature() {
+                    sendEvent("onClickLocationFeature")
                 }
 
                 override fun onLift() {

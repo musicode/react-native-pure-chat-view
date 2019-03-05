@@ -97,6 +97,7 @@
 		9D7F521C21B3E6F600F04D5C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9D7F521B21B3E6F600F04D5C /* Assets.xcassets */; };
 		9DB008E921B0CD8800358E85 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB0089921B0CD8700358E85 /* ChatView.swift */; };
 		9DB008ED21B0D03F00358E85 /* RNTChatViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9DB008EC21B0D03F00358E85 /* RNTChatViewManager.m */; };
+		9DE94D26222EC84500DE079F /* FeatureType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE94D25222EC84500DE079F /* FeatureType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -206,6 +207,7 @@
 		9DB0089921B0CD8700358E85 /* ChatView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		9DB008EB21B0D03F00358E85 /* RNTChatViewManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = RNTChatViewManager.h; path = RNTChatView/RNTChatViewManager.h; sourceTree = SOURCE_ROOT; };
 		9DB008EC21B0D03F00358E85 /* RNTChatViewManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = RNTChatViewManager.m; path = RNTChatView/RNTChatViewManager.m; sourceTree = SOURCE_ROOT; };
+		9DE94D25222EC84500DE079F /* FeatureType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeatureType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -366,6 +368,7 @@
 		9D76B86221CF746500A516C6 /* enum */ = {
 			isa = PBXGroup;
 			children = (
+				9DE94D25222EC84500DE079F /* FeatureType.swift */,
 				9D76B86321CF746500A516C6 /* ViewMode.swift */,
 			);
 			path = enum;
@@ -624,6 +627,7 @@
 				9D76B89521CF746500A516C6 /* CaptureView.swift in Sources */,
 				9D76B8A921CF746500A516C6 /* EmotionFilter.swift in Sources */,
 				9D372910222BA189005878A7 /* SoundMode.swift in Sources */,
+				9DE94D26222EC84500DE079F /* FeatureType.swift in Sources */,
 				9D7F516521B2A7A400F04D5C /* RNTChatView.m in Sources */,
 				9D76B89D21CF746500A516C6 /* EmotionIcon.swift in Sources */,
 				9D37291A222BA189005878A7 /* LeftVideoMessageCell.swift in Sources */,

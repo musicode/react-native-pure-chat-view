@@ -104,12 +104,36 @@ class Configuration: MessageListConfiguration {
     
     var messageList: MessageList!
     var messageInput: MessageInput!
-    
+
     var messageListConfiguration: Configuration!
+    var messageInputConfiguration: MessageInputConfiguration!
     
     @objc var currentUserId = "" {
         didSet {
             messageListConfiguration.currentUserId = currentUserId
+        }
+    }
+    
+    @objc var featureList = [String]() {
+        didSet {
+            messageInputConfiguration.featureList = featureList.map {
+                switch $0 {
+                case "photo":
+                    return FeatureType.photo
+                case "camera":
+                    return FeatureType.camera
+                case "file":
+                    return FeatureType.file
+                case "user":
+                    return FeatureType.user
+                case "movie":
+                    return FeatureType.movie
+                case "phone":
+                    return FeatureType.phone
+                default:
+                    return FeatureType.location
+                }
+            }
         }
     }
     
@@ -168,7 +192,7 @@ class Configuration: MessageListConfiguration {
         messageList.translatesAutoresizingMaskIntoConstraints = false
         addSubview(messageList)
         
-        let messageInputConfiguration = MessageInputConfiguration()
+        messageInputConfiguration = MessageInputConfiguration()
         messageInputConfiguration.audioBitRate = 128000
         messageInputConfiguration.audioQuality = .medium
         messageInputConfiguration.audioSampleRate = 44100.0
