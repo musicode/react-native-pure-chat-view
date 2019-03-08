@@ -4,6 +4,51 @@ import AVFoundation
 
 class PreviewView: UIImageView {
     
+    var video = "" {
+        didSet {
+            
+            guard video != oldValue else {
+                return
+            }
+            
+            if let player = playerLayer?.player {
+                
+                NotificationCenter.default.removeObserver(
+                    self,
+                    name: NSNotification.Name.AVPlayerItemDidPlayToEndTime,
+                    object: player.currentItem
+                )
+                
+                player.pause()
+                
+                playerLayer?.removeFromSuperlayer()
+                playerLayer = nil
+                
+            }
+            
+            if !video.isEmpty {
+                
+                let player = AVPlayer(url: URL(fileURLWithPath: video))
+                
+                let newLayer = AVPlayerLayer(player: player)
+                newLayer.frame = bounds
+                
+                layer.addSublayer(newLayer)
+                playerLayer = newLayer
+                
+                NotificationCenter.default.addObserver(
+                    self,
+                    selector: #selector(playVideoCompletion),
+                    name: NSNotification.Name.AVPlayerItemDidPlayToEndTime,
+                    object: player.currentItem
+                )
+                
+                player.play()
+                
+            }
+        }
+    }
+    
     private var playerLayer: AVPlayerLayer?
     
     convenience init() {
@@ -22,36 +67,6 @@ class PreviewView: UIImageView {
     private func setup() {
         backgroundColor = .black
         contentMode = .scaleAspectFit
-    }
-    
-    func startVideoPlaying(videoPath: String) {
-        
-        let player = AVPlayer(url: URL(fileURLWithPath: videoPath))
-        
-        let playerLayer = AVPlayerLayer(player: player)
-        playerLayer.frame = bounds
-        
-        layer.addSublayer(playerLayer)
-        
-        player.play()
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(playVideoCompletion), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: player.currentItem)
-        
-        self.playerLayer = playerLayer
-        
-    }
-    
-    func stopVideoPlaying() {
-        
-        guard let player = playerLayer?.player else {
-            return
-        }
-        
-        player.pause()
-        playerLayer?.removeFromSuperlayer()
-        
-        playerLayer = nil
-        
     }
     
     public override func layoutSubviews() {

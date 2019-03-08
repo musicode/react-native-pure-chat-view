@@ -17,7 +17,29 @@ public class CameraViewController: UIViewController {
         super.viewDidLoad()
         
         cameraView = CameraView(configuration: configuration)
-        cameraView.delegate = delegate
+        
+        cameraView.onExit = {
+            self.delegate.cameraViewDidExit(self)
+        }
+        cameraView.onCapturePhoto = { photoPath, photoSize, photoWidth, photoHeight in
+            self.delegate.cameraViewDidCapturePhoto(self, photoPath: photoPath, photoSize: photoSize, photoWidth: photoWidth, photoHeight: photoHeight)
+        }
+        cameraView.onRecordVideo = { videoPath, videoSize, videoDuration, photoPath, photoSize, photoWidth, photoHeight in
+            self.delegate.cameraViewDidRecordVideo(self, videoPath: videoPath, videoSize: videoSize, videoDuration: videoDuration, photoPath: photoPath, photoSize: photoSize, photoWidth: photoWidth, photoHeight: photoHeight)
+        }
+        cameraView.onPermissionsGranted = {
+            self.delegate.cameraViewDidPermissionsGranted(self)
+        }
+        cameraView.onPermissionsDenied = {
+            self.delegate.cameraViewDidPermissionsDenied(self)
+        }
+        cameraView.onCaptureWithoutPermissions = {
+            self.delegate.cameraViewWillCaptureWithoutPermissions(self)
+        }
+        cameraView.onRecordDurationLessThanMinDuration = {
+            self.delegate.cameraViewDidRecordDurationLessThanMinDuration(self)
+        }
+        
         cameraView.requestPermissions()
         
         view.backgroundColor = .black
@@ -37,10 +59,6 @@ public class CameraViewController: UIViewController {
         else {
             cameraView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height)
         }
-    }
-    
-    public override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
     }
     
 }

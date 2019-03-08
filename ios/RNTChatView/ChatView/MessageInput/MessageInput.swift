@@ -25,8 +25,6 @@ public class MessageInput: UIView {
     private var emotionPanel: EmotionPager!
     private let morePanel = UIView()
     
-    private var cameraViewController: CameraViewController?
-    
     private var textareaBottomConstraint: NSLayoutConstraint!
     
     private var voicePanelBottomConstraint: NSLayoutConstraint!
@@ -656,14 +654,12 @@ extension MessageInput {
         let cameraViewController = CameraViewController()
         
         let cameraViewConfiguration = CameraViewConfiguration()
-        cameraViewConfiguration.preset = configuration.videoPreset
+        cameraViewConfiguration.videoQuality = configuration.videoQuality
         
         cameraViewController.configuration = cameraViewConfiguration
         cameraViewController.delegate = self
         
         parentViewController.present(cameraViewController, animated: true, completion: nil)
-        
-        self.cameraViewController = cameraViewController
         
     }
     
@@ -837,35 +833,35 @@ extension MessageInput: VoiceInputDelegate {
 
 extension MessageInput: CameraViewDelegate {
     
-    public func cameraViewDidExit(_ cameraView: CameraView) {
-        cameraViewController?.dismiss(animated: true, completion: nil)
+    public func cameraViewDidExit(_ viewController: CameraViewController) {
+        viewController.dismiss(animated: true, completion: nil)
     }
     
-    public func cameraViewDidPickPhoto(_ cameraView: CameraView, photoPath: String, photoWidth: CGFloat, photoHeight: CGFloat) {
-        cameraViewController?.dismiss(animated: true, completion: nil)
+    public func cameraViewDidCapturePhoto(_ viewController: CameraViewController, photoPath: String, photoSize: Int, photoWidth: Int, photoHeight: Int) {
+        viewController.dismiss(animated: true, completion: nil)
         let photo = ImageFile(path: photoPath, width: photoWidth, height: photoHeight)
         delegate.messageInputDidSendPhoto(photo: photo)
     }
     
-    public func cameraViewDidPickVideo(_ cameraView: CameraView, videoPath: String, videoDuration: Int, photoPath: String, photoWidth: CGFloat, photoHeight: CGFloat) {
-        cameraViewController?.dismiss(animated: true, completion: nil)
+    public func cameraViewDidRecordVideo(_ viewController: CameraViewController, videoPath: String, videoSize: Int, videoDuration: Int, photoPath: String, photoSize: Int, photoWidth: Int, photoHeight: Int) {
+        viewController.dismiss(animated: true, completion: nil)
         let thumbnail = ImageFile(path: photoPath, width: photoWidth, height: photoHeight)
         delegate.messageInputDidSendVideo(videoPath: videoPath, videoDuration: videoDuration, thumbnail: thumbnail)
     }
     
-    public func cameraViewWillCaptureWithoutPermissions(_ cameraView: CameraView) {
+    public func cameraViewWillCaptureWithoutPermissions(_ viewController: CameraViewController) {
         delegate.messageInputWillUseCameraWithoutPermissions()
     }
     
-    public func cameraViewDidRecordDurationLessThanMinDuration(_ cameraView: CameraView) {
+    public func cameraViewDidRecordDurationLessThanMinDuration(_ viewController: CameraViewController) {
         delegate.messageInputDidRecordVideoDurationLessThanMinDuration()
     }
     
-    public func cameraViewDidPermissionsGranted(_ cameraView: CameraView) {
+    public func cameraViewDidPermissionsGranted(_ viewController: CameraViewController) {
         delegate.messageInputDidRecordVideoPermissionsGranted()
     }
     
-    public func cameraViewDidPermissionsDenied(_ cameraView: CameraView) {
+    public func cameraViewDidPermissionsDenied(_ viewController: CameraViewController) {
         delegate.messageInputDidRecordVideoPermissionsDenied()
     }
     

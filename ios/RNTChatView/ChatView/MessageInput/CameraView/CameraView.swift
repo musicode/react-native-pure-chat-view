@@ -3,7 +3,19 @@ import UIKit
 
 public class CameraView: UIView {
     
-    var delegate: CameraViewDelegate!
+    var onExit: (() -> Void)?
+    
+    var onCapturePhoto: ((String, Int, Int, Int) -> Void)?
+    
+    var onRecordVideo: ((String, Int, Int, String, Int, Int, Int) -> Void)?
+    
+    var onPermissionsGranted: (() -> Void)?
+    
+    var onPermissionsDenied: (() -> Void)?
+    
+    var onCaptureWithoutPermissions: (() -> Void)?
+
+    var onRecordDurationLessThanMinDuration: (() -> Void)?
     
     //
     // MARK: - 拍摄界面
@@ -16,7 +28,10 @@ public class CameraView: UIView {
     
     var exitButton = SimpleButton()
     var captureButton = CircleView()
-    var guideLabel = UILabel()
+    
+    lazy var guideLabel: UILabel = {
+        return UILabel()
+    }()
     
     //
     // MARK: - 选择界面
@@ -27,7 +42,7 @@ public class CameraView: UIView {
     var chooseView = UIView()
     var chooseViewWidthConstraint: NSLayoutConstraint!
     
-    var okButton = CircleView()
+    var submitButton = CircleView()
     var cancelButton = CircleView()
     
     //
@@ -38,11 +53,9 @@ public class CameraView: UIView {
     
     private var cameraManager = CameraManager()
     
+    private var progressAnimation: CABasicAnimation!
+    
     private var cameraIsReady = false
-    
-    private var cameraIsCapturing = false
-    
-    private var recordingTimer: Timer?
     
     public convenience init(configuration: CameraViewConfiguration) {
         self.init()
@@ -62,7 +75,6 @@ public class CameraView: UIView {
                 orientation: self.cameraManager.getVideoOrientation(deviceOrientation: self.cameraManager.deviceOrientation)
             )
             self.cameraIsReady = true
-            self.cameraIsCapturing = true
         }
         
         cameraManager.onFlashModeChange = {
@@ -82,19 +94,19 @@ public class CameraView: UIView {
         }
         
         cameraManager.onPermissionsGranted = {
-            self.delegate.cameraViewDidPermissionsGranted(self)
+            self.onPermissionsGranted?()
         }
         
         cameraManager.onPermissionsDenied = {
-            self.delegate.cameraViewDidPermissionsDenied(self)
+            self.onPermissionsDenied?()
         }
         
         cameraManager.onCaptureWithoutPermissions = {
-            self.delegate.cameraViewWillCaptureWithoutPermissions(self)
+            self.onCaptureWithoutPermissions?()
         }
         
         cameraManager.onRecordVideoDurationLessThanMinDuration = {
-            self.delegate.cameraViewDidRecordDurationLessThanMinDuration(self)
+            self.onRecordDurationLessThanMinDuration?()
         }
         
         cameraManager.onFinishCapturePhoto = { (photo, error) in
@@ -108,14 +120,18 @@ public class CameraView: UIView {
         }
         
         cameraManager.onFinishRecordVideo = { (videoPath, error) in
+            
             if let error = error {
                 print(error.localizedDescription)
             }
             else if let videoPath = videoPath {
                 self.showPreviewView()
-                self.previewView.startVideoPlaying(videoPath: videoPath)
+                self.previewView.video = videoPath
+                return
             }
-            self.stopRecordingTimer()
+            
+            self.showControls()
+            
         }
         
         addCaptureView()
@@ -125,7 +141,8 @@ public class CameraView: UIView {
     
     private func showPreviewView() {
         
-        chooseViewWidthConstraint.constant = 230
+        // 经测试，3.2 个圆是个不错的宽度
+        chooseViewWidthConstraint.constant = 3.2 * 2 * configuration.captureButtonCenterRadiusNormal
         
         UIView.animate(
             withDuration: 0.2,
@@ -133,25 +150,23 @@ public class CameraView: UIView {
             options: .curveEaseOut,
             animations: {
                 self.chooseView.layoutIfNeeded()
+                self.chooseView.alpha = 1
+                
                 self.flashButton.alpha = 0
                 self.flipButton.alpha = 0
-                self.captureButton.alpha = 0
                 self.exitButton.alpha = 0
-                self.cancelButton.alpha = 1
-                self.okButton.alpha = 1
+                self.captureButton.alpha = 0
             },
             completion: { _ in
                 self.flashButton.isHidden = true
                 self.flipButton.isHidden = true
-                self.captureButton.isHidden = true
                 self.exitButton.isHidden = true
+                self.captureButton.isHidden = true
             }
         )
         
         previewView.isHidden = false
         captureView.isHidden = true
-        
-        cameraIsCapturing = false
         
     }
     
@@ -165,32 +180,26 @@ public class CameraView: UIView {
             options: .curveEaseOut,
             animations: {
                 self.chooseView.layoutIfNeeded()
+                self.chooseView.alpha = 0
+                
                 self.flashButton.alpha = 1
                 self.flipButton.alpha = 1
-                self.captureButton.alpha = 1
                 self.exitButton.alpha = 1
-                self.cancelButton.alpha = 0
-                self.okButton.alpha = 0
+                self.captureButton.alpha = 1
             },
-            completion: { _ in
-                self.flashButton.isHidden = false
-                self.flipButton.isHidden = false
-                self.captureButton.isHidden = false
-                self.exitButton.isHidden = false
-            }
+            completion: nil
         )
         
-        previewView.isHidden = true
         captureView.isHidden = false
+        flashButton.isHidden = false
+        flipButton.isHidden = false
+        exitButton.isHidden = false
+        captureButton.isHidden = false
         
-        if previewView.image != nil {
-            previewView.image = nil
-        }
-        else {
-            previewView.stopVideoPlaying()
-        }
+        previewView.isHidden = true
         
-        cameraIsCapturing = true
+        previewView.image = nil
+        previewView.video = ""
         
     }
     
@@ -223,7 +232,7 @@ extension CameraView {
         captureView.translatesAutoresizingMaskIntoConstraints = false
         
         captureView.onFocusPointChange = {
-            guard self.cameraIsReady, self.cameraIsCapturing else {
+            guard self.cameraIsReady else {
                 return
             }
             do {
@@ -358,12 +367,16 @@ extension CameraView {
         ])
         
         exitButton.onClick = {
-            self.delegate.cameraViewDidExit(self)
+            self.onExit?()
         }
         
     }
     
     private func addGuideLabel() {
+        
+        if configuration.guideLabelTitle.isEmpty {
+            return
+        }
         
         guideLabel.text = configuration.guideLabelTitle
         guideLabel.textColor = configuration.guideLabelTextColor
@@ -380,8 +393,14 @@ extension CameraView {
         ])
         
         // N 秒后淡出
-        if configuration.guideLabelFadeOutInterval > 0 {
-            Timer.scheduledTimer(timeInterval: configuration.guideLabelFadeOutInterval, target: self, selector: #selector(CameraView.onGuideLabelFadeOut), userInfo: nil, repeats: false)
+        if configuration.guideLabelFadeOutDelay > 0 {
+            Timer.scheduledTimer(
+                timeInterval: configuration.guideLabelFadeOutDelay,
+                target: self,
+                selector: #selector(CameraView.onGuideLabelFadeOut),
+                userInfo: nil,
+                repeats: false
+            )
         }
         
     }
@@ -406,17 +425,18 @@ extension CameraView {
     
     private func addChooseView() {
         
+        chooseView.alpha = 0
         chooseView.translatesAutoresizingMaskIntoConstraints = false
         chooseView.clipsToBounds = true
         addSubview(chooseView)
         
         chooseViewWidthConstraint = NSLayoutConstraint(item: chooseView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: 0)
         
-        addOkButton()
+        addSubmitButton()
         addCancelButton()
         
         addConstraints([
-            NSLayoutConstraint(item: chooseView, attribute: .height, relatedBy: .equal, toItem: okButton, attribute: .height, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: chooseView, attribute: .height, relatedBy: .equal, toItem: submitButton, attribute: .height, multiplier: 1, constant: 0),
             NSLayoutConstraint(item: chooseView, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0),
             NSLayoutConstraint(item: chooseView, attribute: .centerY, relatedBy: .equal, toItem: captureButton, attribute: .centerY, multiplier: 1, constant: 0),
             chooseViewWidthConstraint
@@ -424,32 +444,30 @@ extension CameraView {
         
     }
     
-    private func addOkButton() {
+    private func addSubmitButton() {
         
-        okButton.alpha = 0
-        okButton.delegate = self
-        okButton.centerRadius = configuration.okButtonCenterRadius
-        okButton.centerColor = configuration.okButtonCenterColor
-        okButton.ringWidth = configuration.okButtonRingWidth
-        okButton.centerImage = configuration.okButtonImage
+        submitButton.delegate = self
+        submitButton.centerRadius = configuration.submitButtonCenterRadius
+        submitButton.centerColor = configuration.submitButtonCenterColor
+        submitButton.ringWidth = 0
+        submitButton.centerImage = configuration.submitButtonImage
         
-        okButton.translatesAutoresizingMaskIntoConstraints = false
-        chooseView.addSubview(okButton)
+        submitButton.translatesAutoresizingMaskIntoConstraints = false
+        chooseView.addSubview(submitButton)
         
         chooseView.addConstraints([
-            NSLayoutConstraint(item: okButton, attribute: .right, relatedBy: .equal, toItem: chooseView, attribute: .right, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: okButton, attribute: .centerY, relatedBy: .equal, toItem: chooseView, attribute: .centerY, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: submitButton, attribute: .right, relatedBy: .equal, toItem: chooseView, attribute: .right, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: submitButton, attribute: .centerY, relatedBy: .equal, toItem: chooseView, attribute: .centerY, multiplier: 1, constant: 0),
         ])
         
     }
     
     private func addCancelButton() {
-        
-        cancelButton.alpha = 0
+       
         cancelButton.delegate = self
         cancelButton.centerRadius = configuration.cancelButtonCenterRadius
         cancelButton.centerColor = configuration.cancelButtonCenterColor
-        cancelButton.ringWidth = configuration.cancelButtonRingWidth
+        cancelButton.ringWidth = 0
         cancelButton.centerImage = configuration.cancelButtonImage
         
         cancelButton.translatesAutoresizingMaskIntoConstraints = false
@@ -465,54 +483,97 @@ extension CameraView {
 }
 
 //
-// MARK: - 录制视频的定时器
+// MARK: - 私有方法
 //
 
 extension CameraView {
     
-    func startRecordingTimer() {
-        // 一毫秒执行一次
-        recordingTimer = Timer.scheduledTimer(timeInterval: 1 / 1000, target: self, selector: #selector(CameraView.onRecordingDurationUpdate), userInfo: nil, repeats: true)
-
-        captureButton.centerRadius = configuration.captureButtonCenterRadiusRecording
-        captureButton.ringWidth = configuration.captureButtonRingWidthRecording
-        captureButton.trackValue = 0
-        captureButton.setNeedsLayout()
-        captureButton.setNeedsDisplay()
+    private func submit() {
+        
+        let photoQuality = configuration.photoQuality
+        
+        if let photo = cameraManager.photo {
+            // 保存图片
+            cameraManager.saveToDisk(image: photo, compressionQuality: photoQuality) { path, size in
+                self.onCapturePhoto?(path, size, Int(photo.size.width), Int(photo.size.height))
+            }
+        }
+        else if let photo = cameraManager.getVideoFirstFrame(videoPath: cameraManager.videoPath) {
+            guard let videoData = NSData(contentsOfFile: cameraManager.videoPath) else {
+                return
+            }
+            // 保存视频截图
+            cameraManager.saveToDisk(image: photo, compressionQuality: photoQuality) { path, size in
+                self.onRecordVideo?(
+                    cameraManager.videoPath,
+                    videoData.length,
+                    cameraManager.videoDuration,
+                    path,
+                    size,
+                    Int(photo.size.width),
+                    Int(photo.size.height)
+                )
+            }
+        }
+        
     }
     
-    private func stopRecordingTimer() {
-        guard let timer = recordingTimer else {
+    private func startRecordVideo() {
+        
+        cameraManager.startRecordVideo()
+        
+        if cameraManager.isVideoRecording {
+            
+            captureButton.centerRadius = configuration.captureButtonCenterRadiusRecording
+            captureButton.ringWidth = configuration.captureButtonRingWidthRecording
+            captureButton.trackValue = 0
+            
+            progressAnimation = CABasicAnimation(keyPath: #keyPath(CircleLayer.trackValue))
+            progressAnimation.fromValue = 0.0
+            progressAnimation.toValue = 1.0
+            progressAnimation.delegate = self
+            progressAnimation.duration = Double(configuration.videoMaxDuration) / 1000
+            captureButton.layer.add(progressAnimation, forKey: #keyPath(CircleLayer.trackValue))
+            
+            hideControls()
+            
+        }
+        
+    }
+    
+    private func stopRecordVideo() {
+        
+        guard cameraManager.isVideoRecording else {
             return
         }
-        timer.invalidate()
-        self.recordingTimer = nil
+        
+        cameraManager.stopRecordVideo()
+        
+        captureButton.layer.removeAnimation(forKey: #keyPath(CircleLayer.trackValue))
         
         captureButton.centerRadius = configuration.captureButtonCenterRadiusNormal
         captureButton.ringWidth = configuration.captureButtonRingWidthNormal
         captureButton.trackValue = 0
-        captureButton.setNeedsLayout()
-        captureButton.setNeedsDisplay()
+
     }
     
-    @objc private func onRecordingDurationUpdate() {
-        
-        let currentTime = cameraManager.videoCurrentTime
-
-        captureButton.trackValue = Double(currentTime) / Double(configuration.videoMaxDuration)
-        captureButton.setNeedsDisplay()
-        
-        if currentTime >= configuration.videoMaxDuration {
-            cameraManager.stopRecordVideo()
-        }
-        
+    private func showControls() {
+        flipButton.isHidden = false
+        flashButton.isHidden = false
+        exitButton.isHidden = false
+    }
+    
+    private func hideControls() {
+        flipButton.isHidden = true
+        flashButton.isHidden = true
+        exitButton.isHidden = true
     }
     
     @objc private func onGuideLabelFadeOut() {
         
         // 引导文字淡出消失
         UIView.animate(
-            withDuration: 0.8,
+            withDuration: 1,
             delay: 0,
             options: .curveEaseOut,
             animations: {
@@ -522,7 +583,7 @@ extension CameraView {
                  self.guideLabel.isHidden = true
             }
         )
-        
+
     }
     
 }
@@ -534,58 +595,72 @@ extension CameraView {
 extension CameraView: CircleViewDelegate {
 
     public func circleViewDidLongPressStart(_ circleView: CircleView) {
-        if circleView == captureButton {
+        if circleView == captureButton && configuration.captureMode != .photo {
             // 长按触发录制视频
-            cameraManager.startRecordVideo()
-            if cameraManager.isVideoRecording {
-                startRecordingTimer()
-            }
+            startRecordVideo()
         }
     }
     
     public func circleViewDidLongPressEnd(_ circleView: CircleView) {
-        if circleView == captureButton && cameraManager.isVideoRecording {
-            cameraManager.stopRecordVideo()
+        if circleView == captureButton {
+            stopRecordVideo()
+        }
+    }
+    
+    public func circleViewDidTouchDown(_ circleView: CircleView) {
+        if circleView == captureButton {
+            circleView.centerColor = configuration.captureButtonCenterColorPressed
+            circleView.setNeedsDisplay()
+        }
+    }
+    
+    public func circleViewDidTouchEnter(_ circleView: CircleView) {
+        if circleView == captureButton {
+            circleView.centerColor = configuration.captureButtonCenterColorPressed
+            circleView.setNeedsDisplay()
+        }
+    }
+    
+    public func circleViewDidTouchLeave(_ circleView: CircleView) {
+        if circleView == captureButton {
+            circleView.centerColor = configuration.captureButtonCenterColorNormal
+            circleView.setNeedsDisplay()
         }
     }
     
     public func circleViewDidTouchUp(_ circleView: CircleView, _ inside: Bool, _ isLongPress: Bool) {
+        
+        if inside && circleView == captureButton {
+            circleView.centerColor = configuration.captureButtonCenterColorNormal
+            circleView.setNeedsDisplay()
+        }
+        
         guard inside, !isLongPress else {
             return
         }
+        
         if circleView == captureButton {
-            cameraManager.capturePhoto()
+            // 纯视频拍摄需要长按
+            if configuration.captureMode != .video {
+                cameraManager.capturePhoto()
+            }
         }
         else if circleView == cancelButton {
             hidePreviewView()
         }
-        else if circleView == okButton {
+        else if circleView == submitButton {
             hidePreviewView()
-            if let photo = cameraManager.photo {
-                // 保存图片
-                if let photoPath = cameraManager.saveToDisk(image: photo) {
-                    delegate.cameraViewDidPickPhoto(
-                        self,
-                        photoPath: photoPath,
-                        photoWidth: photo.size.width,
-                        photoHeight: photo.size.height
-                    )
-                }
-            }
-            else if let photo = cameraManager.getVideoFirstFrame(videoPath: cameraManager.videoPath) {
-                // 保存视频截图
-                if let photoPath = cameraManager.saveToDisk(image: photo) {
-                    delegate.cameraViewDidPickVideo(
-                        self,
-                        videoPath: cameraManager.videoPath,
-                        videoDuration: cameraManager.videoDuration,
-                        photoPath: photoPath,
-                        photoWidth: photo.size.width,
-                        photoHeight: photo.size.height
-                    )
-                }
-            }
+            submit()
         }
+    }
+    
+}
+
+extension CameraView: CAAnimationDelegate {
+    
+    // 这里只能这样写，否则动画结束时不会调这里
+    @objc func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
+        stopRecordVideo()
     }
     
 }

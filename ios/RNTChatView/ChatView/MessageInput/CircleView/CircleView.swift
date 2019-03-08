@@ -3,17 +3,6 @@ import UIKit
 
 public class CircleView: UIView {
 
-    // 内圆
-    public var centerRadius: CGFloat = 36 {
-        didSet {
-            invalidateIntrinsicContentSize()
-            if let imageView = centerImageView {
-                imageView.layer.cornerRadius = centerRadius
-            }
-        }
-    }
-    
-    public var centerColor = UIColor.white
     public var centerImage: UIImage? {
         didSet {
             // 移除老的
@@ -32,32 +21,102 @@ public class CircleView: UIView {
         }
     }
     
+    // 内圆
+    public var centerRadius: CGFloat {
+        get {
+            return circleLayer.centerRadius
+        }
+        set {
+            circleLayer.centerRadius = newValue
+            circleLayer.setNeedsDisplay()
+            invalidateIntrinsicContentSize()
+            if let imageView = centerImageView {
+                imageView.layer.cornerRadius = newValue
+            }
+        }
+    }
+    
+    public var centerColor: UIColor {
+        get {
+            return circleLayer.centerColor
+        }
+        set {
+            circleLayer.centerColor = newValue
+            circleLayer.setNeedsDisplay()
+        }
+    }
+
     // 圆环
-    public var ringWidth: CGFloat = 7 {
-        didSet {
+    public var ringWidth: CGFloat {
+        get {
+            return circleLayer.ringWidth
+        }
+        set {
+            circleLayer.ringWidth = newValue
+            circleLayer.setNeedsDisplay()
             invalidateIntrinsicContentSize()
         }
     }
     
-    public var ringColor = UIColor(red: 221.0 / 255.0, green: 221.0 / 255.0, blue: 221.0 / 255.0, alpha: 1.0)
+    public var ringColor: UIColor {
+        get {
+            return circleLayer.ringColor
+        }
+        set {
+            circleLayer.ringColor = newValue
+            circleLayer.setNeedsDisplay()
+        }
+    }
 
     // 高亮轨道
-    public var trackWidth: CGFloat = 7
-    public var trackColor = UIColor(red: 80.0 / 255.0, green: 210.0 / 255.0, blue: 17.0 / 255.0, alpha: 1.0)
+    public var trackWidth: CGFloat {
+        get {
+            return circleLayer.trackWidth
+        }
+        set {
+            circleLayer.trackWidth = newValue
+            circleLayer.setNeedsDisplay()
+        }
+    }
+    
+    public var trackColor: UIColor {
+        get {
+            return circleLayer.trackColor
+        }
+        set {
+            circleLayer.trackColor = newValue
+            circleLayer.setNeedsDisplay()
+        }
+    }
     
     // 轨道默认贴着圆环的外边，给正值可以往内部来点，当然负值就能出去点...
-    public var trackOffset: CGFloat = 0
+    public var trackOffset: CGFloat {
+        get {
+            return circleLayer.trackOffset
+        }
+        set {
+            circleLayer.trackOffset = newValue
+            circleLayer.setNeedsDisplay()
+        }
+    }
     
     // 轨道的值 0.0 - 1.0，影响轨道圆弧的大小
-    public var trackValue = 0.0 {
-        didSet {
-            if trackValue > 1 {
-                trackValue = 1
-            }
-            else if trackValue < 0 {
-                trackValue = 0
-            }
+    public var trackValue: Double {
+        get {
+            return circleLayer.trackValue
         }
+        set {
+            circleLayer.trackValue = newValue
+            circleLayer.setNeedsDisplay()
+        }
+    }
+    
+    public override class var layerClass: AnyClass {
+        return CircleLayer.self
+    }
+    
+    private var circleLayer: CircleLayer {
+        return layer as! CircleLayer
     }
 
     // 存储当前使用的 UIImageView
@@ -77,14 +136,9 @@ public class CircleView: UIView {
     
     // 按下之后多少秒触发长按回调
     private var longPressInterval: TimeInterval = 1
-
-    // 半径 = 内圆 + 圆环
-    private var radius: CGFloat {
-        return centerRadius + ringWidth
-    }
     
     public override var intrinsicContentSize: CGSize {
-        return CGSize(width: 2 * radius, height: 2 * radius)
+        return CGSize(width: 2 * circleLayer.radius, height: 2 * circleLayer.radius)
     }
 
     public var delegate: CircleViewDelegate!
@@ -92,11 +146,13 @@ public class CircleView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .clear
+        layer.contentsScale = UIScreen.main.scale
     }
     
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         backgroundColor = .clear
+        layer.contentsScale = UIScreen.main.scale
     }
 
     // 点是否在内圆中
@@ -182,41 +238,6 @@ public class CircleView: UIView {
     public override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesCancelled(touches, with: event)
         touchUp(false)
-    }
-
-    public override func draw(_ rect: CGRect) {
-
-        guard let context = UIGraphicsGetCurrentContext() else {
-            return
-        }
-
-        let centerX = bounds.midX
-        let centerY = bounds.midY
-
-        // 画外圆
-        if ringWidth > 0 {
-            context.setFillColor(ringColor.cgColor)
-            context.addEllipse(in: CGRect(x: centerX - radius, y: centerY - radius, width: 2 * radius, height: 2 * radius))
-            context.drawPath(using: .fill)
-
-            // 在上面画高亮圆弧
-            if trackWidth > 0 && ringWidth >= trackWidth {
-                context.setStrokeColor(trackColor.cgColor)
-                context.setLineWidth(trackWidth)
-
-                let startAngle = -0.5 * Double.pi
-                let endAngle = 2 * Double.pi * trackValue + startAngle
-
-                context.addArc(center: CGPoint(x: centerX, y: centerY), radius: radius - trackWidth * 0.5 - trackOffset, startAngle: CGFloat(startAngle), endAngle: CGFloat(endAngle), clockwise: false)
-                context.drawPath(using: .stroke)
-            }
-        }
-
-        // 画内圆
-        context.setFillColor(centerColor.cgColor)
-        context.addEllipse(in: CGRect(x: centerX - centerRadius, y: centerY - centerRadius, width: 2 * centerRadius, height: 2 * centerRadius))
-        context.drawPath(using: .fill)
-
     }
     
     public override func layoutSubviews() {

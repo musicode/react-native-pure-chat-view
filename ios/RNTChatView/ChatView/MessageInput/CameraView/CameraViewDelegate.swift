@@ -4,42 +4,42 @@ import UIKit
 public protocol CameraViewDelegate {
     
     // 点击退出按钮
-    func cameraViewDidExit(_ cameraView: CameraView)
+    func cameraViewDidExit(_ viewController: CameraViewController)
 
     // 点击确定按钮选择照片
-    func cameraViewDidPickPhoto(_ cameraView: CameraView, photoPath: String, photoWidth: CGFloat, photoHeight: CGFloat)
+    func cameraViewDidCapturePhoto(_ viewController: CameraViewController, photoPath: String, photoSize: Int, photoWidth: Int, photoHeight: Int)
     
     // 点击确定按钮选择视频
-    func cameraViewDidPickVideo(_ cameraView: CameraView, videoPath: String, videoDuration: Int, photoPath: String, photoWidth: CGFloat, photoHeight: CGFloat)
+    func cameraViewDidRecordVideo(_ viewController: CameraViewController, videoPath: String, videoSize: Int, videoDuration: Int, photoPath: String, photoSize: Int, photoWidth: Int, photoHeight: Int)
     
     // 录制视频时间太短
-    func cameraViewDidRecordDurationLessThanMinDuration(_ cameraView: CameraView)
+    func cameraViewDidRecordDurationLessThanMinDuration(_ viewController: CameraViewController)
     
     // 点击拍照或摄像按钮时，发现没权限
-    func cameraViewWillCaptureWithoutPermissions(_ cameraView: CameraView)
+    func cameraViewWillCaptureWithoutPermissions(_ viewController: CameraViewController)
     
     // 用户点击同意授权
-    func cameraViewDidPermissionsGranted(_ cameraView: CameraView)
+    func cameraViewDidPermissionsGranted(_ viewController: CameraViewController)
     
     // 用户点击拒绝授权
-    func cameraViewDidPermissionsDenied(_ cameraView: CameraView)
+    func cameraViewDidPermissionsDenied(_ viewController: CameraViewController)
 
 }
 
 public extension CameraViewDelegate {
     
-    func cameraViewDidExit(_ cameraView: CameraView) { }
+    func cameraViewDidExit(_ viewController: CameraViewController) { }
 
-    func cameraViewDidPickPhoto(_ cameraView: CameraView, photoPath: String, photoWidth: CGFloat, photoHeight: CGFloat) { }
+    func cameraViewDidCapturePhoto(_ viewController: CameraViewController, photoPath: String, photoSize: Int, photoWidth: Int, photoHeight: Int) { }
     
-    func cameraViewDidPickVideo(_ cameraView: CameraView, videoPath: String, videoDuration: Int, photoPath: String, photoWidth: CGFloat, photoHeight: CGFloat) { }
+    func cameraViewDidRecordVideo(_ viewController: CameraViewController, videoPath: String, videoSize: Int, videoDuration: Int, photoPath: String, photoSize: Int, photoWidth: Int, photoHeight: Int) { }
 
-    func cameraViewDidRecordDurationLessThanMinDuration(_ cameraView: CameraView) { }
+    func cameraViewDidRecordDurationLessThanMinDuration(_ viewController: CameraViewController) { }
     
-    func cameraViewWillCaptureWithoutPermissions(_ cameraView: CameraView) { }
+    func cameraViewWillCaptureWithoutPermissions(_ viewController: CameraViewController) { }
     
-    func cameraViewDidPermissionsGranted(_ cameraView: CameraView) { }
+    func cameraViewDidPermissionsGranted(_ viewController: CameraViewController) { }
     
-    func cameraViewDidPermissionsDenied(_ cameraView: CameraView) { }
+    func cameraViewDidPermissionsDenied(_ viewController: CameraViewController) { }
     
 }

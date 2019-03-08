@@ -14,7 +14,7 @@ public class CameraViewConfiguration {
     public var guideLabelMarginBottom: CGFloat = 30
     
     // 引导文本几秒后淡出
-    public var guideLabelFadeOutInterval: TimeInterval = 3
+    public var guideLabelFadeOutDelay: TimeInterval = 3
     
     // 引导文本
     public var guideLabelTitle = "轻触拍照，按住摄像"
@@ -98,15 +98,13 @@ public class CameraViewConfiguration {
     public var exitButtonImage = UIImage(named: "camera_view_exit")
     
     // 确定按钮的半径
-    public var okButtonCenterRadius: CGFloat = 38
+    public var submitButtonCenterRadius: CGFloat = 38
     
     // 确定按钮的颜色
-    public var okButtonCenterColor = UIColor.white
+    public var submitButtonCenterColor = UIColor.white
     
     // 确定按钮的图片
-    public var okButtonImage = UIImage(named: "camera_view_ok")
-    
-    public var okButtonRingWidth: CGFloat = 0
+    public var submitButtonImage = UIImage(named: "camera_view_submit")
     
     // 取消按钮的半径
     public var cancelButtonCenterRadius: CGFloat = 38
@@ -117,14 +115,12 @@ public class CameraViewConfiguration {
     // 取消按钮的图片
     public var cancelButtonImage = UIImage(named: "camera_view_cancel")
     
-    public var cancelButtonRingWidth: CGFloat = 0
-    
     
     // 聚焦视图的宽度
-    public var focusViewWidth: CGFloat = 40
+    public var focusViewWidth: CGFloat = 60
     
     // 聚焦视图的高度
-    public var focusViewHeight: CGFloat = 40
+    public var focusViewHeight: CGFloat = 60
     
     // 聚焦视图的颜色
     public var focusViewColor = UIColor.green
@@ -140,17 +136,20 @@ public class CameraViewConfiguration {
     // 视频保存的目录
     public var videoDir = NSTemporaryDirectory()
     
-    // 视频文件扩展名
-    public var videoExtname = ".mp4"
+    // 照片的压缩质量
+    public var photoQuality: CGFloat = 0.7
     
-    // 预设
-    public var preset = AVCaptureSession.Preset.high
+    // 视频质量
+    public var videoQuality = VideoQuality.p720
     
-    // 视频最短录制时长
+    // 视频最短录制时长，单位是毫秒
     public var videoMinDuration: Int = 1000
     
-    // 视频最大录制时长
+    // 视频最大录制时长，单位是毫秒
     public var videoMaxDuration: Int = 10000
+    
+    // 拍摄模式
+    public var captureMode = CaptureMode.photo_video
     
     public init() { }
     

@@ -6,11 +6,11 @@ import UIKit
     
     @objc public var path: String
     
-    @objc public var width: CGFloat
+    @objc public var width: Int
     
-    @objc public var height: CGFloat
+    @objc public var height: Int
     
-    public init(path: String, width: CGFloat, height: CGFloat) {
+    public init(path: String, width: Int, height: Int) {
         self.path = path
         self.width = width
         self.height = height

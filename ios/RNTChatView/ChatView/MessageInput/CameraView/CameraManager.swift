@@ -75,6 +75,8 @@ class CameraManager : NSObject {
     // 当前正在录制的视频文件路径
     var videoPath = ""
     
+    var videoExtname = ".mp4"
+    
     // 录制完成后视频的时长
     var videoDuration: Int = 0
     
@@ -251,7 +253,7 @@ extension CameraManager {
         // 重置
         photo = nil
         
-        videoPath = getFilePath(dirname: configuration.videoDir, extname: configuration.videoExtname)
+        videoPath = getFilePath(dirname: configuration.videoDir, extname: videoExtname)
         
         output.startRecording(to: URL(fileURLWithPath: videoPath), recordingDelegate: self)
         
@@ -271,7 +273,7 @@ extension CameraManager {
     
     func switchToFrontCamera() throws {
         
-        try configureSession { isRunning in
+        try configureSession { _ in
             
             guard let device = frontCamera else {
                 throw CameraError.invalidOperation
@@ -283,7 +285,10 @@ extension CameraManager {
             
             frontCameraInput = try addInput(device: device)
             
-            captureSession.sessionPreset = captureSession.canSetSessionPreset(configuration.preset) ? configuration.preset : .high
+            // 拍照和录视频的预设必须一致
+            // 否则切换预设时，预览画面的尺寸会变化
+            let preset = getVideoPreset(videoQuality: configuration.videoQuality)
+            captureSession.sessionPreset = captureSession.canSetSessionPreset(preset) ? preset : .high
             
             flashMode = .off
             zoomFactor = 1
@@ -295,7 +300,7 @@ extension CameraManager {
     
     func switchToBackCamera() throws {
         
-        try configureSession { isRunning in
+        try configureSession { _ in
             
             guard let device = backCamera else {
                 throw CameraError.invalidOperation
@@ -307,7 +312,8 @@ extension CameraManager {
             
             backCameraInput = try addInput(device: device)
             
-            captureSession.sessionPreset = captureSession.canSetSessionPreset(configuration.preset) ? configuration.preset : .high
+            let preset = getVideoPreset(videoQuality: configuration.videoQuality)
+            captureSession.sessionPreset = captureSession.canSetSessionPreset(preset) ? preset : .high
             
             flashMode = .off
             zoomFactor = 1
@@ -538,8 +544,8 @@ extension CameraManager: AVCapturePhotoCaptureDelegate {
             onFinishCapturePhoto?(nil, error)
         }
         else if let buffer = photoSampleBuffer,
-            let data = AVCapturePhotoOutput.jpegPhotoDataRepresentation(forJPEGSampleBuffer: buffer, previewPhotoSampleBuffer: nil),
-            let photo = UIImage(data: data) {
+            let data = AVCapturePhotoOutput.jpegPhotoDataRepresentation(forJPEGSampleBuffer: buffer, previewPhotoSampleBuffer: nil) {
+            let photo = outputPhoto(data: data)
             self.photo = photo
             onFinishCapturePhoto?(photo, nil)
         }
@@ -673,6 +679,30 @@ extension CameraManager {
         
     }
     
+    private func getVideoPreset(videoQuality: VideoQuality) -> AVCaptureSession.Preset {
+        switch videoQuality {
+        case .p720:
+            return AVCaptureSession.Preset.hd1280x720
+        case .p1080:
+            return AVCaptureSession.Preset.hd1920x1080
+        case .p2160:
+            return AVCaptureSession.Preset.hd4K3840x2160
+        default:
+            return AVCaptureSession.Preset.vga640x480
+        }
+    }
+    
+    private func outputPhoto(data: Data?) -> UIImage {
+        
+        let dataProvider = CGDataProvider(data: data! as CFData)
+        let cgImageRef = CGImage(jpegDataProviderSource: dataProvider!, decode: nil, shouldInterpolate: true, intent: CGColorRenderingIntent.defaultIntent)
+        
+        // Set proper orientation for photo
+        // If camera is currently set to front camera, flip image
+        return UIImage(cgImage: cgImageRef!, scale: 1.0, orientation: getImageOrientation(deviceOrientation: deviceOrientation))
+        
+    }
+    
     func getVideoOrientation(deviceOrientation: UIDeviceOrientation) -> AVCaptureVideoOrientation {
         
         switch deviceOrientation {
@@ -756,22 +786,17 @@ extension CameraManager {
             
             output.captureStillImageAsynchronously(from: connection) { (sampleBuffer, error) in
                 if let sampleBuffer = sampleBuffer {
-                    let imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(sampleBuffer)
-                    let dataProvider = CGDataProvider(data: imageData! as CFData)
-                    let cgImageRef = CGImage(jpegDataProviderSource: dataProvider!, decode: nil, shouldInterpolate: true, intent: CGColorRenderingIntent.defaultIntent)
+                    let data = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(sampleBuffer)
+                    let photo = self.outputPhoto(data: data)
                     
-                    // Set proper orientation for photo
-                    // If camera is currently set to front camera, flip image
-                    let photo = UIImage(cgImage: cgImageRef!, scale: 1.0, orientation: self.getImageOrientation(deviceOrientation: self.deviceOrientation))
                     self.photo = photo
-                    
                     self.onFinishCapturePhoto?(photo, nil)
-
                 }
             }
         }
         
     }
+
 }
 
 extension CameraManager {
@@ -799,16 +824,14 @@ extension CameraManager {
     }
     
     // 把图片保存到磁盘
-    func saveToDisk(image: UIImage, compressionQuality: CGFloat = 0.7) -> String? {
+    func saveToDisk(image: UIImage, compressionQuality: CGFloat = 0.7, callback: (String, Int) -> Void) {
 
         if let imageData = image.jpegData(compressionQuality: compressionQuality) as NSData? {
             let filePath = getFilePath(dirname: configuration.photoDir, extname: ".jpeg")
             if imageData.write(toFile: filePath, atomically: true) {
-                return filePath
+                callback(filePath, imageData.length)
             }
         }
-        
-        return nil
         
     }
     
