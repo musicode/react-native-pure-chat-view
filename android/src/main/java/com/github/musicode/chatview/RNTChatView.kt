@@ -485,7 +485,7 @@ class RNTChatView(context: ThemedReactContext, val appContext: ReactApplicationC
     fun appendMessages(data: ReadableArray) {
         val list = mutableListOf<Message>()
         for (i in 0 until data.size()) {
-            list.add(formatMessage(data.getMap(i)))
+            list.add(formatMessage(data.getMap(i)!!))
         }
         messageList.append(list)
     }
@@ -497,7 +497,7 @@ class RNTChatView(context: ThemedReactContext, val appContext: ReactApplicationC
     fun prependMessages(data: ReadableArray) {
         val list = mutableListOf<Message>()
         for (i in 0 until data.size()) {
-            list.add(formatMessage(data.getMap(i)))
+            list.add(formatMessage(data.getMap(i)!!))
         }
         messageList.prepend(list)
     }
@@ -541,8 +541,8 @@ class RNTChatView(context: ThemedReactContext, val appContext: ReactApplicationC
 
     private fun formatMessage(message: ReadableMap): Message {
 
-        val userMap = message.getMap("user")
-        val user = User(userMap.getString("id"), userMap.getString("name"), userMap.getString("avatar"))
+        val userMap = message.getMap("user")!!
+        val user = User(userMap.getString("id")!!, userMap.getString("name")!!, userMap.getString("avatar")!!)
 
         val status = when (message.getInt("status")) {
             1 -> {
@@ -565,103 +565,103 @@ class RNTChatView(context: ThemedReactContext, val appContext: ReactApplicationC
         return when (message.getInt("type")) {
             1 -> {
                 TextMessage(
-                    message.getString("id"),
+                    message.getString("id")!!,
                     user,
                     status,
-                    message.getString("time"),
+                    message.getString("time")!!,
                     canCopy,
                     canShare,
                     canRecall,
                     canDelete,
-                    message.getString("text")
+                    message.getString("text")!!
                 )
             }
             2 -> {
                 ImageMessage(
-                    message.getString("id"),
+                    message.getString("id")!!,
                     user,
                     status,
-                    message.getString("time"),
+                    message.getString("time")!!,
                     canCopy,
                     canShare,
                     canRecall,
                     canDelete,
-                    message.getString("url"),
+                    message.getString("url")!!,
                     message.getInt("width"),
                     message.getInt("height")
                 )
             }
             3 -> {
                 AudioMessage(
-                    message.getString("id"),
+                    message.getString("id")!!,
                     user,
                     status,
-                    message.getString("time"),
+                    message.getString("time")!!,
                     canCopy,
                     canShare,
                     canRecall,
                     canDelete,
-                    message.getString("url"),
+                    message.getString("url")!!,
                     message.getInt("duration")
                 )
             }
             4 -> {
                 VideoMessage(
-                    message.getString("id"),
+                    message.getString("id")!!,
                     user,
                     status,
-                    message.getString("time"),
+                    message.getString("time")!!,
                     canCopy,
                     canShare,
                     canRecall,
                     canDelete,
-                    message.getString("url"),
+                    message.getString("url")!!,
                     message.getInt("duration"),
-                    message.getString("thumbnail"),
+                    message.getString("thumbnail")!!,
                     message.getInt("width"),
                     message.getInt("height")
                 )
             }
             5 -> {
                 CardMessage(
-                    message.getString("id"),
+                    message.getString("id")!!,
                     user,
                     status,
-                    message.getString("time"),
+                    message.getString("time")!!,
                     canCopy,
                     canShare,
                     canRecall,
                     canDelete,
-                    message.getString("thumbnail"),
-                    message.getString("title"),
-                    message.getString("desc"),
-                    message.getString("label"),
-                    message.getString("link")
+                    message.getString("thumbnail")!!,
+                    message.getString("title")!!,
+                    message.getString("desc")!!,
+                    message.getString("label")!!,
+                    message.getString("link")!!
                 )
             }
             6 -> {
                 PostMessage(
-                    message.getString("id"),
+                    message.getString("id")!!,
                     user,
                     status,
-                    message.getString("time"),
+                    message.getString("time")!!,
                     canCopy,
                     canShare,
                     canRecall,
                     canDelete,
-                    message.getString("thumbnail"),
-                    message.getString("title"),
-                    message.getString("desc"),
-                    message.getString("label"),
-                    message.getString("link")
+                    message.getString("thumbnail")!!,
+                    message.getString("title")!!,
+                    message.getString("desc")!!,
+                    message.getString("label")!!,
+                    message.getString("link")!!
                 )
             }
             7 -> {
                 FileMessage(
-                    message.getString("id"),
+                    message.getString("id")!!,
                     user,
                     status,
-                    message.getString("time"),
+                    message.getString("time")!!,
                     canCopy,
                     canShare,
                     canRecall,
@@ -683,22 +683,22 @@ class RNTChatView(context: ThemedReactContext, val appContext: ReactApplicationC
                             FileIcon.TXT
                         }
                     },
-                    message.getString("title"),
-                    message.getString("desc"),
-                    message.getString("link")
+                    message.getString("title")!!,
+                    message.getString("desc")!!,
+                    message.getString("link")!!
                 )
             }
             else -> {
                 EventMessage(
-                    message.getString("id"),
+                    message.getString("id")!!,
                     user,
                     status,
-                    message.getString("time"),
+                    message.getString("time")!!,
                     canCopy,
                     canShare,
                     canRecall,
                     canDelete,
-                    message.getString("event")
+                    message.getString("event")!!
                 )
             }
         }
