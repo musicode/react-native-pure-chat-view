@@ -102,11 +102,15 @@ public class RNTChatViewManager extends SimpleViewManager<RNTChatView> {
                 .put("onLinkClick", MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", "onLinkClick")))
                 .put("onLoadMore", MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", "onLoadMore")))
 
-                .put("onRecordAudioWithoutPermissions", MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", "onRecordAudioWithoutPermissions")))
+
                 .put("onRecordAudioDurationLessThanMinDuration", MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", "onRecordAudioDurationLessThanMinDuration")))
-                .put("onRecordAudioWithoutExternalStorage", MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", "onRecordAudioWithoutExternalStorage")))
+                .put("onRecordAudioExternalStorageNotWritable", MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", "onRecordAudioExternalStorageNotWritable")))
+                .put("onRecordAudioPermissionsNotGranted", MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", "onRecordAudioPermissionsNotGranted")))
                 .put("onRecordAudioPermissionsGranted", MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", "onRecordAudioPermissionsGranted")))
                 .put("onRecordAudioPermissionsDenied", MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", "onRecordAudioPermissionsDenied")))
+
+                .put("onRecordVideoExternalStorageNotWritable", MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", "onRecordVideoExternalStorageNotWritable")))
+                .put("onRecordVideoPermissionsNotGranted", MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", "onRecordVideoPermissionsNotGranted")))
                 .put("onRecordVideoPermissionsGranted", MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", "onRecordVideoPermissionsGranted")))
                 .put("onRecordVideoPermissionsDenied", MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", "onRecordVideoPermissionsDenied")))
 

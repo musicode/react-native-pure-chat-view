@@ -88,12 +88,12 @@ public class MessageInput: UIView {
                 if oldValue.isEmpty {
                     sendButton.isHidden = false
                     moreButton.isHidden = true
-                    emotionPanel.isSendButtonEnabled = true
+                    emotionPanel.isSubmitButtonEnabled = true
                 }
                 else {
                     sendButton.isHidden = true
                     moreButton.isHidden = false
-                    emotionPanel.isSendButtonEnabled = false
+                    emotionPanel.isSubmitButtonEnabled = false
                 }
             }
             delegate.messageInputDidTextChange(text: plainText)
@@ -800,8 +800,8 @@ extension MessageInput: VoiceInputDelegate {
         delegate.messageInputDidSendAudio(audioPath: audioPath, audioDuration: audioDuration)
     }
     
-    public func voiceInputWillRecordWithoutPermissions(_ voiceInput: VoiceInput) {
-        delegate.messageInputWillRecordAudioWithoutPermissions()
+    public func voiceInputDidPermissionsNotGranted(_ voiceInput: VoiceInput) {
+        delegate.messageInputDidRecordAudioPermissionsNotGranted()
     }
     
     public func voiceInputDidRecordDurationLessThanMinDuration(_ voiceInput: VoiceInput) {
@@ -849,8 +849,8 @@ extension MessageInput: CameraViewDelegate {
         delegate.messageInputDidSendVideo(videoPath: videoPath, videoDuration: videoDuration, thumbnail: thumbnail)
     }
     
-    public func cameraViewWillCaptureWithoutPermissions(_ viewController: CameraViewController) {
-        delegate.messageInputWillUseCameraWithoutPermissions()
+    public func cameraViewDidPermissionsNotGranted(_ viewController: CameraViewController) {
+        delegate.messageInputDidRecordVideoPermissionsNotGranted()
     }
     
     public func cameraViewDidRecordDurationLessThanMinDuration(_ viewController: CameraViewController) {

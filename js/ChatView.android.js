@@ -1,6 +1,6 @@
 
 import React, {
-  Component,
+  PureComponent,
 } from 'react'
 
 import ReactNative, {
@@ -10,7 +10,7 @@ import ReactNative, {
 
 import PropTypes from 'prop-types'
 
-class ChatView extends Component {
+class ChatView extends PureComponent {
 
   static propTypes = {
     currentUserId: PropTypes.string.isRequired,
@@ -33,12 +33,15 @@ class ChatView extends Component {
     onDeleteClick: PropTypes.func,
     onLoadMore: PropTypes.func,
 
-    onRecordAudioWithoutPermissions: PropTypes.func,
     onRecordAudioDurationLessThanMinDuration: PropTypes.func,
+    onRecordAudioExternalStorageNotWritable: PropTypes.func,
+    onRecordAudioPermissionsNotGranted: PropTypes.func,
     onRecordAudioPermissionsGranted: PropTypes.func,
     onRecordAudioPermissionsDenied: PropTypes.func,
-    onUseCameraWithoutPermissions: PropTypes.func,
+
     onRecordVideoDurationLessThanMinDuration: PropTypes.func,
+    onRecordVideoExternalStorageNotWritable: PropTypes.func,
+    onRecordVideoPermissionsNotGranted: PropTypes.func,
     onRecordVideoPermissionsGranted: PropTypes.func,
     onRecordVideoPermissionsDenied: PropTypes.func,
 
@@ -246,17 +249,24 @@ class ChatView extends Component {
     }
   }
 
-  handleRecordAudioWithoutPermissions = () => {
-    let { onRecordAudioWithoutPermissions } = this.props
-    if (onRecordAudioWithoutPermissions) {
-      onRecordAudioWithoutPermissions()
-    }
-  }
-
   handleRecordAudioDurationLessThanMinDuration = () => {
     let { onRecordAudioDurationLessThanMinDuration } = this.props
     if (onRecordAudioDurationLessThanMinDuration) {
       onRecordAudioDurationLessThanMinDuration()
+    }
+  }
+
+  handleRecordAudioExternalStorageNotWritable = () => {
+    let { onRecordAudioExternalStorageNotWritable } = this.props
+    if (onRecordAudioExternalStorageNotWritable) {
+      onRecordAudioExternalStorageNotWritable()
+    }
+  }
+
+  handleRecordAudioPermissionsNotGranted = () => {
+    let { onRecordAudioPermissionsNotGranted } = this.props
+    if (onRecordAudioPermissionsNotGranted) {
+      onRecordAudioPermissionsNotGranted()
     }
   }
 
@@ -274,17 +284,24 @@ class ChatView extends Component {
     }
   }
 
-  handleUseCameraWithoutPermissions = () => {
-    let { onUseCameraWithoutPermissions } = this.props
-    if (onUseCameraWithoutPermissions) {
-      onUseCameraWithoutPermissions()
-    }
-  }
-
   handleRecordVideoDurationLessThanMinDuration = () => {
     let { onRecordVideoDurationLessThanMinDuration } = this.props
     if (onRecordVideoDurationLessThanMinDuration) {
       onRecordVideoDurationLessThanMinDuration()
+    }
+  }
+
+  handleRecordVideoExternalStorageNotWritable = () => {
+    let { onRecordVideoExternalStorageNotWritable } = this.props
+    if (onRecordVideoExternalStorageNotWritable) {
+      onRecordVideoExternalStorageNotWritable()
+    }
+  }
+
+  handleRecordVideoPermissionsNotGranted = () => {
+    let { onRecordVideoPermissionsNotGranted } = this.props
+    if (onRecordVideoPermissionsNotGranted) {
+      onRecordVideoPermissionsNotGranted()
     }
   }
 
@@ -415,12 +432,15 @@ class ChatView extends Component {
         onDeleteClick={this.handleDeleteClick}
         onLoadMore={this.handleLoadMore}
 
-        onRecordAudioWithoutPermissions={this.handleRecordAudioWithoutPermissions}
         onRecordAudioDurationLessThanMinDuration={this.handleRecordAudioDurationLessThanMinDuration}
+        onRecordAudioExternalStorageNotWritable={this.handleRecordAudioExternalStorageNotWritable}
+        onRecordAudioPermissionsNotGranted={this.handleRecordAudioPermissionsNotGranted}
         onRecordAudioPermissionsGranted={this.handleRecordAudioPermissionsGranted}
         onRecordAudioPermissionsDenied={this.handleRecordAudioPermissionsDenied}
-        onUseCameraWithoutPermissions={this.handleUseCameraWithoutPermissions}
+
         onRecordVideoDurationLessThanMinDuration={this.handleRecordVideoDurationLessThanMinDuration}
+        onRecordVideoExternalStorageNotWritable={this.handleRecordVideoExternalStorageNotWritable}
+        onRecordVideoPermissionsNotGranted={this.handleRecordVideoPermissionsNotGranted}
         onRecordVideoPermissionsGranted={this.handleRecordVideoPermissionsGranted}
         onRecordVideoPermissionsDenied={this.handleRecordVideoPermissionsDenied}
 

@@ -42,7 +42,7 @@ public class VoiceInput: UIView {
     private var playButton = CircleView()
 
     private var cancelButton = SimpleButton()
-    private var sendButton = SimpleButton()
+    private var submitButton = SimpleButton()
 
     //
     // MARK: - 其他属性
@@ -115,7 +115,17 @@ public class VoiceInput: UIView {
     public convenience init(configuration: VoiceInputConfiguration) {
         self.init()
         self.configuration = configuration
-        voiceManager.configuration = configuration
+        
+        voiceManager.fileDir = configuration.fileDir
+        voiceManager.fileExtname = configuration.fileExtname
+        voiceManager.audioFormat = configuration.audioFormat
+        voiceManager.audioNumberOfChannels = configuration.audioNumberOfChannels
+        voiceManager.audioQuality = configuration.audioQuality
+        voiceManager.audioBitRate = configuration.audioBitRate
+        voiceManager.audioSampleRate = configuration.audioSampleRate
+        voiceManager.audioMinDuration = configuration.audioMinDuration
+        voiceManager.audioMaxDuration = configuration.audioMaxDuration
+        
         setup()
     }
 
@@ -134,8 +144,8 @@ public class VoiceInput: UIView {
         voiceManager.onPermissionsDenied = {
             self.delegate.voiceInputDidPermissionsDenied(self)
         }
-        voiceManager.onRecordWithoutPermissions = {
-            self.delegate.voiceInputWillRecordWithoutPermissions(self)
+        voiceManager.onPermissionsNotGranted = {
+            self.delegate.voiceInputDidPermissionsNotGranted(self)
         }
         voiceManager.onRecordDurationLessThanMinDuration = {
             self.delegate.voiceInputDidRecordDurationLessThanMinDuration(self)
@@ -301,7 +311,7 @@ public class VoiceInput: UIView {
         isPreviewing = false
     }
 
-    private func send() {
+    private func submit() {
         stopPlay()
         isPreviewing = false
         delegate.voiceInputDidFinishRecord(self, audioPath: voiceManager.filePath, audioDuration: voiceManager.fileDuration)
@@ -455,7 +465,7 @@ extension VoiceInput {
         addPlayButton()
         addProgressLabel()
         addCancelButton()
-        addSendButton()
+        addSubmitButton()
 
     }
 
@@ -530,34 +540,34 @@ extension VoiceInput {
 
     }
 
-    private func addSendButton() {
+    private func addSubmitButton() {
 
-        sendButton.backgroundColor = configuration.footerButtonBackgroundColorNormal
-        sendButton.backgroundColorPressed = configuration.footerButtonBackgroundColorPressed
+        submitButton.backgroundColor = configuration.footerButtonBackgroundColorNormal
+        submitButton.backgroundColorPressed = configuration.footerButtonBackgroundColorPressed
         
-        sendButton.setTitle(configuration.footerSendButtonTitle, for: .normal)
-        sendButton.setTitleColor(configuration.footerButtonTextColor, for: .normal)
+        submitButton.setTitle(configuration.footerSubmitButtonTitle, for: .normal)
+        submitButton.setTitleColor(configuration.footerButtonTextColor, for: .normal)
 
-        sendButton.titleLabel?.font = configuration.footerButtonTextFont
+        submitButton.titleLabel?.font = configuration.footerButtonTextFont
 
-        sendButton.contentEdgeInsets = UIEdgeInsets(top: configuration.footerButtonPaddingTop, left: 0, bottom: configuration.footerButtonPaddingBottom, right: 0)
+        submitButton.contentEdgeInsets = UIEdgeInsets(top: configuration.footerButtonPaddingTop, left: 0, bottom: configuration.footerButtonPaddingBottom, right: 0)
         
-        sendButton.sizeToFit()
-        sendButton.translatesAutoresizingMaskIntoConstraints = false
+        submitButton.sizeToFit()
+        submitButton.translatesAutoresizingMaskIntoConstraints = false
 
-        previewView.addSubview(sendButton)
+        previewView.addSubview(submitButton)
 
         addConstraints([
-            NSLayoutConstraint(item: sendButton, attribute: .bottom, relatedBy: .equal, toItem: previewView, attribute: .bottom, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: sendButton, attribute: .left, relatedBy: .equal, toItem: previewView, attribute: .centerX, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: sendButton, attribute: .right, relatedBy: .equal, toItem: previewView, attribute: .right, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: submitButton, attribute: .bottom, relatedBy: .equal, toItem: previewView, attribute: .bottom, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: submitButton, attribute: .left, relatedBy: .equal, toItem: previewView, attribute: .centerX, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: submitButton, attribute: .right, relatedBy: .equal, toItem: previewView, attribute: .right, multiplier: 1, constant: 0),
         ])
         
-        sendButton.setLeftBorder(width: configuration.footerButtonBorderWidth, color: configuration.footerButtonBorderColor)
-        sendButton.setTopBorder(width: configuration.footerButtonBorderWidth, color: configuration.footerButtonBorderColor)
+        submitButton.setLeftBorder(width: configuration.footerButtonBorderWidth, color: configuration.footerButtonBorderColor)
+        submitButton.setTopBorder(width: configuration.footerButtonBorderWidth, color: configuration.footerButtonBorderColor)
 
-        sendButton.onClick = {
-            self.send()
+        submitButton.onClick = {
+            self.submit()
         }
 
     }
@@ -584,9 +594,7 @@ extension VoiceInput: CircleViewDelegate {
 
     public func circleViewDidTouchUp(_ circleView: CircleView, _ inside: Bool, _ isLongPress: Bool) {
         if circleView == recordButton {
-            if voiceManager.isRecording {
-                stopRecord()
-            }
+            stopRecord()
         }
         else if circleView == playButton {
             playButton.centerColor = configuration.playButtonCenterColorNormal

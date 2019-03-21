@@ -80,46 +80,46 @@ open class EmotionPagerConfiguration {
     // 表情单元格按下时的背景色
     public var toolbarCellBackgroundColorPressed = UIColor(red: 0.95, green: 0.95, blue: 0.95, alpha: 1)
     
-    // 发送按钮的文本
-    public var sendButtonTitle = "发送"
+    // 确认按钮的文本
+    public var submitButtonTitle = "发送"
     
-    // 发送按钮的文本字体
-    public var sendButtonTextFont = UIFont.systemFont(ofSize: 14)
+    // 确认按钮的文本字体
+    public var submitButtonTextFont = UIFont.systemFont(ofSize: 14)
     
-    // 发送按钮左边框的大小
-    public var sendButtonLeftBorderWidth =  1 / UIScreen.main.scale
+    // 确认按钮左边框的大小
+    public var submitButtonLeftBorderWidth =  1 / UIScreen.main.scale
 
     
     
     
-    // 发送按钮置灰时
+    // 确认按钮置灰时
     
-    // 发送按钮的文本颜色
-    public var sendButtonTextColorDisabled = UIColor(red: 150 / 255, green: 150 / 255, blue: 150 / 255, alpha: 1)
+    // 确认按钮的文本颜色
+    public var submitButtonTextColorDisabled = UIColor(red: 150 / 255, green: 150 / 255, blue: 150 / 255, alpha: 1)
     
-    // 发送按钮的背景颜色
-    public var sendButtonBackgroundColorDisabled = UIColor(red: 0.98, green: 0.98, blue: 0.98, alpha: 1)
+    // 确认按钮的背景颜色
+    public var submitButtonBackgroundColorDisabled = UIColor(red: 0.98, green: 0.98, blue: 0.98, alpha: 1)
     
-    // 发送按钮左边框的颜色
-    public var sendButtonLeftBorderColorDisabled = UIColor(red: 205 / 255, green: 205 / 255, blue: 205 / 255, alpha: 1)
-    
-    
+    // 确认按钮左边框的颜色
+    public var submitButtonLeftBorderColorDisabled = UIColor(red: 205 / 255, green: 205 / 255, blue: 205 / 255, alpha: 1)
     
     
-    // 发送按钮可用时
     
-    // 发送按钮的文本颜色
-    public var sendButtonTextColorEnabled = UIColor.white
     
-    // 发送按钮的背景颜色
-    public var sendButtonBackgroundColorEnabledNormal = UIColor(red: 1, green: 0.61, blue: 0, alpha: 1)
-    public var sendButtonBackgroundColorEnabledPressed = UIColor(red: 0.99, green: 0.56, blue: 0.01, alpha: 1)
+    // 确认按钮可用时
     
-    // 发送按钮左边框的颜色
-    public var sendButtonLeftBorderColorEnabled = UIColor(red: 0.92, green: 0.48, blue: 0, alpha: 1)
+    // 确认按钮的文本颜色
+    public var submitButtonTextColorEnabled = UIColor.white
     
-    // 发送按钮的左右内间距
-    public var sendButtonPaddingHorizontal: CGFloat = 14
+    // 确认按钮的背景颜色
+    public var submitButtonBackgroundColorEnabledNormal = UIColor(red: 1, green: 0.61, blue: 0, alpha: 1)
+    public var submitButtonBackgroundColorEnabledPressed = UIColor(red: 0.99, green: 0.56, blue: 0.01, alpha: 1)
+    
+    // 确认按钮左边框的颜色
+    public var submitButtonLeftBorderColorEnabled = UIColor(red: 0.92, green: 0.48, blue: 0, alpha: 1)
+    
+    // 确认按钮的左右内间距
+    public var submitButtonPaddingHorizontal: CGFloat = 14
     
     
     

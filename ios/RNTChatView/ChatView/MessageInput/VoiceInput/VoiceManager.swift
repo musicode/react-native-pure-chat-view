@@ -22,6 +22,33 @@ class VoiceManager: NSObject {
             return true
         }
     }
+    
+    // 保存录音文件的目录
+    var fileDir = ""
+    
+    // 文件扩展名
+    var fileExtname = ".m4a"
+    
+    // 音频格式
+    var audioFormat = kAudioFormatMPEG4AAC
+    
+    // 双声道还是单声道
+    var audioNumberOfChannels = 2
+    
+    // 声音质量
+    var audioQuality = AVAudioQuality.high
+    
+    // 码率
+    var audioBitRate = 320000
+    
+    // 采样率
+    var audioSampleRate = 44100.0
+    
+    // 支持的最短录音时长
+    var audioMinDuration: Int = 1000
+    
+    // 支持的最长录音时长
+    var audioMaxDuration: Int = 60000
 
     // 当前正在录音的文件路径
     var filePath = ""
@@ -36,8 +63,8 @@ class VoiceManager: NSObject {
                 return 0
             }
             var currentTime = timeInterval2Millisecond(recorder.currentTime)
-            if currentTime > configuration.audioMaxDuration {
-                currentTime = configuration.audioMaxDuration
+            if currentTime > audioMaxDuration {
+                currentTime = audioMaxDuration
                 do {
                     try stopRecord()
                 }
@@ -60,7 +87,7 @@ class VoiceManager: NSObject {
     
     var onPermissionsDenied: (() -> Void)?
     
-    var onRecordWithoutPermissions: (() -> Void)?
+    var onPermissionsNotGranted: (() -> Void)?
     
     var onRecordDurationLessThanMinDuration: (() -> Void)?
 
@@ -76,8 +103,6 @@ class VoiceManager: NSObject {
     // 播放器
     private var player: AVAudioPlayer?
 
-    var configuration: VoiceInputConfiguration!
-    
     // 判断是否有权限录音，如没有，发起授权请求
     func requestPermissions() -> Bool {
 
@@ -121,20 +146,20 @@ class VoiceManager: NSObject {
     func startRecord() throws {
 
         guard requestPermissions() else {
-            onRecordWithoutPermissions?()
+            onPermissionsNotGranted?()
             return
         }
         
-        filePath = getFilePath(dirname: configuration.fileDir, extname: configuration.fileExtname)
+        filePath = getFilePath(dirname: fileDir, extname: fileExtname)
 
         fileDuration = 0
 
         let recordSettings: [String: Any] = [
-            AVFormatIDKey: configuration.audioFormat,
-            AVNumberOfChannelsKey: configuration.audioNumberOfChannels,
-            AVEncoderAudioQualityKey : configuration.audioQuality.rawValue,
-            AVEncoderBitRateKey : configuration.audioBitRate,
-            AVSampleRateKey : configuration.audioSampleRate
+            AVFormatIDKey: audioFormat,
+            AVNumberOfChannelsKey: audioNumberOfChannels,
+            AVEncoderAudioQualityKey: audioQuality.rawValue,
+            AVEncoderBitRateKey: audioBitRate,
+            AVSampleRateKey: audioSampleRate
         ]
 
         do {
@@ -243,7 +268,7 @@ extension VoiceManager: AVAudioRecorderDelegate {
     public func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
 
         if flag {
-            if fileDuration >= configuration.audioMinDuration {
+            if fileDuration >= audioMinDuration {
                 onFinishRecord?(true)
             }
             else {

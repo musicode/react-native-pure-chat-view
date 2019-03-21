@@ -13,7 +13,7 @@ public class CameraView: UIView {
     
     var onPermissionsDenied: (() -> Void)?
     
-    var onCaptureWithoutPermissions: (() -> Void)?
+    var onPermissionsNotGranted: (() -> Void)?
 
     var onRecordDurationLessThanMinDuration: (() -> Void)?
     
@@ -59,9 +59,16 @@ public class CameraView: UIView {
     
     public convenience init(configuration: CameraViewConfiguration) {
         self.init()
+        
         self.configuration = configuration
         self.captureView = CaptureView(configuration: configuration)
-        cameraManager.configuration = configuration
+        
+        cameraManager.photoDir = configuration.photoDir
+        cameraManager.videoDir = configuration.videoDir
+        cameraManager.videoQuality = configuration.videoQuality
+        cameraManager.videoMinDuration = configuration.videoMinDuration
+        cameraManager.videoMaxDuration = configuration.videoMaxDuration
+        
         setup()
     }
     
@@ -101,8 +108,8 @@ public class CameraView: UIView {
             self.onPermissionsDenied?()
         }
         
-        cameraManager.onCaptureWithoutPermissions = {
-            self.onCaptureWithoutPermissions?()
+        cameraManager.onPermissionsNotGranted = {
+            self.onPermissionsNotGranted?()
         }
         
         cameraManager.onRecordVideoDurationLessThanMinDuration = {

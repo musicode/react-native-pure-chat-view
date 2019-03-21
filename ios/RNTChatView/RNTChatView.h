@@ -22,12 +22,12 @@
 @property (nonatomic, copy) RCTBubblingEventBlock onLinkClick;
 @property (nonatomic, copy) RCTBubblingEventBlock onLoadMore;
 
-@property (nonatomic, copy) RCTBubblingEventBlock onRecordAudioWithoutPermissions;
 @property (nonatomic, copy) RCTBubblingEventBlock onRecordAudioDurationLessThanMinDuration;
+@property (nonatomic, copy) RCTBubblingEventBlock onRecordAudioPermissionsNotGranted;
 @property (nonatomic, copy) RCTBubblingEventBlock onRecordAudioPermissionsGranted;
 @property (nonatomic, copy) RCTBubblingEventBlock onRecordAudioPermissionsDenied;
-@property (nonatomic, copy) RCTBubblingEventBlock onUseCameraWithoutPermissions;
 @property (nonatomic, copy) RCTBubblingEventBlock onRecordVideoDurationLessThanMinDuration;
+@property (nonatomic, copy) RCTBubblingEventBlock onRecordVideoPermissionsNotGranted;
 @property (nonatomic, copy) RCTBubblingEventBlock onRecordVideoPermissionsGranted;
 @property (nonatomic, copy) RCTBubblingEventBlock onRecordVideoPermissionsDenied;
 

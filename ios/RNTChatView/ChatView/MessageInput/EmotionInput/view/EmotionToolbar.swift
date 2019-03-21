@@ -58,7 +58,7 @@ class EmotionToolbar: UIView {
         
         addConstraints([
             NSLayoutConstraint(item: view, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: view, attribute: .right, relatedBy: .equal, toItem: sendButton, attribute: .left, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: view, attribute: .right, relatedBy: .equal, toItem: submitButton, attribute: .left, multiplier: 1, constant: 0),
             NSLayoutConstraint(item: view, attribute: .top, relatedBy: .equal, toItem: topBorder, attribute: .bottom, multiplier: 1, constant: 0),
             NSLayoutConstraint(item: view, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1, constant: 0)
         ])
@@ -67,20 +67,20 @@ class EmotionToolbar: UIView {
         
     }()
 
-    private lazy var sendButton: SimpleButton = {
+    private lazy var submitButton: SimpleButton = {
         
         let view = SimpleButton()
         
-        view.backgroundColor = configuration.sendButtonBackgroundColorEnabledNormal
-        view.backgroundColorPressed = configuration.sendButtonBackgroundColorEnabledPressed
+        view.backgroundColor = configuration.submitButtonBackgroundColorEnabledNormal
+        view.backgroundColorPressed = configuration.submitButtonBackgroundColorEnabledPressed
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.setTitle(configuration.sendButtonTitle, for: .normal)
-        view.titleLabel?.font = configuration.sendButtonTextFont
+        view.setTitle(configuration.submitButtonTitle, for: .normal)
+        view.titleLabel?.font = configuration.submitButtonTextFont
         view.contentEdgeInsets = UIEdgeInsets(
             top: 0,
-            left: configuration.sendButtonPaddingHorizontal,
+            left: configuration.submitButtonPaddingHorizontal,
             bottom: 0,
-            right: configuration.sendButtonPaddingHorizontal
+            right: configuration.submitButtonPaddingHorizontal
         )
         
         view.layer.shadowColor = UIColor.black.cgColor
@@ -115,28 +115,28 @@ class EmotionToolbar: UIView {
         self.init()
         self.configuration = configuration
         backgroundColor = configuration.toolbarBackgroundColor
-        disableSendButton()
+        disableSubmitButton()
     }
 
-    func enableSendButton() {
+    func enableSubmitButton() {
         
-        sendButton.isEnabled = true
+        submitButton.isEnabled = true
         
-        sendButton.backgroundColor = configuration.sendButtonBackgroundColorEnabledNormal
-        sendButton.setTitleColor(configuration.sendButtonTextColorEnabled, for: .normal)
+        submitButton.backgroundColor = configuration.submitButtonBackgroundColorEnabledNormal
+        submitButton.setTitleColor(configuration.submitButtonTextColorEnabled, for: .normal)
 
-        sendButton.setLeftBorder(width: configuration.sendButtonLeftBorderWidth, color: configuration.sendButtonLeftBorderColorEnabled)
+        submitButton.setLeftBorder(width: configuration.submitButtonLeftBorderWidth, color: configuration.submitButtonLeftBorderColorEnabled)
         
     }
     
-    func disableSendButton() {
+    func disableSubmitButton() {
         
-        sendButton.isEnabled = false
+        submitButton.isEnabled = false
         
-        sendButton.backgroundColor = configuration.sendButtonBackgroundColorDisabled
-        sendButton.setTitleColor(configuration.sendButtonTextColorDisabled, for: .normal)
+        submitButton.backgroundColor = configuration.submitButtonBackgroundColorDisabled
+        submitButton.setTitleColor(configuration.submitButtonTextColorDisabled, for: .normal)
 
-        sendButton.setLeftBorder(width: configuration.sendButtonLeftBorderWidth, color: configuration.sendButtonLeftBorderColorDisabled)
+        submitButton.setLeftBorder(width: configuration.submitButtonLeftBorderWidth, color: configuration.submitButtonLeftBorderColorDisabled)
         
     }
     

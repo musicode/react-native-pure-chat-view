@@ -6,6 +6,22 @@ import AVFoundation
 
 class CameraManager : NSObject {
     
+    // 图片保存的目录
+    var photoDir = ""
+    
+    // 视频保存的目录
+    var videoDir = ""
+    
+    // 视频质量
+    var videoQuality = VideoQuality.p720
+    
+    // 视频最短录制时长，单位是毫秒
+    var videoMinDuration: Int = 1000
+    
+    // 视频最大录制时长，单位是毫秒
+    var videoMaxDuration: Int = 10000
+    
+    
     var captureSession = AVCaptureSession()
     
     // 前摄
@@ -130,7 +146,7 @@ class CameraManager : NSObject {
     
     var onPermissionsDenied: (() -> Void)?
     
-    var onCaptureWithoutPermissions: (() -> Void)?
+    var onPermissionsNotGranted: (() -> Void)?
     
     var onRecordVideoDurationLessThanMinDuration: (() -> Void)?
     
@@ -156,8 +172,6 @@ class CameraManager : NSObject {
             return nil
         }
     }
-    
-    var configuration: CameraViewConfiguration!
     
 }
 
@@ -207,7 +221,7 @@ extension CameraManager {
     func capturePhoto() {
         
         guard requestPermissions() else {
-            onCaptureWithoutPermissions?()
+            onPermissionsNotGranted?()
             return
         }
         
@@ -224,7 +238,7 @@ extension CameraManager {
     func startRecordVideo() {
         
         guard requestPermissions() else {
-            onCaptureWithoutPermissions?()
+            onPermissionsNotGranted?()
             return
         }
         
@@ -253,7 +267,7 @@ extension CameraManager {
         // 重置
         photo = nil
         
-        videoPath = getFilePath(dirname: configuration.videoDir, extname: videoExtname)
+        videoPath = getFilePath(dirname: videoDir, extname: videoExtname)
         
         output.startRecording(to: URL(fileURLWithPath: videoPath), recordingDelegate: self)
         
@@ -287,7 +301,7 @@ extension CameraManager {
             
             // 拍照和录视频的预设必须一致
             // 否则切换预设时，预览画面的尺寸会变化
-            let preset = getVideoPreset(videoQuality: configuration.videoQuality)
+            let preset = getVideoPreset(videoQuality: videoQuality)
             captureSession.sessionPreset = captureSession.canSetSessionPreset(preset) ? preset : .high
             
             flashMode = .off
@@ -312,7 +326,7 @@ extension CameraManager {
             
             backCameraInput = try addInput(device: device)
             
-            let preset = getVideoPreset(videoQuality: configuration.videoQuality)
+            let preset = getVideoPreset(videoQuality: videoQuality)
             captureSession.sessionPreset = captureSession.canSetSessionPreset(preset) ? preset : .high
             
             flashMode = .off
@@ -576,7 +590,7 @@ extension CameraManager: AVCaptureFileOutputRecordingDelegate {
         
         if error == nil {
             videoDuration = seconds2Millisecond(output.recordedDuration.seconds)
-            if videoDuration >= configuration.videoMinDuration {
+            if videoDuration >= videoMinDuration {
                 success = true
                 onFinishRecordVideo?(videoPath, nil)
             }
@@ -827,7 +841,7 @@ extension CameraManager {
     func saveToDisk(image: UIImage, compressionQuality: CGFloat = 0.7, callback: (String, Int) -> Void) {
 
         if let imageData = image.jpegData(compressionQuality: compressionQuality) as NSData? {
-            let filePath = getFilePath(dirname: configuration.photoDir, extname: ".jpeg")
+            let filePath = getFilePath(dirname: photoDir, extname: ".jpeg")
             if imageData.write(toFile: filePath, atomically: true) {
                 callback(filePath, imageData.length)
             }

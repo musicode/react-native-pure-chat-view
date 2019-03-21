@@ -1,6 +1,6 @@
 {
   "name": "react-native-pure-chat-view",
-  "version": "0.3.7",
+  "version": "0.3.8",
   "description": "react native chat view",
   "main": "index.js",
   "scripts": {
@@ -16,7 +16,7 @@
     "chat view"
   ],
   "author": "musicode",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/musicode/react-native-pure-chat-view/issues"
   },

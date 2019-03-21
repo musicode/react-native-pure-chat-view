@@ -104,12 +104,12 @@
     [self.chatView ensureListAudioAvailable];
 }
 
-- (void)messageInputWillRecordAudioWithoutPermissions {
-    self.onRecordAudioWithoutPermissions(@{});
-}
-
 - (void)messageInputDidRecordAudioDurationLessThanMinDuration {
     self.onRecordAudioDurationLessThanMinDuration(@{});
+}
+
+- (void)messageInputDidRecordAudioPermissionsNotGranted {
+    self.onRecordAudioPermissionsNotGranted(@{});
 }
 
 - (void)messageInputDidRecordAudioPermissionsGranted {
@@ -120,12 +120,12 @@
     self.onRecordAudioPermissionsDenied(@{});
 }
 
-- (void)messageInputWillUseCameraWithoutPermissions {
-    self.onUseCameraWithoutPermissions(@{});
-}
-
 - (void)messageInputDidRecordVideoDurationLessThanMinDuration {
     self.onRecordVideoDurationLessThanMinDuration(@{});
+}
+
+- (void)messageInputDidRecordVideoPermissionsNotGranted {
+    self.onRecordVideoPermissionsNotGranted(@{});
 }
 
 - (void)messageInputDidRecordVideoPermissionsGranted {
@@ -208,4 +208,5 @@
 - (void)messageInputDidFall {
     self.onFall(@{});
 }
+
 @end

@@ -16,7 +16,7 @@ public protocol CameraViewDelegate {
     func cameraViewDidRecordDurationLessThanMinDuration(_ viewController: CameraViewController)
     
     // 点击拍照或摄像按钮时，发现没权限
-    func cameraViewWillCaptureWithoutPermissions(_ viewController: CameraViewController)
+    func cameraViewDidPermissionsNotGranted(_ viewController: CameraViewController)
     
     // 用户点击同意授权
     func cameraViewDidPermissionsGranted(_ viewController: CameraViewController)
@@ -36,7 +36,7 @@ public extension CameraViewDelegate {
 
     func cameraViewDidRecordDurationLessThanMinDuration(_ viewController: CameraViewController) { }
     
-    func cameraViewWillCaptureWithoutPermissions(_ viewController: CameraViewController) { }
+    func cameraViewDidPermissionsNotGranted(_ viewController: CameraViewController) { }
     
     func cameraViewDidPermissionsGranted(_ viewController: CameraViewController) { }
     

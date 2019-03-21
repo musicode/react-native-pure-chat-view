@@ -2,8 +2,6 @@ package com.github.musicode.chatview
 
 import android.app.Activity
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.support.v4.content.ContextCompat
 import android.text.SpannableString
 import android.view.Choreographer
 import android.view.LayoutInflater
@@ -112,7 +110,7 @@ class RNTChatView(context: ThemedReactContext, val appContext: ReactApplicationC
 
     private var permissionListener = { requestCode: Int, permissions: Array<out String>?, grantResults: IntArray? ->
         if (permissions != null && grantResults != null) {
-            messageInput.requestPermissionsResult(requestCode, permissions, grantResults)
+            messageInput.onRequestPermissionsResult(requestCode, permissions, grantResults)
         }
         true
     }
@@ -131,6 +129,7 @@ class RNTChatView(context: ThemedReactContext, val appContext: ReactApplicationC
     }
 
     fun destroy() {
+        messageInput.activity = null
         appContext.removeActivityEventListener(this)
         appContext.removeLifecycleEventListener(this)
         Choreographer.getInstance().removeFrameCallback(frameCallback)
@@ -246,29 +245,6 @@ class RNTChatView(context: ThemedReactContext, val appContext: ReactApplicationC
                 imageLoader.loadImage(imageView, url, 40, 40)
             }
 
-            override fun requestPermissions(permissions: List<String>, requestCode: Int): Boolean {
-
-                var list = arrayOf<String>()
-
-                permissions.forEach {
-                    if (ContextCompat.checkSelfPermission(context, it) != PackageManager.PERMISSION_GRANTED) {
-                        list = list.plus(it)
-                    }
-                }
-
-                if (list.isNotEmpty()) {
-                    if (activity is ReactActivity) {
-                        (activity as ReactActivity).requestPermissions(list, requestCode, permissionListener)
-                    }
-                    else if (activity is PermissionAwareActivity) {
-                        (activity as PermissionAwareActivity).requestPermissions(list, requestCode, permissionListener)
-                    }
-                    return false
-                }
-
-                return true
-
-            }
         }
 
         messageInputConfiguration.audioBitRate = 128000
@@ -281,16 +257,25 @@ class RNTChatView(context: ThemedReactContext, val appContext: ReactApplicationC
 
             object: MessageInputCallback {
 
-                override fun onRecordAudioWithoutPermissions() {
-                    sendEvent("onRecordAudioWithoutPermissions")
+                override fun onRequestPermissions(activity: Activity, permissions: Array<out String>, requestCode: Int) {
+                    if (activity is ReactActivity) {
+                        activity.requestPermissions(permissions, requestCode, permissionListener)
+                    }
+                    else if (activity is PermissionAwareActivity) {
+                        (activity as PermissionAwareActivity).requestPermissions(permissions, requestCode, permissionListener)
+                    }
                 }
 
                 override fun onRecordAudioDurationLessThanMinDuration() {
                     sendEvent("onRecordAudioDurationLessThanMinDuration")
                 }
 
-                override fun onRecordAudioWithoutExternalStorage() {
-                    sendEvent("onRecordAudioWithoutExternalStorage")
+                override fun onRecordAudioExternalStorageNotWritable() {
+                    sendEvent("onRecordAudioExternalStorageNotWritable")
+                }
+
+                override fun onRecordAudioPermissionsNotGranted() {
+                    sendEvent("onRecordAudioPermissionsNotGranted")
                 }
 
                 override fun onRecordAudioPermissionsGranted() {
@@ -299,6 +284,14 @@ class RNTChatView(context: ThemedReactContext, val appContext: ReactApplicationC
 
                 override fun onRecordAudioPermissionsDenied() {
                     sendEvent("onRecordAudioPermissionsDenied")
+                }
+
+                override fun onRecordVideoExternalStorageNotWritable() {
+                    sendEvent("onRecordVideoExternalStorageNotWritable")
+                }
+
+                override fun onRecordVideoPermissionsNotGranted() {
+                    sendEvent("onRecordVideoPermissionsNotGranted")
                 }
 
                 override fun onRecordVideoPermissionsGranted() {
@@ -384,6 +377,8 @@ class RNTChatView(context: ThemedReactContext, val appContext: ReactApplicationC
 
             }
         )
+
+        messageInput.activity = activity
 
         messageList.init(
             messageListConfiguration,

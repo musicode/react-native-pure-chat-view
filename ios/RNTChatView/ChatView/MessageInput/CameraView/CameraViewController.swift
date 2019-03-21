@@ -33,8 +33,8 @@ public class CameraViewController: UIViewController {
         cameraView.onPermissionsDenied = {
             self.delegate.cameraViewDidPermissionsDenied(self)
         }
-        cameraView.onCaptureWithoutPermissions = {
-            self.delegate.cameraViewWillCaptureWithoutPermissions(self)
+        cameraView.onPermissionsNotGranted = {
+            self.delegate.cameraViewDidPermissionsNotGranted(self)
         }
         cameraView.onRecordDurationLessThanMinDuration = {
             self.delegate.cameraViewDidRecordDurationLessThanMinDuration(self)

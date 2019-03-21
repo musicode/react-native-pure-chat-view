@@ -130,8 +130,8 @@ public class VoiceInputConfiguration {
     // 底部的取消按钮文本
     public var footerCancelButtonTitle = "取消"
     
-    // 底部的发送按钮文本
-    public var footerSendButtonTitle = "发送"
+    // 底部的确定按钮文本
+    public var footerSubmitButtonTitle = "发送"
     
     // 底部按钮的 padding top
     public var footerButtonPaddingTop: CGFloat = 14

@@ -43,13 +43,13 @@ public class EmotionPager: UIView {
         }
     }
     
-    public var isSendButtonEnabled = false {
+    public var isSubmitButtonEnabled = false {
         didSet {
-            if isSendButtonEnabled {
-                toolbarView.enableSendButton()
+            if isSubmitButtonEnabled {
+                toolbarView.enableSubmitButton()
             }
             else {
-                toolbarView.disableSendButton()
+                toolbarView.disableSubmitButton()
             }
         }
     }
