@@ -450,7 +450,7 @@ extension MessageInput {
         emotionPanel.isHidden = true
         emotionPanel.translatesAutoresizingMaskIntoConstraints = false
 
-        emotionPanel.onSendClick = {
+        emotionPanel.onSubmitClick = {
             self.sendText()
         }
         emotionPanel.onEmotionClick = { emotion in

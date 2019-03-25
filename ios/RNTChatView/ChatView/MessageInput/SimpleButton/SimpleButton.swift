@@ -72,16 +72,15 @@ public class SimpleButton: UIButton {
         
         isTouching = false
         isTouchingInside = false
+
+        if let color = backgroundColorNormal {
+            backgroundColor = color
+            backgroundColorNormal = nil
+        }
         
         if inside {
             onClick?()
         }
-        
-        guard let color = backgroundColorNormal else {
-            return
-        }
-        backgroundColor = color
-        backgroundColorNormal = nil
         
     }
     

@@ -4,7 +4,7 @@ import UIKit
 class EmotionToolbar: UIView {
     
     var onIconClick: ((EmotionIcon) -> Void)!
-    var onSendClick: (() -> Void)!
+    var onSubmitClick: (() -> Void)!
     
     var emotionIconList = [EmotionIcon]() {
         didSet {
@@ -89,7 +89,7 @@ class EmotionToolbar: UIView {
         view.layer.shadowRadius = 3
         
         view.onClick = {
-            self.onSendClick()
+            self.onSubmitClick()
         }
         
         addSubview(view)

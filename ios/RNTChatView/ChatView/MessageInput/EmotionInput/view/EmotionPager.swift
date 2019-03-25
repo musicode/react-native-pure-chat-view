@@ -56,7 +56,7 @@ public class EmotionPager: UIView {
     
     public var onEmotionClick: ((Emotion) -> Void)?
     public var onDeleteClick: (() -> Void)?
-    public var onSendClick: (() -> Void)?
+    public var onSubmitClick: (() -> Void)?
     
     private lazy var flowLayout: UICollectionViewFlowLayout = {
         
@@ -136,8 +136,8 @@ public class EmotionPager: UIView {
                 count += self.emotionSetList[i].emotionPageList.count
             }
         }
-        view.onSendClick = {
-            self.onSendClick?()
+        view.onSubmitClick = {
+            self.onSubmitClick?()
         }
         
         addSubview(view)
