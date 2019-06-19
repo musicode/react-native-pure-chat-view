@@ -75,6 +75,7 @@ RCT_EXPORT_VIEW_PROPERTY(onUserFeatureClick, RCTBubblingEventBlock);
 RCT_EXPORT_VIEW_PROPERTY(onMovieFeatureClick, RCTBubblingEventBlock);
 RCT_EXPORT_VIEW_PROPERTY(onPhoneFeatureClick, RCTBubblingEventBlock);
 RCT_EXPORT_VIEW_PROPERTY(onLocationFeatureClick, RCTBubblingEventBlock);
+RCT_EXPORT_VIEW_PROPERTY(onFavorFeatureClick, RCTBubblingEventBlock);
 RCT_EXPORT_VIEW_PROPERTY(onLift, RCTBubblingEventBlock);
 RCT_EXPORT_VIEW_PROPERTY(onFall, RCTBubblingEventBlock);
 

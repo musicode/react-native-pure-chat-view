@@ -57,6 +57,9 @@ class RNTChatView(context: ThemedReactContext, val appContext: ReactApplicationC
                     "phone" -> {
                         FeatureType.PHONE
                     }
+                    "favor" -> {
+                        FeatureType.FAVOR
+                    }
                     else -> {
                         FeatureType.LOCATION
                     }
@@ -365,6 +368,10 @@ class RNTChatView(context: ThemedReactContext, val appContext: ReactApplicationC
 
                 override fun onClickLocationFeature() {
                     sendEvent("onClickLocationFeature")
+                }
+
+                override fun onClickFavorFeature() {
+                    sendEvent("onClickFavorFeature")
                 }
 
                 override fun onLift() {

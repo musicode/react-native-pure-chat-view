@@ -57,6 +57,7 @@ class ChatView extends PureComponent {
     onMovieFeatureClick: PropTypes.func,
     onPhoneFeatureClick: PropTypes.func,
     onLocationFeatureClick: PropTypes.func,
+    onFavorFeatureClick: PropTypes.func,
     onLift: PropTypes.func,
     onFall: PropTypes.func,
   }
@@ -396,6 +397,13 @@ class ChatView extends PureComponent {
     }
   }
 
+  handleFavorFeatureClick = () => {
+    let { onFavorFeatureClick } = this.props
+    if (onFavorFeatureClick) {
+      onFavorFeatureClick()
+    }
+  }
+
   handleLift = () => {
     let { onLift } = this.props
     if (onLift) {
@@ -456,6 +464,7 @@ class ChatView extends PureComponent {
         onMovieFeatureClick={this.handleMovieFeatureClick}
         onPhoneFeatureClick={this.handlePhoneFeatureClick}
         onLocationFeatureClick={this.handleLocationFeatureClick}
+        onFavorFeatureClick={this.handleFavorFeatureClick}
         onLift={this.handleLift}
         onFall={this.handleFall}
       />

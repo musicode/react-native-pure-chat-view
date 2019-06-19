@@ -142,9 +142,13 @@ public class MessageInputConfiguration {
     public var locationFeatureIcon = UIImage(named: "message_input_location_feature_icon")!
     public var locationFeatureTitle = "位置"
     
+    // 收藏按钮
+    public var favorFeatureIcon = UIImage(named: "message_input_favor_feature_icon")!
+    public var favorFeatureTitle = "收藏"
+    
     public var featureList = [
         FeatureType.photo, FeatureType.camera, FeatureType.file, FeatureType.user,
-        FeatureType.movie, FeatureType.phone, FeatureType.location
+        FeatureType.movie, FeatureType.phone, FeatureType.location, FeatureType.favor
     ]
     
     // 录音配置

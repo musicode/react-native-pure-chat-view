@@ -57,6 +57,9 @@ import UIKit
     // 点击定位按钮
     func messageInputDidClickLocationFeature()
     
+    // 点击收藏按钮
+    func messageInputDidClickFavorFeature()
+    
     // 文本变化
     func messageInputDidTextChange(text: String)
     
@@ -109,6 +112,8 @@ public extension MessageInputDelegate {
     func messageInputDidClickPhoneFeature() { }
     
     func messageInputDidClickLocationFeature() { }
+    
+    func messageInputDidClickFavorFeature() { }
     
     func messageInputDidTextChange(text: String) { }
     

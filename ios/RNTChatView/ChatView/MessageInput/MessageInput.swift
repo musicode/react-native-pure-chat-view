@@ -548,6 +548,10 @@ extension MessageInput {
                 featureButton = createFeatureButton(title: configuration.locationFeatureTitle, icon: configuration.locationFeatureIcon) {
                     self.delegate.messageInputDidClickLocationFeature()
                 }
+            case .favor:
+                featureButton = createFeatureButton(title: configuration.favorFeatureTitle, icon: configuration.favorFeatureIcon) {
+                    self.delegate.messageInputDidClickFavorFeature()
+                }
                 break;
             default:
                 // 未匹配直接返回

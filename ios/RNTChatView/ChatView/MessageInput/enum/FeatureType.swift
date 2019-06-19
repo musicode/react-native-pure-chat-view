@@ -3,7 +3,7 @@ import Foundation
 
 @objc public enum FeatureType: Int {
     
-    case photo, camera, file, user, movie, phone, location;
+    case photo, camera, file, user, movie, phone, location, favor;
     
 }
 

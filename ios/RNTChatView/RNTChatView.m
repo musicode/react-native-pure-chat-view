@@ -195,6 +195,10 @@
     self.onLocationFeatureClick(@{});
 }
 
+- (void)messageInputDidClickFavorFeature {
+    self.onFavorFeatureClick(@{});
+}
+
 - (void)messageInputDidTextChangeWithText:(NSString *)text {
     self.onTextChange(@{
                         @"text": text

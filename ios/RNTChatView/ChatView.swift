@@ -130,6 +130,8 @@ class Configuration: MessageListConfiguration {
                     return FeatureType.movie
                 case "phone":
                     return FeatureType.phone
+                case "favor":
+                    return FeatureType.favor
                 default:
                     return FeatureType.location
                 }
