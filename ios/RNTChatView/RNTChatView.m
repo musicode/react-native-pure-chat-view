@@ -2,7 +2,7 @@
 @import AVFoundation;
 
 #import "RNTChatView.h"
-#import "RNTChatView-Swift.h"
+#import "react_native_pure_chat_view-Swift.h"
 
 @interface RNTChatView()<MessageListDelegate, MessageInputDelegate>
 
@@ -151,7 +151,7 @@
 }
 
 - (void)messageInputDidSendEmotionWithEmotion:(Emotion *)emotion {
-    
+
 }
 
 - (void)messageInputDidSendAudioWithAudioPath:(NSString *)audioPath audioDuration:(NSInteger)audioDuration {

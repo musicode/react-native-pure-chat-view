@@ -5,7 +5,6 @@ import android.content.Intent
 import android.text.SpannableString
 import android.view.Choreographer
 import android.view.LayoutInflater
-import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -122,8 +121,8 @@ class RNTChatView(context: ThemedReactContext, val appContext: ReactApplicationC
         override fun doFrame(frameTimeNanos: Long) {
             for (i in 0 until childCount) {
                 val child = getChildAt(i)
-                child.measure(View.MeasureSpec.makeMeasureSpec(measuredWidth, View.MeasureSpec.EXACTLY),
-                        View.MeasureSpec.makeMeasureSpec(measuredHeight, View.MeasureSpec.EXACTLY))
+                child.measure(MeasureSpec.makeMeasureSpec(measuredWidth, MeasureSpec.EXACTLY),
+                        MeasureSpec.makeMeasureSpec(measuredHeight, MeasureSpec.EXACTLY))
                 child.layout(0, 0, child.measuredWidth, child.measuredHeight)
             }
             viewTreeObserver.dispatchOnGlobalLayout()

@@ -96,7 +96,7 @@ class Configuration: MessageListConfiguration {
     
 }
 
-@objc open class ChatView: UIView {
+@objc public class ChatView: UIView {
     
     @objc public static var loadImage: ((UIImageView, String, Int, Int) -> Void)!
     
@@ -108,13 +108,13 @@ class Configuration: MessageListConfiguration {
     var messageListConfiguration: Configuration!
     var messageInputConfiguration: MessageInputConfiguration!
     
-    @objc var currentUserId = "" {
+    @objc public var currentUserId = "" {
         didSet {
             messageListConfiguration.currentUserId = currentUserId
         }
     }
     
-    @objc var featureList = [String]() {
+    @objc public var featureList = [String]() {
         didSet {
             messageInputConfiguration.featureList = featureList.map {
                 switch $0 {
@@ -139,31 +139,31 @@ class Configuration: MessageListConfiguration {
         }
     }
     
-    @objc var leftUserNameVisible = false {
+    @objc public var leftUserNameVisible = false {
         didSet {
             messageListConfiguration.leftUserNameVisible = leftUserNameVisible
         }
     }
     
-    @objc var rightUserNameVisible = false {
+    @objc public var rightUserNameVisible = false {
         didSet {
             messageListConfiguration.rightUserNameVisible = rightUserNameVisible
         }
     }
     
-    @objc var userAvatarWidth = 0 {
+    @objc public var userAvatarWidth = 0 {
         didSet {
             messageListConfiguration.userAvatarWidth = CGFloat(userAvatarWidth)
         }
     }
     
-    @objc var userAvatarHeight = 0 {
+    @objc public var userAvatarHeight = 0 {
         didSet {
             messageListConfiguration.userAvatarHeight = CGFloat(userAvatarHeight)
         }
     }
     
-    @objc var userAvatarBorderRadius = 0 {
+    @objc public var userAvatarBorderRadius = 0 {
         didSet {
             messageListConfiguration.userAvatarBorderRadius = CGFloat(userAvatarBorderRadius)
         }

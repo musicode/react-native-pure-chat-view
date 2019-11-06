@@ -2,14 +2,14 @@
 #import "RNTChatViewManager.h"
 
 #import <React/RCTUIManager.h>
-#import "RNTChatView-Swift.h"
+#import "react_native_pure_chat_view-Swift.h"
 #import "RNTChatView.h"
 
 @implementation RNTChatViewManager
 
 RCT_EXPORT_MODULE()
 
-- (UIView *)view {
+- (RNTChatView *)view {
     return [RNTChatView new];
 }
 

@@ -666,7 +666,7 @@ extension CameraView: CircleViewDelegate {
 extension CameraView: CAAnimationDelegate {
     
     // 这里只能这样写，否则动画结束时不会调这里
-    @objc func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
+    @objc public func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
         stopRecordVideo()
     }
     
