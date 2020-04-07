@@ -162,9 +162,6 @@ public class MessageInputConfiguration {
     // 采样率
     public var audioSampleRate = 44100.0
     
-    // 视频质量
-    public var videoQuality = VideoQuality.p720
-    
     // 键盘显示、隐藏的动画时长
     public var keyboardAnimationDuration: TimeInterval = 0.2
     

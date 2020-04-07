@@ -106,7 +106,7 @@ class RNTChatViewManager(private val reactContext: ReactApplicationContext) : Si
 
                 .put("onTextChange", MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", "onTextChange")))
                 .put("onClickPhotoFeature", MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", "onPhotoFeatureClick")))
-                .put("onClickCameraFeature", MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", "onClickCameraFeature")))
+                .put("onClickCameraFeature", MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", "onCameraFeatureClick")))
                 .put("onClickFileFeature", MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", "onFileFeatureClick")))
                 .put("onClickUserFeature", MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", "onUserFeatureClick")))
                 .put("onClickMovieFeature", MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", "onMovieFeatureClick")))
