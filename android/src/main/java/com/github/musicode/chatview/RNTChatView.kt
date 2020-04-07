@@ -1,7 +1,6 @@
 package com.github.musicode.chatview
 
 import android.app.Activity
-import android.content.Intent
 import android.text.SpannableString
 import android.view.Choreographer
 import android.view.LayoutInflater
