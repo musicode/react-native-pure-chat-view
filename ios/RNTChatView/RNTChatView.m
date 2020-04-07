@@ -10,7 +10,7 @@
 
 @implementation RNTChatView
 
-+ (void)setImageLoader:(void (^)(UIImageView *, NSString *, NSInteger, NSInteger))value {
++ (void)init:(void (^)(UIImageView *, NSString *, NSInteger, NSInteger))value {
     ChatView.loadImage = value;
     ChatView.setAudioCategory = ^(AVAudioSessionCategory category) {
         [[AVAudioSession sharedInstance] setCategory:category error:nil];
@@ -120,34 +120,10 @@
     self.onRecordAudioPermissionsDenied(@{});
 }
 
-- (void)messageInputDidRecordVideoDurationLessThanMinDuration {
-    self.onRecordVideoDurationLessThanMinDuration(@{});
-}
-
-- (void)messageInputDidRecordVideoPermissionsNotGranted {
-    self.onRecordVideoPermissionsNotGranted(@{});
-}
-
-- (void)messageInputDidRecordVideoPermissionsGranted {
-    self.onRecordVideoPermissionsGranted(@{});
-}
-
-- (void)messageInputDidRecordVideoPermissionsDenied {
-    self.onRecordVideoPermissionsDenied(@{});
-}
-
 - (void)messageInputDidSendTextWithText:(NSString *)text {
     self.onSendText(@{
                       @"text": text
                       });
-}
-
-- (void)messageInputDidSendPhotoWithPhoto:(ImageFile *)photo {
-    self.onSendPhoto(@{
-                       @"photoPath": photo.path,
-                       @"photoWidth": @(photo.width),
-                       @"photoHeight": @(photo.height)
-                       });
 }
 
 - (void)messageInputDidSendEmotionWithEmotion:(Emotion *)emotion {
@@ -161,18 +137,12 @@
                        });
 }
 
-- (void)messageInputDidSendVideoWithVideoPath:(NSString *)videoPath videoDuration:(NSInteger)videoDuration thumbnail:(ImageFile *)thumbnail {
-    self.onSendVideo(@{
-                       @"videoPath": videoPath,
-                       @"videoDuration": @(videoDuration),
-                       @"thumbnailPath": thumbnail.path,
-                       @"thumbnailWidth": @(thumbnail.width),
-                       @"thumbnailHeight": @(thumbnail.height),
-                       });
-}
-
 - (void)messageInputDidClickPhotoFeature {
     self.onPhotoFeatureClick(@{});
+}
+
+- (void)messageInputDidClickCameraFeature {
+    self.onCameraFeatureClick(@{});
 }
 
 - (void)messageInputDidClickFileFeature {

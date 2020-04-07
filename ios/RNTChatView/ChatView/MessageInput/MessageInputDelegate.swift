@@ -13,15 +13,6 @@ import UIKit
     
     
     
-    func messageInputDidRecordVideoDurationLessThanMinDuration()
-    
-    func messageInputDidRecordVideoPermissionsNotGranted()
-    
-    func messageInputDidRecordVideoPermissionsGranted()
-    
-    func messageInputDidRecordVideoPermissionsDenied()
-    
-    
     func messageInputWillUseAudio()
     
     // 发送语音
@@ -33,14 +24,11 @@ import UIKit
     // 发送文本
     func messageInputDidSendText(text: String)
     
-    // 拍照
-    func messageInputDidSendPhoto(photo: ImageFile)
-    
-    // 录制视频
-    func messageInputDidSendVideo(videoPath: String, videoDuration: Int, thumbnail: ImageFile)
-    
     // 点击图片按钮
     func messageInputDidClickPhotoFeature()
+    
+    // 点击相机按钮
+    func messageInputDidClickCameraFeature()
     
     // 点击文件按钮
     func messageInputDidClickFileFeature()
@@ -81,27 +69,15 @@ public extension MessageInputDelegate {
     
     func messageInputDidRecordAudioPermissionsDenied() { }
     
-    func messageInputDidRecordVideoPermissionsNotGranted() { }
-    
-    func messageInputDidRecordVideoDurationLessThanMinDuration() { }
-    
-    func messageInputDidRecordVideoPermissionsGranted() { }
-    
-    func messageInputDidRecordVideoPermissionsDenied() { }
-    
     func messageInputWillUseAudio() { }
     
     func messageInputDidSendAudio(audioPath: String, audioDuration: Int) { }
     
     func messageInputDidSendEmotion(emotion: Emotion) { }
     
-    func messageInputDidSendText(text: String) { }
-    
-    func messageInputDidSendPhoto(photo: ImageFile) { }
-    
-    func messageInputDidSendVideo(videoPath: String, videoDuration: Int, thumbnail: ImageFile) { }
-    
     func messageInputDidClickPhotoFeature() { }
+    
+    func messageInputDidClickCameraFeature() { }
     
     func messageInputDidClickFileFeature() { }
     

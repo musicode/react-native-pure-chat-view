@@ -3,7 +3,6 @@ import React, {
 } from 'react'
 
 import ReactNative, {
-  UIManager,
   requireNativeComponent,
   NativeModules,
 } from 'react-native'
@@ -41,19 +40,12 @@ class ChatView extends PureComponent {
     onRecordAudioPermissionsGranted: PropTypes.func,
     onRecordAudioPermissionsDenied: PropTypes.func,
 
-    onRecordVideoDurationLessThanMinDuration: PropTypes.func,
-    onRecordVideoExternalStorageNotWritable: PropTypes.func,
-    onRecordVideoPermissionsNotGranted: PropTypes.func,
-    onRecordVideoPermissionsGranted: PropTypes.func,
-    onRecordVideoPermissionsDenied: PropTypes.func,
-
     onSendAudio: PropTypes.func,
-    onSendVideo: PropTypes.func,
-    onSendPhoto: PropTypes.func,
     onSendText: PropTypes.func,
 
     onTextChange: PropTypes.func,
     onPhotoFeatureClick: PropTypes.func,
+    onCameraFeatureClick: PropTypes.func,
     onFileFeatureClick: PropTypes.func,
     onUserFeatureClick: PropTypes.func,
     onMovieFeatureClick: PropTypes.func,
@@ -235,59 +227,10 @@ class ChatView extends PureComponent {
     }
   }
 
-  handleRecordVideoDurationLessThanMinDuration = () => {
-    let { onRecordVideoDurationLessThanMinDuration } = this.props
-    if (onRecordVideoDurationLessThanMinDuration) {
-      onRecordVideoDurationLessThanMinDuration()
-    }
-  }
-
-  handleRecordVideoExternalStorageNotWritable = () => {
-    let { onRecordVideoExternalStorageNotWritable } = this.props
-    if (onRecordVideoExternalStorageNotWritable) {
-      onRecordVideoExternalStorageNotWritable()
-    }
-  }
-
-  handleRecordVideoPermissionsNotGranted = () => {
-    let { onRecordVideoPermissionsNotGranted } = this.props
-    if (onRecordVideoPermissionsNotGranted) {
-      onRecordVideoPermissionsNotGranted()
-    }
-  }
-
-  handleRecordVideoPermissionsGranted = () => {
-    let { onRecordVideoPermissionsGranted } = this.props
-    if (onRecordVideoPermissionsGranted) {
-      onRecordVideoPermissionsGranted()
-    }
-  }
-
-  handleRecordVideoPermissionsDenied = () => {
-    let { onRecordVideoPermissionsDenied } = this.props
-    if (onRecordVideoPermissionsDenied) {
-      onRecordVideoPermissionsDenied()
-    }
-  }
-
   handleSendAudio = (event) => {
     let { onSendAudio } = this.props
     if (onSendAudio) {
       onSendAudio(event.nativeEvent)
-    }
-  }
-
-  handleSendVideo = (event) => {
-    let { onSendVideo } = this.props
-    if (onSendVideo) {
-      onSendVideo(event.nativeEvent)
-    }
-  }
-
-  handleSendPhoto = (event) => {
-    let { onSendPhoto } = this.props
-    if (onSendPhoto) {
-      onSendPhoto(event.nativeEvent)
     }
   }
 
@@ -309,6 +252,13 @@ class ChatView extends PureComponent {
     let { onPhotoFeatureClick } = this.props
     if (onPhotoFeatureClick) {
       onPhotoFeatureClick()
+    }
+  }
+
+  handleCameraFeatureClick = () => {
+    let { onCameraFeatureClick } = this.props
+    if (onCameraFeatureClick) {
+      onCameraFeatureClick()
     }
   }
 
@@ -396,19 +346,12 @@ class ChatView extends PureComponent {
         onRecordAudioPermissionsGranted={this.handleRecordAudioPermissionsGranted}
         onRecordAudioPermissionsDenied={this.handleRecordAudioPermissionsDenied}
 
-        onRecordVideoDurationLessThanMinDuration={this.handleRecordVideoDurationLessThanMinDuration}
-        onRecordVideoExternalStorageNotWritable={this.handleRecordVideoExternalStorageNotWritable}
-        onRecordVideoPermissionsNotGranted={this.handleRecordVideoPermissionsNotGranted}
-        onRecordVideoPermissionsGranted={this.handleRecordVideoPermissionsGranted}
-        onRecordVideoPermissionsDenied={this.handleRecordVideoPermissionsDenied}
-
         onSendAudio={this.handleSendAudio}
-        onSendVideo={this.handleSendVideo}
-        onSendPhoto={this.handleSendPhoto}
         onSendText={this.handleSendText}
 
         onTextChange={this.handleTextChange}
         onPhotoFeatureClick={this.handlePhotoFeatureClick}
+        onCameraFeatureClick={this.handleCameraFeatureClick}
         onFileFeatureClick={this.handleFileFeatureClick}
         onUserFeatureClick={this.handleUserFeatureClick}
         onMovieFeatureClick={this.handleMovieFeatureClick}

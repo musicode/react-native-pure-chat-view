@@ -524,7 +524,7 @@ extension MessageInput {
                 break;
             case .camera:
                 featureButton = createFeatureButton(title: configuration.cameraFeatureTitle, icon: configuration.cameraFeatureIcon) {
-                    self.openCamera()
+                    self.delegate.messageInputDidClickCameraFeature()
                 }
                 break;
             case .file:
@@ -646,24 +646,6 @@ extension MessageInput {
         voicePanel.isHidden = true
         emotionPanel.isHidden = true
         morePanel.isHidden = true
-        
-    }
-    
-    private func openCamera() {
-        
-        guard let parentViewController = UIApplication.shared.keyWindow?.rootViewController else {
-            return
-        }
-        
-        let cameraViewController = CameraViewController()
-        
-        let cameraViewConfiguration = CameraViewConfiguration()
-        cameraViewConfiguration.videoQuality = configuration.videoQuality
-        
-        cameraViewController.configuration = cameraViewConfiguration
-        cameraViewController.delegate = self
-        
-        parentViewController.present(cameraViewController, animated: true, completion: nil)
         
     }
     
@@ -827,46 +809,6 @@ extension MessageInput: VoiceInputDelegate {
         else {
             contentPanel.backgroundColor = configuration.contentPanelBackgroundColor
         }
-    }
-    
-}
-
-//
-// MARK: - CameraViewDelegate 代理
-//
-
-extension MessageInput: CameraViewDelegate {
-    
-    public func cameraViewDidExit(_ viewController: CameraViewController) {
-        viewController.dismiss(animated: true, completion: nil)
-    }
-    
-    public func cameraViewDidCapturePhoto(_ viewController: CameraViewController, photoPath: String, photoSize: Int, photoWidth: Int, photoHeight: Int) {
-        viewController.dismiss(animated: true, completion: nil)
-        let photo = ImageFile(path: photoPath, width: photoWidth, height: photoHeight)
-        delegate.messageInputDidSendPhoto(photo: photo)
-    }
-    
-    public func cameraViewDidRecordVideo(_ viewController: CameraViewController, videoPath: String, videoSize: Int, videoDuration: Int, photoPath: String, photoSize: Int, photoWidth: Int, photoHeight: Int) {
-        viewController.dismiss(animated: true, completion: nil)
-        let thumbnail = ImageFile(path: photoPath, width: photoWidth, height: photoHeight)
-        delegate.messageInputDidSendVideo(videoPath: videoPath, videoDuration: videoDuration, thumbnail: thumbnail)
-    }
-    
-    public func cameraViewDidPermissionsNotGranted(_ viewController: CameraViewController) {
-        delegate.messageInputDidRecordVideoPermissionsNotGranted()
-    }
-    
-    public func cameraViewDidRecordDurationLessThanMinDuration(_ viewController: CameraViewController) {
-        delegate.messageInputDidRecordVideoDurationLessThanMinDuration()
-    }
-    
-    public func cameraViewDidPermissionsGranted(_ viewController: CameraViewController) {
-        delegate.messageInputDidRecordVideoPermissionsGranted()
-    }
-    
-    public func cameraViewDidPermissionsDenied(_ viewController: CameraViewController) {
-        delegate.messageInputDidRecordVideoPermissionsDenied()
     }
     
 }

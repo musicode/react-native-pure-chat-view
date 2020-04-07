@@ -13,7 +13,6 @@ import com.github.herokotlin.emotioninput.filter.EmojiFilter
 import com.github.herokotlin.emotioninput.model.EmotionSet
 import com.github.herokotlin.messageinput.MessageInput
 import com.github.herokotlin.messageinput.MessageInputCallback
-import com.github.herokotlin.messageinput.model.ImageFile
 import com.github.herokotlin.messagelist.MessageList
 import com.github.herokotlin.messagelist.MessageListCallback
 import com.github.herokotlin.messagelist.MessageListConfiguration
@@ -28,7 +27,7 @@ import com.facebook.react.uimanager.ThemedReactContext
 import com.github.herokotlin.messageinput.enum.FeatureType
 import com.github.herokotlin.messagelist.enum.FileIcon
 
-class RNTChatView(context: ThemedReactContext, val appContext: ReactApplicationContext, val imageLoader: RNTChatViewLoader): LinearLayout(context), LifecycleEventListener, ActivityEventListener {
+class RNTChatView(context: ThemedReactContext, val appContext: ReactApplicationContext, loadImage: (ImageView, String, Int, Int) -> Unit): LinearLayout(context) {
 
     var currentUserId = ""
 
@@ -132,8 +131,6 @@ class RNTChatView(context: ThemedReactContext, val appContext: ReactApplicationC
 
     fun destroy() {
         messageInput.activity = null
-        appContext.removeActivityEventListener(this)
-        appContext.removeLifecycleEventListener(this)
         Choreographer.getInstance().removeFrameCallback(frameCallback)
     }
 
@@ -141,8 +138,6 @@ class RNTChatView(context: ThemedReactContext, val appContext: ReactApplicationC
 
         LayoutInflater.from(activity).inflate(R.layout.rnt_chatview, this)
 
-        appContext.addActivityEventListener(this)
-        appContext.addLifecycleEventListener(this)
         Choreographer.getInstance().postFrameCallback(frameCallback)
 
         messageInput = findViewById(R.id.messageInput)
@@ -236,7 +231,7 @@ class RNTChatView(context: ThemedReactContext, val appContext: ReactApplicationC
             }
 
             override fun loadImage(imageView: ImageView, url: String, width: Int, height: Int) {
-                imageLoader.loadImage(imageView, url, width, height)
+                loadImage(imageView, url, width, height)
             }
 
         }
@@ -244,7 +239,7 @@ class RNTChatView(context: ThemedReactContext, val appContext: ReactApplicationC
         messageInputConfiguration = object: MessageInputConfiguration(context) {
 
             override fun loadImage(imageView: ImageView, url: String) {
-                imageLoader.loadImage(imageView, url, 40, 40)
+               loadImage(imageView, url, 40, 40)
             }
 
         }
@@ -288,22 +283,6 @@ class RNTChatView(context: ThemedReactContext, val appContext: ReactApplicationC
                     sendEvent("onRecordAudioPermissionsDenied")
                 }
 
-                override fun onRecordVideoExternalStorageNotWritable() {
-                    sendEvent("onRecordVideoExternalStorageNotWritable")
-                }
-
-                override fun onRecordVideoPermissionsNotGranted() {
-                    sendEvent("onRecordVideoPermissionsNotGranted")
-                }
-
-                override fun onRecordVideoPermissionsGranted() {
-                    sendEvent("onRecordVideoPermissionsGranted")
-                }
-
-                override fun onRecordVideoPermissionsDenied() {
-                    sendEvent("onRecordVideoPermissionsDenied")
-                }
-
                 override fun onUseAudio() {
                     messageList.ensureAudioAvailable()
                 }
@@ -313,24 +292,6 @@ class RNTChatView(context: ThemedReactContext, val appContext: ReactApplicationC
                     event.putString("audioPath", audioPath)
                     event.putInt("audioDuration", audioDuration)
                     sendEvent("onSendAudio", event)
-                }
-
-                override fun onSendVideo(videoPath: String, videoDuration: Int, thumbnail: ImageFile) {
-                    val event = Arguments.createMap()
-                    event.putString("videoPath", videoPath)
-                    event.putInt("videoDuration", videoDuration)
-                    event.putString("thumbnailPath", thumbnail.path)
-                    event.putInt("thumbnailWidth", thumbnail.width)
-                    event.putInt("thumbnailHeight", thumbnail.height)
-                    sendEvent("onSendVideo", event)
-                }
-
-                override fun onSendPhoto(photo: ImageFile) {
-                    val event = Arguments.createMap()
-                    event.putString("photoPath", photo.path)
-                    event.putInt("photoWidth", photo.width)
-                    event.putInt("photoHeight", photo.height)
-                    sendEvent("onSendPhoto", event)
                 }
 
                 override fun onSendText(text: String) {
@@ -347,6 +308,10 @@ class RNTChatView(context: ThemedReactContext, val appContext: ReactApplicationC
 
                 override fun onClickPhotoFeature() {
                     sendEvent("onClickPhotoFeature")
+                }
+
+                override fun onClickCameraFeature() {
+                    sendEvent("onClickCameraFeature")
                 }
 
                 override fun onClickFileFeature() {
@@ -716,23 +681,4 @@ class RNTChatView(context: ThemedReactContext, val appContext: ReactApplicationC
         reactContext.getJSModule(RCTEventEmitter::class.java).receiveEvent(id, name, null)
     }
 
-    override fun onHostResume() {
-
-    }
-
-    override fun onHostPause() {
-
-    }
-
-    override fun onHostDestroy() {
-
-    }
-
-    override fun onNewIntent(intent: Intent?) {
-
-    }
-
-    override fun onActivityResult(activity: Activity?, requestCode: Int, resultCode: Int, data: Intent?) {
-        messageInput.onActivityResult(requestCode, resultCode, data)
-    }
 }

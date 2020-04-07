@@ -1,5 +1,6 @@
 package com.github.musicode.chatview
 
+import android.widget.ImageView
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReadableArray
 import com.facebook.react.common.MapBuilder
@@ -11,12 +12,37 @@ import java.util.HashMap
 
 class RNTChatViewManager(private val reactContext: ReactApplicationContext) : SimpleViewManager<RNTChatView>() {
 
+    companion object {
+
+        private const val COMMAND_APPEND_MESSAGE = 1
+        private const val COMMAND_APPEND_MESSAGES = 2
+        private const val COMMAND_PREPEND_MESSAGE = 3
+        private const val COMMAND_PREPEND_MESSAGES = 4
+        private const val COMMAND_REMOVE_MESSAGE = 5
+        private const val COMMAND_REMOVE_ALL_MESSAGES = 6
+        private const val COMMAND_UPDATE_MESSAGE = 7
+        private const val COMMAND_SET_ALL_MESSAGES = 8
+
+        private const val COMMAND_LOAD_MORE_COMPLETE = 9
+        private const val COMMAND_SCROLL_TO_BOTTOM = 10
+        private const val COMMAND_STOP_AUDIO = 11
+        private const val COMMAND_SET_TEXT = 12
+        private const val COMMAND_RESET_INPUT = 13
+
+        private lateinit var loadImage: (ImageView, String, Int, Int) -> Unit
+
+        fun init(loader: (ImageView, String, Int, Int) -> Unit) {
+            loadImage = loader
+        }
+
+    }
+
     override fun getName(): String {
         return "RNTChatView"
     }
 
     override fun createViewInstance(reactContext: ThemedReactContext): RNTChatView {
-        return RNTChatView(reactContext, this.reactContext, imageLoader)
+        return RNTChatView(reactContext, this.reactContext, loadImage)
     }
 
     @ReactProp(name = "currentUserId")
@@ -69,25 +95,18 @@ class RNTChatViewManager(private val reactContext: ReactApplicationContext) : Si
                 .put("onLinkClick", MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", "onLinkClick")))
                 .put("onLoadMore", MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", "onLoadMore")))
 
-
                 .put("onRecordAudioDurationLessThanMinDuration", MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", "onRecordAudioDurationLessThanMinDuration")))
                 .put("onRecordAudioExternalStorageNotWritable", MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", "onRecordAudioExternalStorageNotWritable")))
                 .put("onRecordAudioPermissionsNotGranted", MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", "onRecordAudioPermissionsNotGranted")))
                 .put("onRecordAudioPermissionsGranted", MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", "onRecordAudioPermissionsGranted")))
                 .put("onRecordAudioPermissionsDenied", MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", "onRecordAudioPermissionsDenied")))
 
-                .put("onRecordVideoExternalStorageNotWritable", MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", "onRecordVideoExternalStorageNotWritable")))
-                .put("onRecordVideoPermissionsNotGranted", MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", "onRecordVideoPermissionsNotGranted")))
-                .put("onRecordVideoPermissionsGranted", MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", "onRecordVideoPermissionsGranted")))
-                .put("onRecordVideoPermissionsDenied", MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", "onRecordVideoPermissionsDenied")))
-
                 .put("onSendAudio", MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", "onSendAudio")))
-                .put("onSendVideo", MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", "onSendVideo")))
-                .put("onSendPhoto", MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", "onSendPhoto")))
                 .put("onSendText", MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", "onSendText")))
 
                 .put("onTextChange", MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", "onTextChange")))
                 .put("onClickPhotoFeature", MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", "onPhotoFeatureClick")))
+                .put("onClickCameraFeature", MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", "onClickCameraFeature")))
                 .put("onClickFileFeature", MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", "onFileFeatureClick")))
                 .put("onClickUserFeature", MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", "onUserFeatureClick")))
                 .put("onClickMovieFeature", MapBuilder.of("phasedRegistrationNames", MapBuilder.of("bubbled", "onMovieFeatureClick")))
@@ -177,28 +196,6 @@ class RNTChatViewManager(private val reactContext: ReactApplicationContext) : Si
     override fun onDropViewInstance(view: RNTChatView) {
         super.onDropViewInstance(view)
         view.destroy()
-    }
-
-    companion object {
-
-        private const val COMMAND_APPEND_MESSAGE = 1
-        private const val COMMAND_APPEND_MESSAGES = 2
-        private const val COMMAND_PREPEND_MESSAGE = 3
-        private const val COMMAND_PREPEND_MESSAGES = 4
-        private const val COMMAND_REMOVE_MESSAGE = 5
-        private const val COMMAND_REMOVE_ALL_MESSAGES = 6
-        private const val COMMAND_UPDATE_MESSAGE = 7
-        private const val COMMAND_SET_ALL_MESSAGES = 8
-
-        private const val COMMAND_LOAD_MORE_COMPLETE = 9
-        private const val COMMAND_SCROLL_TO_BOTTOM = 10
-        private const val COMMAND_STOP_AUDIO = 11
-        private const val COMMAND_SET_TEXT = 12
-        private const val COMMAND_RESET_INPUT = 13
-
-        // 主工程实现图片加载
-        lateinit var imageLoader: RNTChatViewLoader
-
     }
 
 }

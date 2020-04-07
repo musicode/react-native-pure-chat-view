@@ -26,17 +26,12 @@
 @property (nonatomic, copy) RCTBubblingEventBlock onRecordAudioPermissionsNotGranted;
 @property (nonatomic, copy) RCTBubblingEventBlock onRecordAudioPermissionsGranted;
 @property (nonatomic, copy) RCTBubblingEventBlock onRecordAudioPermissionsDenied;
-@property (nonatomic, copy) RCTBubblingEventBlock onRecordVideoDurationLessThanMinDuration;
-@property (nonatomic, copy) RCTBubblingEventBlock onRecordVideoPermissionsNotGranted;
-@property (nonatomic, copy) RCTBubblingEventBlock onRecordVideoPermissionsGranted;
-@property (nonatomic, copy) RCTBubblingEventBlock onRecordVideoPermissionsDenied;
 
 @property (nonatomic, copy) RCTBubblingEventBlock onSendText;
-@property (nonatomic, copy) RCTBubblingEventBlock onSendPhoto;
 @property (nonatomic, copy) RCTBubblingEventBlock onSendAudio;
-@property (nonatomic, copy) RCTBubblingEventBlock onSendVideo;
 @property (nonatomic, copy) RCTBubblingEventBlock onTextChange;
 @property (nonatomic, copy) RCTBubblingEventBlock onPhotoFeatureClick;
+@property (nonatomic, copy) RCTBubblingEventBlock onCameraFeatureClick;
 @property (nonatomic, copy) RCTBubblingEventBlock onFileFeatureClick;
 @property (nonatomic, copy) RCTBubblingEventBlock onUserFeatureClick;
 @property (nonatomic, copy) RCTBubblingEventBlock onMovieFeatureClick;
@@ -47,7 +42,7 @@
 @property (nonatomic, copy) RCTBubblingEventBlock onLift;
 @property (nonatomic, copy) RCTBubblingEventBlock onFall;
 
-+ (void)setImageLoader:(void (^ _Null_unspecified)(UIImageView*, NSString*, NSInteger, NSInteger))value;
++ (void)init:(void (^ _Null_unspecified)(UIImageView*, NSString*, NSInteger, NSInteger))value;
 
 
 @end

@@ -59,17 +59,12 @@ RCT_EXPORT_VIEW_PROPERTY(onRecordAudioDurationLessThanMinDuration, RCTBubblingEv
 RCT_EXPORT_VIEW_PROPERTY(onRecordAudioPermissionsNotGranted, RCTBubblingEventBlock);
 RCT_EXPORT_VIEW_PROPERTY(onRecordAudioPermissionsGranted, RCTBubblingEventBlock);
 RCT_EXPORT_VIEW_PROPERTY(onRecordAudioPermissionsDenied, RCTBubblingEventBlock);
-RCT_EXPORT_VIEW_PROPERTY(onRecordVideoDurationLessThanMinDuration, RCTBubblingEventBlock);
-RCT_EXPORT_VIEW_PROPERTY(onRecordVideoPermissionsNotGranted, RCTBubblingEventBlock);
-RCT_EXPORT_VIEW_PROPERTY(onRecordVideoPermissionsGranted, RCTBubblingEventBlock);
-RCT_EXPORT_VIEW_PROPERTY(onRecordVideoPermissionsDenied, RCTBubblingEventBlock);
 
 RCT_EXPORT_VIEW_PROPERTY(onSendText, RCTBubblingEventBlock);
-RCT_EXPORT_VIEW_PROPERTY(onSendPhoto, RCTBubblingEventBlock);
 RCT_EXPORT_VIEW_PROPERTY(onSendAudio, RCTBubblingEventBlock);
-RCT_EXPORT_VIEW_PROPERTY(onSendVideo, RCTBubblingEventBlock);
 RCT_EXPORT_VIEW_PROPERTY(onTextChange, RCTBubblingEventBlock);
 RCT_EXPORT_VIEW_PROPERTY(onPhotoFeatureClick, RCTBubblingEventBlock);
+RCT_EXPORT_VIEW_PROPERTY(onCameraFeatureClick, RCTBubblingEventBlock);
 RCT_EXPORT_VIEW_PROPERTY(onFileFeatureClick, RCTBubblingEventBlock);
 RCT_EXPORT_VIEW_PROPERTY(onUserFeatureClick, RCTBubblingEventBlock);
 RCT_EXPORT_VIEW_PROPERTY(onMovieFeatureClick, RCTBubblingEventBlock);
