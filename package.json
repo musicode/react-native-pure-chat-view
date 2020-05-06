@@ -1,6 +1,6 @@
 {
   "name": "react-native-pure-chat-view",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "react native chat view",
   "main": "index.js",
   "scripts": {
