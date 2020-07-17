@@ -122,7 +122,7 @@ class PostMessageCell: MessageCell {
         
         showStatusView(spinnerView: spinnerView, failureView: failureView)
         
-        showTimeView(timeView: timeView, time: message.time, avatarView: avatarView, avatarTopConstraint: avatarTopConstraint)
+        showTimeView(timeView: timeView, time: message.time, avatarTopConstraint: avatarTopConstraint)
         
     }
     

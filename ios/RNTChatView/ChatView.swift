@@ -169,15 +169,12 @@ class Configuration: MessageListConfiguration {
         }
     }
     
-    
-    
     @objc var array = [String]()
     
     @objc var object = [String: String]()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = UIColor(red: 0.92, green: 0.92, blue: 0.92, alpha: 1)
     }
     
     public required init?(coder aDecoder: NSCoder) {

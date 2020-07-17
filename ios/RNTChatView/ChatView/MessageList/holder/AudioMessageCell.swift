@@ -124,7 +124,7 @@ class AudioMessageCell: MessageCell {
 
         showStatusView(spinnerView: spinnerView, failureView: failureView)
         
-        showTimeView(timeView: timeView, time: message.time, avatarView: avatarView, avatarTopConstraint: avatarTopConstraint)
+        showTimeView(timeView: timeView, time: message.time, avatarTopConstraint: avatarTopConstraint)
         
         // 把动画状态同步回来
         if configuration.audioPlayer.isPlaying(id: message.id) {

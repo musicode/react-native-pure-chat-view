@@ -14,6 +14,7 @@ class ChatView extends PureComponent {
 
   static propTypes = {
     currentUserId: PropTypes.string.isRequired,
+    backgroundColor: PropTypes.string.isRequired,
     leftUserNameVisible: PropTypes.bool.isRequired,
     rightUserNameVisible: PropTypes.bool.isRequired,
     userAvatarWidth: PropTypes.number.isRequired,

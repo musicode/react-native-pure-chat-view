@@ -212,7 +212,7 @@ class MessageCell: UITableViewCell {
             
             let rawText = string.substring(with: range)
             
-            let separatorIndex = rawText.index(of: ":")!
+            let separatorIndex = rawText.firstIndex(of: ":")!
             
             let linkText = String(rawText.prefix(upTo: separatorIndex))
             let labelText = String(rawText.suffix(from: separatorIndex).dropFirst())
@@ -303,7 +303,7 @@ class MessageCell: UITableViewCell {
         
     }
     
-    func showTimeView(timeView: UILabel, time: String, avatarView: UIView, avatarTopConstraint: NSLayoutConstraint) {
+    func showTimeView(timeView: UILabel, time: String, avatarTopConstraint: NSLayoutConstraint) {
         
         let oldValue = timeView.text != nil && timeView.text != ""
         let newValue = time != ""
