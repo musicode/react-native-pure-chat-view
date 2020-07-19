@@ -4,6 +4,7 @@ import android.app.Activity
 import android.text.SpannableString
 import android.view.Choreographer
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -61,6 +62,18 @@ class RNTChatView(context: ThemedReactContext, val appContext: ReactApplicationC
                         FeatureType.LOCATION
                     }
                 }
+            }
+        }
+
+    var inputVisible = false
+
+        set(value) {
+            field = value
+            if (value) {
+                messageInput.visibility = View.VISIBLE
+            }
+            else {
+                messageInput.visibility = View.GONE
             }
         }
 

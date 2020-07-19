@@ -18,12 +18,15 @@ RCT_CUSTOM_VIEW_PROPERTY(currentUserId, NSString, RNTChatView) {
 }
 
 RCT_CUSTOM_VIEW_PROPERTY(featureList, NSArray, RNTChatView) {
-    NSArray *array = [RCTConvert NSArray:json];
-    view.chatView.featureList = array;
+    view.chatView.featureList = [RCTConvert NSArray:json];
 }
 
 RCT_CUSTOM_VIEW_PROPERTY(backgroundColor, UIColor, RNTChatView) {
     view.chatView.backgroundColor = [RCTConvert UIColor:json];
+}
+
+RCT_CUSTOM_VIEW_PROPERTY(inputVisible, BOOL, RNTChatView) {
+    view.chatView.inputVisible = [RCTConvert BOOL:json];
 }
 
 RCT_CUSTOM_VIEW_PROPERTY(leftUserNameVisible, BOOL, RNTChatView) {

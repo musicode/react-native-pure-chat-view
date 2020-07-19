@@ -108,6 +108,8 @@ class Configuration: MessageListConfiguration {
     var messageListConfiguration: Configuration!
     var messageInputConfiguration: MessageInputConfiguration!
     
+    var messageListBottomLayoutConstraint: NSLayoutConstraint!
+    
     @objc public var currentUserId = "" {
         didSet {
             messageListConfiguration.currentUserId = currentUserId
@@ -139,13 +141,24 @@ class Configuration: MessageListConfiguration {
         }
     }
     
-    @objc public var leftUserNameVisible = false {
+    @objc public var inputVisible = true {
+        didSet {
+            if messageInput != nil {
+                removeConstraint(messageListBottomLayoutConstraint)
+                messageInput.isHidden = !inputVisible
+                messageListBottomLayoutConstraint = self.getMessageListBottomLayoutConstraint()
+                addConstraint(messageListBottomLayoutConstraint)
+            }
+        }
+    }
+    
+    @objc public var leftUserNameVisible = true {
         didSet {
             messageListConfiguration.leftUserNameVisible = leftUserNameVisible
         }
     }
     
-    @objc public var rightUserNameVisible = false {
+    @objc public var rightUserNameVisible = true {
         didSet {
             messageListConfiguration.rightUserNameVisible = rightUserNameVisible
         }
@@ -210,20 +223,27 @@ class Configuration: MessageListConfiguration {
         ])
         
         messageInput.addEmotionFilter(emojiFilter)
-        
-        
-        
+
+        messageListBottomLayoutConstraint = self.getMessageListBottomLayoutConstraint()
+
         addConstraints([
             NSLayoutConstraint(item: messageInput, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1, constant: 0),
             NSLayoutConstraint(item: messageInput, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1, constant: 0),
             NSLayoutConstraint(item: messageInput, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1, constant: 0),
             
             NSLayoutConstraint(item: messageList, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: messageList, attribute: .bottom, relatedBy: .equal, toItem: messageInput, attribute: .top, multiplier: 1, constant: 0),
             NSLayoutConstraint(item: messageList, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1, constant: 0),
             NSLayoutConstraint(item: messageList, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1, constant: 0),
+            messageListBottomLayoutConstraint,
         ])
 
+    }
+    
+    private func getMessageListBottomLayoutConstraint() -> NSLayoutConstraint {
+        if inputVisible {
+            return NSLayoutConstraint(item: messageList, attribute: .bottom, relatedBy: .equal, toItem: messageInput, attribute: .top, multiplier: 1, constant: 0)
+        }
+        return NSLayoutConstraint(item: messageList, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1, constant: 0)
     }
     
     @objc public func ensureInputAudioAvailable() {
@@ -379,6 +399,5 @@ class Configuration: MessageListConfiguration {
         
     }
 }
-
 
 

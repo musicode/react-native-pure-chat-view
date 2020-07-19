@@ -60,12 +60,17 @@ class RNTChatViewManager(private val reactContext: ReactApplicationContext) : Si
         view.setBackgroundColor(backgroundColor)
     }
 
-    @ReactProp(name = "leftUserNameVisible", defaultBoolean = false)
+    @ReactProp(name = "inputVisible", defaultBoolean = true)
+    fun setInputVisible(view: RNTChatView, inputVisible: Boolean) {
+        view.inputVisible = inputVisible
+    }
+
+    @ReactProp(name = "leftUserNameVisible", defaultBoolean = true)
     fun setLeftUserNameVisible(view: RNTChatView, leftUserNameVisible: Boolean) {
         view.leftUserNameVisible = leftUserNameVisible
     }
 
-    @ReactProp(name = "rightUserNameVisible", defaultBoolean = false)
+    @ReactProp(name = "rightUserNameVisible", defaultBoolean = true)
     fun setRightUserNameVisible(view: RNTChatView, rightUserNameVisible: Boolean) {
         view.rightUserNameVisible = rightUserNameVisible
     }
